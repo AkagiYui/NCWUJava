@@ -9,7 +9,7 @@ import java.util.Map;
 public class ResloveIDNumber {
     public static void main(String[] args) {
         // 使用Map存储省份信息
-        HashMap<String, String> hashMap = new HashMap<>();
+        var hashMap = new HashMap<String, String>();
         hashMap.put("11", "北京");
         hashMap.put("12", "天津");
         hashMap.put("13", "河北");
