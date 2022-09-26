@@ -1,4 +1,4 @@
-package experiment.third;
+package experiment.fourth;
 
 import java.util.Scanner;
 

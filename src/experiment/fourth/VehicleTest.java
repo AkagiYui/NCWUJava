@@ -1,4 +1,4 @@
-package experiment.third;
+package experiment.fourth;
 /*
 3、定义一个交通工具类Vehicle。要求如下
 （1）属性：速度speed，体积size

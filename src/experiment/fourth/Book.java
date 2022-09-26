@@ -1,4 +1,4 @@
-package experiment.third;
+package experiment.fourth;
 
 /*
 1、 编写Book类，代表教材。要求如下：

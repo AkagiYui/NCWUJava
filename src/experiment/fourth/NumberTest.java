@@ -1,4 +1,4 @@
-package experiment.third;
+package experiment.fourth;
 /*
 4、模拟简单计算器，定义Number类。要求如下：
 （1）属性：整型数据n1和n2，构造方法和set、get方法

@@ -1,4 +1,4 @@
-package experiment.third;
+package experiment.fourth;
 /*
 商品属性：商品id，品牌，价格，型号，库存
  */
