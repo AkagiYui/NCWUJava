@@ -4,9 +4,9 @@ package com.ncwu.userdefinelib;
  类中有无参构造方法，和有参构造方法，以及对成员变量的get和set方法，get方法用来控制成员变量的可读性，set方法用来控制成员变量的可写性。
  */
 public class CDate {
-    private int year;
-    private int month;
-    private int day;
+    private int year; // 年
+    private int month; // 月
+    private int day; // 日
 
     public CDate() {
     }

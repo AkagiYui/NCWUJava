@@ -9,8 +9,8 @@ package experiment.fourth;
  （5）编写测试类BookTest进行测试，为Book的属性赋初值。
  */
 public class Book {
-    private String title;
-    private int pageNum;
+    private String title; // 名称
+    private int pageNum; // 页数
 
     public Book(String title, int pageNum) {
         this.title = title;

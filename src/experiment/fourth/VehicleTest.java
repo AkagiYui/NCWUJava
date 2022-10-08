@@ -8,11 +8,11 @@ package experiment.fourth;
 public class VehicleTest {
     public static void main(String[] args) {
         var v = new Vehicle(100, 1000);
-        v.setSpeed(100);
-        v.speedUp();
-        v.speedDown();
-        v.move();
-        v.printSpeed();
-        v.printSize();
+        v.setSpeed(100); // 设置速度
+        v.speedUp(); // 加速
+        v.speedDown(); // 减速
+        v.move(); // 移动
+        v.printSpeed(); // 打印速度
+        v.printSize(); // 打印体积
     }
 }

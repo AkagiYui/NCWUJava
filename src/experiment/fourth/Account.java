@@ -8,9 +8,9 @@ package experiment.fourth;
 （5） 打印信息： 成功取出2000元，余额不足，取钱失败
  */
 public class Account {
-    private String id;
-    private double balance;
-    private double annualInterestRate;
+    private String id; // 账户id
+    private double balance; // 余额
+    private double annualInterestRate; // 年利率
 
     public Account(String id, double balance, double annualInterestRate) {
         this.id = id;

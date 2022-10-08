@@ -9,9 +9,9 @@ package experiment.fourth;
 public class NumberTest {
     public static void main(String[] args) {
         Number number = new Number(10, 5);
-        System.out.println("n1 + n2 = " + number.addition());
-        System.out.println("n1 - n2 = " + number.subtraction());
-        System.out.println("n1 * n2 = " + number.multiplication());
-        System.out.println("n1 / n2 = " + number.division());
+        System.out.println("n1 + n2 = " + number.addition()); // 15
+        System.out.println("n1 - n2 = " + number.subtraction()); // 5
+        System.out.println("n1 * n2 = " + number.multiplication()); // 50
+        System.out.println("n1 / n2 = " + number.division()); // 2.0
     }
 }

@@ -12,7 +12,7 @@ public class BookTest {
     public static void main(String[] args) {
         Book book1 = new Book("Java从入门到精通", 1000);
         Book book2 = new Book("Java从入门到放弃", 100);
-        book1.info();
+        book1.info(); // 教材名称：Java从入门到精通，页数：600
         book2.info();
     }
 }

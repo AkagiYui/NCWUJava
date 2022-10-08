@@ -10,8 +10,8 @@ package experiment.fourth;
 public class AccountTest {
     public static void main(String[] args) {
         var c = new Customer("李想", new Account("20210035", 5000, 1.35));
-        c.getAccount().deposit(500);
-        c.getAccount().withdraw(2000);
-        c.getAccount().withdraw(4000);
+        c.getAccount().deposit(500); // 存入500元
+        c.getAccount().withdraw(2000); // 取出2000元
+        c.getAccount().withdraw(4000); // 取出4000元
     }
 }

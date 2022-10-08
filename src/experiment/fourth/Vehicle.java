@@ -6,8 +6,8 @@ package experiment.fourth;
 （3）测试类中实例化一个交通工具对象，并通过方法给它初始化speed，size的值并打印出来。调用加速和减速进行测试
  */
 public class Vehicle {
-    private int speed;
-    private int size;
+    private int speed; // 速度
+    private int size; // 体积
 
     public Vehicle(int speed, int size) {
         this.speed = speed;

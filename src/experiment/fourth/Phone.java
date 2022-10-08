@@ -4,10 +4,10 @@ package experiment.fourth;
  */
 public class Phone {
     private int id;
-    private String brand;
-    private double price;
-    private String model;
-    private int stock;
+    private String brand; // 品牌
+    private double price; // 价格
+    private String model; // 型号
+    private int stock; // 库存
 
     public void setId(int id) {
         this.id = id;

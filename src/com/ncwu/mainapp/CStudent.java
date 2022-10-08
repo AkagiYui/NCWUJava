@@ -8,9 +8,9 @@ import com.ncwu.userdefinelib.CDate;
 有无参构造和三个参数构造方法，以及私有成员变量set和get方法，get方法用来控制成员变量的可读性。
  */
 public class CStudent {
-    private String sno;
-    private String sname;
-    private CDate sdate;
+    private String sno; // 学号
+    private String sname; // 姓名
+    private CDate sdate; // 出生日期
     private static int count;
 
     public CStudent() {
