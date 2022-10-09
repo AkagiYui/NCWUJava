@@ -1,6 +1,6 @@
-package com.ncwu.userdefinelib;
+package experiment.fourth.com.ncwu.userdefinelib;
 
-import com.ncwu.mainapp.CStudent;
+import experiment.fourth.com.ncwu.mainapp.CStudent;
 
 /*
 Test3类完成学生类的测试，创建单个对象，对象数组，并测试学生类中的变量count，查看学生类对象的个数。

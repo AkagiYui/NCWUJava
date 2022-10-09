@@ -1,6 +1,6 @@
-package com.ncwu.mainapp;
+package experiment.fourth.com.ncwu.mainapp;
 
-import com.ncwu.userdefinelib.CDate;
+import experiment.fourth.com.ncwu.userdefinelib.CDate;
 
 /*
 学生类CStudent用来描述学生的基本信息和行为。类中有实例变量sno、sname、sdate，

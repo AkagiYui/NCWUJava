@@ -1,4 +1,4 @@
-package com.ncwu.userdefinelib;
+package experiment.fourth.com.ncwu.userdefinelib;
 /*
  日期类CDate用来描述学生的出生日期，有3个成员变量year、month、day，描述年、月、日。
  类中有无参构造方法，和有参构造方法，以及对成员变量的get和set方法，get方法用来控制成员变量的可读性，set方法用来控制成员变量的可写性。
