@@ -1,15 +1,14 @@
-package com.ncwu.usermanager;
+package experiment.fifth.Entity;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 
-public class User {
-    public static ArrayList<String> usernames = new ArrayList<String>();
+public class User implements Serializable {
     private String username;
     private String password;
     private String id;
     private String phone;
 
-    public boolean save() {
+    public boolean isLegal() {
         if (this.username.length() < 3 || this.username.length() > 15) {
             System.out.println("用户名长度必须3-15位之间");
             return false;
@@ -21,10 +20,6 @@ public class User {
         }
         if (!this.username.matches("[a-zA-Z0-9]+")) {
             System.out.println("用户名只能是字母加数字的组合");
-            return false;
-        }
-        if (usernames.contains(this.username)) {
-            System.out.println("用户名已存在");
             return false;
         }
 
@@ -53,8 +48,6 @@ public class User {
             System.out.println("手机号只能是数字");
             return false;
         }
-
-        usernames.add(this.username);
         return true;
     }
 
@@ -62,24 +55,22 @@ public class User {
         return username;
     }
 
-    public void setUsername(String username) {
+    public boolean setUsername(String username) {
         if (username.length() < 3 || username.length() > 15) {
             System.out.println("用户名长度必须3-15位之间");
-            return;
+            return false;
         }
         // 	只能是字母加数字的组合，但是不能是纯数字
         if (username.matches("[0-9]+")) {
             System.out.println("用户名不能是纯数字");
-            return;
+            return false;
         }
         if (!username.matches("[a-zA-Z0-9]+")) {
             System.out.println("用户名只能是字母加数字的组合");
-            return;
-        }
-        if (usernames.contains(username)) {
-            return; // 用户名已存在
+            return false;
         }
         this.username = username;
+        return true;
     }
 
     public String getPassword() {
@@ -94,20 +85,21 @@ public class User {
         return id;
     }
 
-    public void setId(String id) {
+    public boolean setId(String id) {
         if (id.length() != 18) {
             System.out.println("身份证号必须是18位");
-            return;
+            return false;
         }
         if (id.charAt(0) == '0') {
             System.out.println("身份证号不能以0开头");
-            return;
+            return false;
         }
         if (!id.matches("[0-9]+[0-9Xx]")) {
             System.out.println("身份证号前17位只能是数字，最后一位只能是数字或X");
-            return;
+            return false;
         }
         this.id = id;
+        return true;
     }
 
     public String getPhone() {
