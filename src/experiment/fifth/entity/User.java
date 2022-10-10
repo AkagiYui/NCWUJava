@@ -1,4 +1,4 @@
-package experiment.fifth.Entity;
+package experiment.fifth.entity;
 
 import java.io.Serializable;
 

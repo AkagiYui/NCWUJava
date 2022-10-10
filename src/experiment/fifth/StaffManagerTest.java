@@ -9,7 +9,13 @@ public class StaffManagerTest {
         staffManager.init();
         while (staffManager.isLogged()) {
             staffManager.showMenu();
-            var choice = scanner.nextInt();
+            var choice1 = scanner.nextLine();
+            int choice;
+            try {
+                choice = Integer.parseInt(choice1);
+            } catch (NumberFormatException e) {
+                continue;
+            }
             var exit = false;
             switch (choice) {
                 case 1 -> staffManager.addStaff();
@@ -23,7 +29,7 @@ public class StaffManagerTest {
             if (exit) {
                 break;
             }
-        };
+        }
         staffManager.saveData();
     }
 }

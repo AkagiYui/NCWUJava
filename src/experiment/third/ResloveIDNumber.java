@@ -1,7 +1,6 @@
 package experiment.third;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /*
 通过身份证号码，判断用户的个人信息，包括出生年月日、性别。并输出到控制台。（可以尝试判断出生的省份）

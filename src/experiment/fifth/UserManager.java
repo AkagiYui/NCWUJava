@@ -1,6 +1,6 @@
 package experiment.fifth;
 
-import experiment.fifth.Entity.User;
+import experiment.fifth.entity.User;
 
 import java.util.HashMap;
 import java.util.Scanner;
