@@ -7,11 +7,10 @@ import java.util.Scanner;
 
 public class UserManager {
     private final Scanner scanner = new Scanner(System.in);
-    private final HashMap<String, User> users;
+    private final HashMap<String, User> users; // 用户列表
 
     public UserManager() {
-        HashMap<String, User> users1;
-        users1 = Utils.loadObject("users.dat");
+        HashMap<String, User> users1 = Utils.loadObject("users.dat");
         if (users1 == null) {
             users1 = new HashMap<>();
         }
@@ -25,15 +24,15 @@ public class UserManager {
     @SuppressWarnings("UnusedReturnValue")
     public User register() {
         System.out.println("===用户注册===");
-        User user = new User();
+        var user = new User();
 
         while (user.getUsername() == null) {
             System.out.print("请输入用户名：");
-            user.setUsername(scanner.nextLine());
-        }
-        if (users.containsKey(user.getUsername())) {
-            System.out.println("用户已存在！");
-            return null;
+            if (users.containsKey(user.getUsername())) {
+                System.out.println("用户已存在！");
+            } else {
+                user.setUsername(scanner.nextLine());
+            }
         }
 
         while (user.getPassword() == null) {
@@ -59,12 +58,12 @@ public class UserManager {
         }
 
         if (user.isLegal()) {
-            System.out.println("注册成功");
+            System.out.println("注册成功。");
             users.put(user.getUsername(), user);
             saveData();
             return user;
         } else {
-            System.out.println("注册失败");
+            System.out.println("注册失败！");
             return null;
         }
     }
@@ -82,10 +81,11 @@ public class UserManager {
             System.out.print("请输入密码：");
             var password = scanner.nextLine();
 
-            var verifyCode = Utils.generateVerifyCode();
-            System.out.println("验证码：" + verifyCode);
+            String verifyCode;
             String inputVerifyCode;
             do {
+                verifyCode = Utils.generateVerifyCode();
+                System.out.println("验证码：" + verifyCode);
                 System.out.print("请输入验证码：");
                 inputVerifyCode = scanner.nextLine();
             } while (!inputVerifyCode.equals(verifyCode));
@@ -120,7 +120,6 @@ public class UserManager {
 
         var user = users.get(username);
         if (user.getId().equals(id) && user.getPhone().equals(phone)) {
-            // TODO: 未校验
             System.out.print("请输入新密码：");
             var password = scanner.nextLine();
             System.out.print("请再次输入新密码：");

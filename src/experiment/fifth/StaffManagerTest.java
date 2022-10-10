@@ -24,6 +24,6 @@ public class StaffManagerTest {
                 break;
             }
         };
-        staffManager.quit();
+        staffManager.saveData();
     }
 }
