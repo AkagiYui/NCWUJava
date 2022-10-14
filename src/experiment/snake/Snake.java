@@ -2,79 +2,80 @@ package experiment.snake;
 
 import java.awt.*;
 public class Snake {
+    GamePanel gamePanel;
+    public static final int MAXLENGTH = 20; //蛇身最大长度
+    private final Point[] body = new Point[MAXLENGTH]; //点类型数组，保存蛇身各小球坐标
+    private int head = -1; //指示蛇头位置
+    private int tail = -1; //指示蛇尾位置
+    public int length = 1; //蛇身长度
+    public int x = 50; //蛇头小球的横坐标
+    public int y = 50; //蛇头小球的纵坐标
+    public int diameter = 10; //蛇身小球的半径
 
-    GamePanel gameP;
-    private Point[] body;//点类型数组，保存蛇身各小球坐标
-    public static final int MAXLENTH = 20;//蛇身最大长度
-    private int head;//指示蛇头位置
-    private int tail;
-    public int length;//蛇身长度
-    private int speed;//运行速度
-    public int x;//蛇头小球的横坐标
-    public int y;
-    public int diameter;//蛇身小球的半径
-    //对各变量进行初始化
     public Snake(GamePanel gp) {
-        gameP = gp;//通过构造方法的参数来获取GamePanel对象的引用
-        body = new Point[MAXLENTH];
-        head = -1;
-        tail = -1;
-        length = 1;
-        speed = 10;
-        x = 50;
-        y = 50;
-        diameter = 10;
+        gamePanel = gp; //通过构造方法的参数来获取GamePanel对象的引用
     }
-    //更新贪吃蛇坐标
+
+    /**
+     * 更新蛇身位置
+     */
     public void update() {
-
-
-        int direction=gameP.getDirection();//获取玩家的按键信息
-        switch (direction) { //按不同方向值分别改变蛇头小球的坐标
-            case GamePanel.SOUTH:
-                y += speed;
-                break;
-            case GamePanel.NORTH:
-                y -= speed;
-                break;
-            case GamePanel.EAST:
-                x += speed;
-                break;
-            case GamePanel.WEST:
-                x -= speed;
-                break;
+        var direction= gamePanel.getDirection(); //获取方向
+        // 运行速度
+        var speed = 3;
+        switch (direction) { // 按不同方向值分别改变蛇头小球的坐标
+            case GamePanel.SOUTH -> y += speed;
+            case GamePanel.NORTH -> y -= speed;
+            case GamePanel.EAST -> x += speed;
+            case GamePanel.WEST -> x -= speed;
         }
 
-        if (x > gameP.width) {
-            x = -diameter;
+        if (x > gamePanel.width) { //蛇头小球超出右边界
+            x = -diameter; //蛇头小球的横坐标设置为-半径
         }
-        if (y > gameP.heigth) {
-            y = -diameter;
+        if (y > gamePanel.height) { //蛇头小球超出下边界
+            y = -diameter; //蛇头小球的纵坐标设置为-半径
         }
-        if (x < -diameter) {
-            x = gameP.width;
+        if (x < -diameter) { //蛇头小球超出左边界
+            x = gamePanel.width; //蛇头小球的横坐标设置为GamePanel的宽度
         }
-        if (y < -diameter) {
-            y = gameP.heigth;
+        if (y < -diameter) { //蛇头小球超出上边界
+            y = gamePanel.height; //蛇头小球的纵坐标设置为GamePanel的高度
         }
 
-        head = (head + 1) % body.length;//更新蛇头指针的位置
+        head = (head + 1) % body.length; // 更新蛇头指针的位置
 
-        tail = (head + body.length - length + 1) % body.length;//更新蛇尾指针位置
-        body[head] = new Point(x, y);//保存蛇头小球的坐标
+        tail = (head + body.length - length + 1) % body.length; // 更新蛇尾指针位置
+        body[head] = new Point(x, y); // 保存蛇头小球的坐标
     }
-    //绘制贪吃蛇图形
-    public void draw(Graphics g) {
-        g.setColor(Color.blue);//设置蛇身为蓝色
+
+    public void lengthen() {
+        // 蛇身伸长一个单位
+        if (length < Snake.MAXLENGTH) {
+            length++; //若蛇长未达到最大值，蛇身伸长一个单位
+        }
+    }
+
+    /**
+     * 绘制贪吃蛇图形
+     * @param graphics Graphics对象 用于绘制贪吃蛇
+     */
+    public void draw(Graphics graphics) {
+        var oldColor = graphics.getColor(); //保存原来的颜色
+        // 绘制蛇身
         if (length > 1) {
-            int i = tail;
-            while (i != head) {//循环绘制蛇身各个小球
-                g.fillOval(body[i].x, body[i].y, diameter, diameter);
+            graphics.setColor(Color.blue); //设置蛇身为蓝色
+            var i = tail;
+            while (i != head) {
+                graphics.fillOval(body[i].x, body[i].y, diameter, diameter);
                 i = (i + 1) % body.length;
             }
         }
 
-        g.setColor(Color.red);
-        g.fillOval(body[head].x, body[head].y, diameter, diameter);
+        //绘制蛇头
+        graphics.setColor(Color.red);
+        graphics.fillOval(body[head].x, body[head].y, diameter, diameter);
+
+        graphics.setColor(oldColor); //恢复原来的颜色
     }
 }
