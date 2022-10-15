@@ -14,11 +14,6 @@ public class GamePanel extends Panel implements Runnable, KeyListener { //继承
     private final Food food; //建立食物对象
     private boolean isPaused = false; //游戏是否暂停
     private boolean isRunning = false; //游戏是否正在运行
-
-    public boolean isAuto() {
-        return isAuto;
-    }
-
     private boolean isAuto = false; //游戏是否自动运行
     public int width = 300; //面板宽度
     public int height = 300; //面板高度
@@ -27,6 +22,10 @@ public class GamePanel extends Panel implements Runnable, KeyListener { //继承
     private Image oldImage; //上一次游戏画面
     private boolean oldPaused = false; //上一次游戏是否暂停
     private Graphics graphics; //游戏画笔
+
+    public boolean isAuto() {
+        return isAuto;
+    }
 
     public GamePanel() {
         setPreferredSize(new Dimension(width, height)); //设置面板偏好大小
@@ -103,10 +102,10 @@ public class GamePanel extends Panel implements Runnable, KeyListener { //继承
                 "按【↑】【↓】【←】【→】键控制方向",
                 "按【P】键暂停游戏",
                 "按【-】【=】键改变贪吃蛇速度",
-                "按【空格】键临时增加贪吃蛇速度",
-                "按【I】键查看此消息",
+                "长按【空格】键临时增加贪吃蛇速度",
+                "长按【I】键查看此消息",
                 "",
-                "按【A】键切换演示模式",
+                "游戏中按【A】键切换演示模式",
         };
         for (var s : strings) {
             graphics.drawString(s, 50, 60 + 20 * Arrays.asList(strings).indexOf(s));
