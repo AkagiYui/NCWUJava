@@ -2,16 +2,24 @@ package experiment.snake;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Arrays;
+
 
 /**
  * 游戏界面
  */
 public class GamePanel extends Panel implements Runnable, KeyListener { //继承Panel类，实现Runnable接口和KeyListener接口
-    private static final int TICK = 45; //游戏刷新频率
+    private static final int TICK = 60; //游戏刷新频率
     private final Snake snake; //建立贪吃蛇对象
     private final Food food; //建立食物对象
     private boolean isPaused = false; //游戏是否暂停
     private boolean isRunning = false; //游戏是否正在运行
+
+    public boolean isAuto() {
+        return isAuto;
+    }
+
+    private boolean isAuto = false; //游戏是否自动运行
     public int width = 300; //面板宽度
     public int height = 300; //面板高度
     private int score = 0; //得分
@@ -48,8 +56,7 @@ public class GamePanel extends Panel implements Runnable, KeyListener { //继承
                 g.drawImage(image, 0, 0, null); //将游戏画面绘制到面板上
                 g.dispose(); //释放画笔
             }
-        } catch (Exception ignored) {
-        }
+        } catch (Exception ignored) {}
     }
 
     /**
@@ -61,7 +68,7 @@ public class GamePanel extends Panel implements Runnable, KeyListener { //继承
     }
 
     /**
-     * 绘制游戏界面
+     * 渲染游戏界面
      */
     public void gameRender() {
         graphics.setColor(Color.white); //设置画笔颜色
@@ -69,8 +76,11 @@ public class GamePanel extends Panel implements Runnable, KeyListener { //继承
         snake.draw(graphics); //在后备缓冲区绘制贪吃蛇的图形
         food.draw(graphics); //在后备缓冲区绘制食物的图形
         graphics.setColor(Color.black); //设置画笔颜色
-        graphics.drawString("得分：" + score, 10, 20); //在后备缓冲区绘制得分
-        graphics.drawString("速度：" + snake.getSpeed(), 10, 40); //在后备缓冲区绘制速度
+        graphics.drawString("得分：" + score, 10, 20); //绘制得分
+        graphics.drawString("速度：" + snake.getSpeed(), 10, 40); //绘制速度
+        if (isAuto) {
+            graphics.drawString("演示模式", 10, 290); //绘制演示模式
+        }
     }
 
     /**
@@ -88,13 +98,19 @@ public class GamePanel extends Panel implements Runnable, KeyListener { //继承
         graphics.setColor(Color.white); //设置画笔颜色
         graphics.fillRect(0, 0, width, height); //填充背景色
         graphics.setColor(Color.BLACK);
-        graphics.drawString("按下【空格】键开始游戏", 50, 80);
-        graphics.drawString("按【↑】【↓】【←】【→】键控制方向", 50, 100);
-        graphics.drawString("按【P】键暂停游戏", 50, 120);
-        graphics.drawString("按【-】【=】键改变贪吃蛇速度", 50, 140);
-        graphics.drawString("按【空格】键临时增加贪吃蛇速度", 50, 160);
-        graphics.drawString("按【I】键查看此消息", 50, 180);
-        graphics.drawString("按【A】键切换演示模式", 50, 240);
+        var strings = new String[]{
+                "按下【空格】键开始游戏",
+                "按【↑】【↓】【←】【→】键控制方向",
+                "按【P】键暂停游戏",
+                "按【-】【=】键改变贪吃蛇速度",
+                "按【空格】键临时增加贪吃蛇速度",
+                "按【I】键查看此消息",
+                "",
+                "按【A】键切换演示模式",
+        };
+        for (var s : strings) {
+            graphics.drawString(s, 50, 60 + 20 * Arrays.asList(strings).indexOf(s));
+        }
         gamePaint(); //刷新画面
     }
 
@@ -144,13 +160,19 @@ public class GamePanel extends Panel implements Runnable, KeyListener { //继承
     public void keyPressed(KeyEvent e) {
         var keycode = e.getKeyCode(); // 获取按键的键值
         if (!isRunning && keycode == KeyEvent.VK_SPACE) {
-            isRunning = true;
+            isRunning = true; //按下空格键开始游戏
             return;
         }
+        if (!isRunning) return;
 
         //游戏暂停
-        if (keycode == KeyEvent.VK_P) {
+        if (keycode == KeyEvent.VK_P && !isIKeyPressed) {
             isPaused = !isPaused; //切换游戏暂停状态
+            if (isPaused) {
+                graphics.setColor(Color.BLACK);
+                graphics.drawString("游戏暂停", 240, 20);
+                gamePaint(); //刷新画面
+            }
         }
         if (keycode == KeyEvent.VK_I && !isIKeyPressed) {
             isIKeyPressed = true; //I键按下
@@ -163,10 +185,10 @@ public class GamePanel extends Panel implements Runnable, KeyListener { //继承
         //更新方向
         if (!isPaused) {
             switch (keycode) {
-                case KeyEvent.VK_DOWN -> snake.setDirection(Snake.DOWN); //方向改为向下
-                case KeyEvent.VK_UP -> snake.setDirection(Snake.UP); //方向改为向上
-                case KeyEvent.VK_LEFT -> snake.setDirection(Snake.LEFT); //方向改为向左
-                case KeyEvent.VK_RIGHT -> snake.setDirection(Snake.RIGHT); //方向改为向右
+                case KeyEvent.VK_DOWN -> snake.setDirection(SnakeDirection.DOWN); //方向改为向下
+                case KeyEvent.VK_UP -> snake.setDirection(SnakeDirection.UP); //方向改为向上
+                case KeyEvent.VK_LEFT -> snake.setDirection(SnakeDirection.LEFT); //方向改为向左
+                case KeyEvent.VK_RIGHT -> snake.setDirection(SnakeDirection.RIGHT); //方向改为向右
                 case KeyEvent.VK_SPACE -> {
                     if (!isSpacePressed) {
                         isSpacePressed = true; //空格键按下
@@ -204,14 +226,15 @@ public class GamePanel extends Panel implements Runnable, KeyListener { //继承
                 if (isIKeyPressed) { //I键释放
                     isIKeyPressed = false;
                     graphics.drawImage(oldImage, 0, 0, null); //恢复画面
+                    gamePaint(); //刷新游戏画面
                     isPaused = oldPaused; //恢复游戏暂停状态
-                    gamePaint();
                 }
             }
+            case KeyEvent.VK_A -> isAuto = !isAuto; //A键切换自动模式
         }
         if (!isPaused) {
             switch (keycode) {
-                case KeyEvent.VK_MINUS -> {
+                case KeyEvent.VK_MINUS -> { //-键
                     if (snake.getSpeed() > 1) {
                         snake.setSpeed(snake.getSpeed() - 1); //减速
                     }

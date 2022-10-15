@@ -3,32 +3,27 @@ package experiment.snake;
 import java.awt.*;
 
 public class Snake {
-    GamePanel gamePanel;
-
-    public static final int DOWN = 0; //向下
-    public static final int UP = 1; //向上
-    public static final int RIGHT = 2; //向右
-    public static final int LEFT = 3; //向左
-    public static final int MAXLENGTH = 20000; //蛇身最大长度
-    private final Point[] body = new Point[MAXLENGTH]; //点类型数组，保存蛇身各小球坐标
+    public static final int MAXLENGTH = 100; //蛇身最大长度
+    private final Point[] body = new Point[MAXLENGTH]; //点类型数组，保存蛇身坐标
     private int headIndex = -1; //指示蛇头位置
     private int tailIndex = -1; //指示蛇尾位置
     public int length = 1; //蛇身长度
-    public Point head = new Point(50, 50); //蛇头小球的坐标
+    public Point head = new Point(50, 50); //蛇头坐标
+    GamePanel gamePanel; // GamePanel对象
     public int diameter = 10; //蛇身小球的半径
     private int speed = 3; //蛇的速度
+    private SnakeDirection direction = SnakeDirection.DOWN; //蛇的移动方向
 
-    public int getDirection() {
+    public SnakeDirection getDirection() {
         return direction;
     }
 
-    public void setDirection(int direction) {
+    public void setDirection(SnakeDirection direction) {
         if (this.direction == direction) return;
         this.direction = direction;
         System.out.println("direction = " + direction);
     }
 
-    private int direction = 0; //蛇的移动方向
 
     public Snake(GamePanel gp) {
         gamePanel = gp; //通过构造方法的参数来获取GamePanel对象的引用
