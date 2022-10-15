@@ -28,12 +28,12 @@ public class GamePanel extends Panel implements Runnable, KeyListener { //继承
     }
 
     public GamePanel() {
-        setPreferredSize(new Dimension(width, height)); //设置面板偏好大小
+        this.setPreferredSize(new Dimension(width, height)); //设置面板偏好大小
         snake = new Snake(this); //实例化贪吃蛇对象，并传递一个GamePanel对象的引用
         food = new Food(this, snake); //实例化食物对象，并传递一个GamePanel对象和Snake对象的引用
-        setFocusable(true); //设置面板可获得焦点
-        requestFocus(); //请求获得焦点
-        addKeyListener(this); //添加键盘监听器
+        this.setFocusable(true); //设置面板可获得焦点
+        this.requestFocus(); //请求获得焦点
+        this.addKeyListener(this); //添加键盘监听器
     }
 
     /**
@@ -50,7 +50,7 @@ public class GamePanel extends Panel implements Runnable, KeyListener { //继承
      */
     public void gamePaint() {
         try {
-            var g = getGraphics(); //获取面板的画笔
+            var g = this.getGraphics(); //获取面板的画笔
             if (g != null && image != null) {
                 g.drawImage(image, 0, 0, null); //将游戏画面绘制到面板上
                 g.dispose(); //释放画笔
@@ -110,7 +110,7 @@ public class GamePanel extends Panel implements Runnable, KeyListener { //继承
         for (var s : strings) {
             graphics.drawString(s, 50, 60 + 20 * Arrays.asList(strings).indexOf(s));
         }
-        gamePaint(); //刷新画面
+        this.gamePaint(); //刷新画面
     }
 
     /**
@@ -118,19 +118,19 @@ public class GamePanel extends Panel implements Runnable, KeyListener { //继承
      */
     @Override
     public void run() {
-        image = createImage(width, height); //创建游戏画面
-        oldImage = createImage(width, height); //创建游戏画面
+        image = this.createImage(width, height); //创建游戏画面
+        oldImage = this.createImage(width, height); //创建游戏画面
         graphics = image.getGraphics(); //获取游戏画笔
-        showReadme(); //显示说明画面
+        this.showReadme(); //显示说明画面
 
         var period = 1000 / TICK; //计算每一次循环允许的执行时间，单位毫秒
         //noinspection InfiniteLoopStatement
         while (true) {
             var timeBefore = System.nanoTime(); //获取当前系统时间，单位纳秒
             if (isRunning && !isPaused) {
-                gameUpdate(); //更新游戏数据
-                gameRender(); //绘制游戏界面
-                gamePaint(); //刷新游戏画面
+                this.gameUpdate(); //更新游戏数据
+                this.gameRender(); //绘制游戏界面
+                this.gamePaint(); //刷新游戏画面
             }
             var timeSpent = System.nanoTime() - timeBefore; //计算游戏循环执行所花费的时间，单位纳秒
             var sleepTime = period - timeSpent / 1000000; //计算距离下次计算的时间，单位毫秒

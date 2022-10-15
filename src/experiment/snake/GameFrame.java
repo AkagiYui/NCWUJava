@@ -19,10 +19,10 @@ public class GameFrame extends Frame { //继承Frame类
         this.setVisible(true); //显示窗口
         this.setResizable(false); //禁止调整窗口大小
         var panel = new GamePanel(); //创建游戏面板
-        //设置窗口位置在屏幕中间
-        var screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.add(panel, BorderLayout.CENTER); //添加游戏面板到窗口
         this.pack(); //调整窗口大小
+        //设置窗口位置在屏幕中间
+        var screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(
             (screenSize.width - this.getWidth()) / 2,
             (screenSize.height - this.getHeight()) / 2

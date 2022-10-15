@@ -14,7 +14,7 @@ public class Food {
         this.gamePanel = gamePanel; //通过构造方法的参数来获取GamePanel对象的引用
         this.snake = snake; //通过构造方法的参数来获取Snake对象的引用
         size = new Point(snake.diameter, snake.diameter);
-        refreshLocation(); //位置随机出现
+        this.refreshLocation(); //位置随机出现
     }
 
     /**
@@ -57,7 +57,7 @@ public class Food {
 
         if (deltaX * deltaX + deltaY * deltaY < snake.diameter * snake.diameter) { //吃到食物
             //若贪吃蛇的蛇头与食物发生碰撞，则随机生成新的食物位置
-            refreshLocation(); //刷新食物位置
+            this.refreshLocation(); //刷新食物位置
             gamePanel.scorePlus(); //得分加1
         }
     }
