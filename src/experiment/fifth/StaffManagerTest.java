@@ -6,9 +6,10 @@ public class StaffManagerTest {
     public static void main(String[] args) {
         var scanner = new Scanner(System.in);
         var staffManager = new StaffManager();
-        staffManager.init();
+        staffManager.init(); //登录
         while (staffManager.isLogged()) {
-            staffManager.showMenu();
+            staffManager.showMenu(); //显示菜单
+
             var choice1 = scanner.nextLine();
             int choice;
             try {
@@ -16,6 +17,7 @@ public class StaffManagerTest {
             } catch (NumberFormatException e) {
                 continue;
             }
+
             var exit = false;
             switch (choice) {
                 case 1 -> staffManager.addStaff();
