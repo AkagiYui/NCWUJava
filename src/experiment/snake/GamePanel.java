@@ -121,12 +121,14 @@ public class GamePanel extends Panel implements Runnable, KeyListener { //继承
         image = this.createImage(width, height); //创建游戏画面
         oldImage = this.createImage(width, height); //创建游戏画面
         graphics = image.getGraphics(); //获取游戏画笔
-        this.showReadme(); //显示说明画面
 
         var period = 1000 / TICK; //计算每一次循环允许的执行时间，单位毫秒
         //noinspection InfiniteLoopStatement
         while (true) {
             var timeBefore = System.nanoTime(); //获取当前系统时间，单位纳秒
+            if (!isRunning) {
+                this.showReadme(); //显示说明画面
+            }
             if (isRunning && !isPaused) {
                 this.gameUpdate(); //更新游戏数据
                 this.gameRender(); //绘制游戏界面
