@@ -46,7 +46,7 @@ public abstract class Equation {
     }
 
     /**
-     * 重写hashCode方法，使得两个等式对象的hashCode相等，才能放入HashSet中
+     * 重写hashCode方法，使得两个等式对象的hashCode相等，才能防止被重复放入HashSet中
      * @return hashCode
      */
     @Override
