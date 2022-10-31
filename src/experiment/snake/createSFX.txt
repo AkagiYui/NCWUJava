@@ -1,0 +1,1 @@
+winrar at -s -sfx -scfc -m3 -iicon .\icon.ico tt.exe ./app.jar
