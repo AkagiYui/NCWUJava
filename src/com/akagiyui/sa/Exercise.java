@@ -1,61 +1,68 @@
 package com.akagiyui.sa;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Random;
+import java.util.*;
 
 /**
  * 习题类
  */
 public class Exercise implements Iterator<Equation>, Iterable<Equation> {
-    private static final int MAX_OPERAND = 100; // 操作数最大值
+    private final short max_operand; // 操作数最大值
+    private final String filename; // 习题文件名
 
-    private final HashSet<Equation> equations = new HashSet<>(); // 等式集合
-    private Equation[] equationsArray; // 等式数组
+    private List<Equation> equations = new ArrayList<>(); // 算式集合
+    private final EquationGenerator generator = EquationGenerator.INSTANCE; // 算式生成器
+
+    public Exercise(short max_operand, String filename) {
+        this.max_operand = max_operand;
+        this.filename = filename;
+    }
 
     /**
      * 生成count个不重复的算式Equation（加法或减法）
      * @param count 欲生成的算式数目
      */
     public void recreateEquation(int count) {
-        Equation equation;
-        equations.clear();
-        for (int i = 0; i < count; i++) {
-            do {
-                equation = generateEquation();
-            } while (!equations.add(equation));
-        }
-        equationsArray = equations.toArray(Equation[]::new); // 将HashSet转换为数组
+        var checker = new EquationRangeChecker((short) 0, max_operand);
+        equations = generator.generate(count, checker);
+        saveEquations();
     }
 
     /**
-     * 获取等式的数目
-     * @return 等式数目
+     * 获取算式的数目
+     * @return 算式数目
      */
     public int getSize() {
         return equations.size();
     }
 
     /**
-     * 随机生成一个算式
-     * @return 算式对象
+     * 保存算式集合到文件
      */
-    private Equation generateEquation() {
-        var random = new Random();
-        // 如此生成数据可保证各个数都在要求范围内
-        if (random.nextBoolean()) {
-            var result = (short) random.nextInt(MAX_OPERAND + 1);
-            var operand1 = (short) random.nextInt(result + 1);
-            var operand2 = (short) (result - operand1);
-            return new AddEquation(operand1, operand2);
+    private void saveEquations() {
+        if (Utils.saveObject(equations, filename)) {
+            System.out.println("习题已保存到文件。" + filename);
         } else {
-            var operand1 = (short) random.nextInt(MAX_OPERAND + 1);
-            var operand2 = (short) random.nextInt(operand1 + 1);
-            return new SubEquation(operand1, operand2);
+            System.out.println("习题保存失败。");
         }
     }
 
-    // 以下为习题类实现迭代功能
+    /**
+     * 从文件中读取算式集合
+     * @return 是否成功
+     */
+    public boolean loadEquations() {
+        ArrayList<Equation> equations = Utils.loadObjectOrNull(filename);
+        if (equations != null && !equations.isEmpty()) {
+            this.equations = equations;
+            System.out.println("习题已从文件" + filename + "读入。");
+            return true;
+        } else {
+            System.out.println("习题读入失败。");
+            return false;
+        }
+    }
+
+    // 以下部分为Exercise类实现迭代功能
     private int index = 0;
 
     @Override
@@ -69,7 +76,7 @@ public class Exercise implements Iterator<Equation>, Iterable<Equation> {
 
     @Override
     public Equation next() {
-        return equationsArray[index++];
+        return equations.get(index++);
     }
 
     @Override

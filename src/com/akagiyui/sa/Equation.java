@@ -1,14 +1,16 @@
 package com.akagiyui.sa;
 
+import java.io.Serializable;
+
 /**
- * 等式类
+ * 算式类
  */
-public abstract class Equation {
+public abstract class Equation implements Serializable {
     public short operand1; // 操作数1
     public short operand2; // 操作数2
-    public char operator; // 运算符
+    public Operator operator; // 运算符
 
-    public Equation(short operand1, short operand2, char operator) {
+    public Equation(short operand1, short operand2, Operator operator) {
         this.operand1 = operand1;
         this.operand2 = operand2;
         this.operator = operator;
@@ -26,12 +28,12 @@ public abstract class Equation {
      */
     @Override
     public String toString() {
-        return operand1 + "\t" + operator + "\t" + operand2 + "\t=\t";
+        return operand1 + "\t" + operator.getOperator() + "\t" + operand2 + "\t=\t";
     }
 
     /**
-     * 重写equals方法，用于判断两个等式是否相等
-     * @param obj 另一个等式
+     * 重写equals方法，用于判断两个算式是否相等
+     * @param obj 一个对象
      * @return 是否相等
      */
     @Override
@@ -46,11 +48,11 @@ public abstract class Equation {
     }
 
     /**
-     * 重写hashCode方法，使得两个等式对象的hashCode相等，才能防止被重复放入HashSet中
+     * 重写hashCode方法，使得两个算式对象的hashCode相等，才能防止被重复放入HashSet中
      * @return hashCode
      */
     @Override
     public int hashCode() {
-        return operand1 + operand2 + operator;
+        return operand1 + operator.getOperator() + operand2;
     }
 }
