@@ -17,9 +17,9 @@ public class EquationRangeChecker implements EquationChecker {
      */
     @Override
     public boolean check(Equation equation) {
-        return equation.calculate() >= range.start() && equation.calculate() <= range.end()
-                && equation.operand1 >= range.start() && equation.operand1 <= range.end()
-                && equation.operand2 >= range.start() && equation.operand2 <= range.end();
+        return range.contains(equation.operand1)
+                && range.contains(equation.operand2)
+                && range.contains(equation.calculate());
     }
 
     /**

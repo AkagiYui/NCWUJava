@@ -9,7 +9,6 @@ public class Utils {
      * @param filename 文件名
      * @return 是否保存成功
      */
-    @SuppressWarnings("UnusedReturnValue")
     public static boolean saveObject(Object obj, String filename) {
         try {
             var file = new FileOutputStream(filename);

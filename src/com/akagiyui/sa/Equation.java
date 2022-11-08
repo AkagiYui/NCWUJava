@@ -6,9 +6,9 @@ import java.io.Serializable;
  * 算式类
  */
 public abstract class Equation implements Serializable {
-    public short operand1; // 操作数1
-    public short operand2; // 操作数2
-    public Operator operator; // 运算符
+    public final short operand1; // 操作数1
+    public final short operand2; // 操作数2
+    public final Operator operator; // 运算符
 
     public Equation(short operand1, short operand2, Operator operator) {
         this.operand1 = operand1;
@@ -23,7 +23,7 @@ public abstract class Equation implements Serializable {
     public abstract short calculate();
 
     /**
-     * 重写equals方法，用于输出算式
+     * 重写toString方法，用于输出算式
      * @return 算式
      */
     @Override
