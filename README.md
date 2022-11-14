@@ -5,3 +5,5 @@
 ## [Java基础实验](https://github.com/AkagiYui/NCWUJava/tree/master/src/com/akagiyui/foundation/experiment)
 
 ## [软件构造实验](https://github.com/AkagiYui/NCWUJava/tree/master/src/com/akagiyui/sa)
+
+## [软件体系结构实验](https://github.com/AkagiYui/NCWUJava/tree/master/src/com/akagiyui/ss)
