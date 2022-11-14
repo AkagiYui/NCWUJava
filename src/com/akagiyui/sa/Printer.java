@@ -76,7 +76,7 @@ public class Printer {
      * @param equation 算式
      * @param showResult 是否显示结果
      */
-    private static String getEquationString(Equation equation, boolean showResult) {
+    private static String getEquationString(BaseEquation equation, boolean showResult) {
         var equationString = new StringBuilder();
         equationString.append(equation.toString());
         if (showResult) {

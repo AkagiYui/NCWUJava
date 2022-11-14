@@ -5,12 +5,12 @@ import java.util.*;
 /**
  * 习题类
  */
-public class Exercise implements Iterator<Equation>, Iterable<Equation> {
+public class Exercise implements Iterator<BaseEquation>, Iterable<BaseEquation> {
     private final short max_operand; // 操作数最大值
     private final String filename; // 习题文件名
 
-    private List<Equation> equations = new ArrayList<>(); // 算式集合
-    private final EquationGenerator generator = EquationGenerator.INSTANCE; // 算式生成器
+    private List<BaseEquation> equations = new ArrayList<>(); // 算式集合
+    private final EquationGeneratorSingleton generator = EquationGeneratorSingleton.INSTANCE; // 算式生成器
 
     public Exercise(short max_operand, String filename) {
         this.max_operand = max_operand;
@@ -51,7 +51,7 @@ public class Exercise implements Iterator<Equation>, Iterable<Equation> {
      * @return 是否成功
      */
     public boolean loadEquations() {
-        ArrayList<Equation> equations = Utils.loadObjectOrNull(filename);
+        ArrayList<BaseEquation> equations = Utils.loadObjectOrNull(filename);
         if (equations != null && !equations.isEmpty()) {
             this.equations = equations;
             System.out.println("习题已从文件" + filename + "读入。");
@@ -75,12 +75,12 @@ public class Exercise implements Iterator<Equation>, Iterable<Equation> {
     }
 
     @Override
-    public Equation next() {
+    public BaseEquation next() {
         return equations.get(index++);
     }
 
     @Override
-    public Iterator<Equation> iterator() {
+    public Iterator<BaseEquation> iterator() {
         return equations.iterator();
     }
 }

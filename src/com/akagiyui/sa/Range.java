@@ -3,9 +3,18 @@ package com.akagiyui.sa;
 /**
  * 范围类
  */
+@SuppressWarnings("ClassCanBeRecord")
 public class Range {
-    public final short start; // 最小值
-    public final short end; // 最大值
+    private final short start; // 最小值
+    private final short end; // 最大值
+
+    public short getStart() {
+        return start;
+    }
+
+    public short getEnd() {
+        return end;
+    }
 
     public Range(short start, short end) {
         if (start > end) {

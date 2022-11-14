@@ -5,9 +5,9 @@ package com.akagiyui.sa;
  */
 public interface EquationChecker {
     /**
-     * 检查算式是否正确
+     * 检查算式是否符合规定
      * @param equation 算式
-     * @return 是否正确
+     * @return 是否符合规定
      */
-    boolean check(Equation equation);
+    boolean check(BaseEquation equation);
 }

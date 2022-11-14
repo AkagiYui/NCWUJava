@@ -5,12 +5,24 @@ import java.io.Serializable;
 /**
  * 算式类
  */
-public abstract class Equation implements Serializable {
-    public final short operand1; // 操作数1
-    public final short operand2; // 操作数2
-    public final Operator operator; // 运算符
+public abstract class BaseEquation implements Serializable {
+    private final short operand1; // 操作数1
+    private final short operand2; // 操作数2
+    private final OperatorEnum operator; // 运算符
 
-    public Equation(short operand1, short operand2, Operator operator) {
+    public short getOperand1() {
+        return operand1;
+    }
+
+    public short getOperand2() {
+        return operand2;
+    }
+
+    public OperatorEnum getOperator() {
+        return operator;
+    }
+
+    public BaseEquation(short operand1, short operand2, OperatorEnum operator) {
         this.operand1 = operand1;
         this.operand2 = operand2;
         this.operator = operator;
@@ -38,7 +50,7 @@ public abstract class Equation implements Serializable {
      */
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Equation equation) {
+        if (obj instanceof BaseEquation equation) {
             var result = (operand1 == equation.operand1);
             result &= (operand2 == equation.operand2);
             result &= (operator == equation.operator);
@@ -53,6 +65,7 @@ public abstract class Equation implements Serializable {
      */
     @Override
     public int hashCode() {
-        return operand1 + operator.getOperator() + operand2;
+        // 要尽量均匀地分布，否则可能会导致HashSet的性能下降
+        return operand1 * 1000 + operand2 * 100 + operator.ordinal();
     }
 }
