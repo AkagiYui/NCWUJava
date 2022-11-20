@@ -11,7 +11,7 @@ public class AddEquation extends Equation {
     public AddEquation() {
         super();
         super.setOperator(OPERATOR);
-    };
+    }
 
     /**
      * 有参构造方法

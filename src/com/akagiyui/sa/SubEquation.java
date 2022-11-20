@@ -11,7 +11,7 @@ public class SubEquation extends Equation {
     public SubEquation() {
         super();
         super.setOperator(OPERATOR);
-    };
+    }
 
     /**
      * 有参构造方法
