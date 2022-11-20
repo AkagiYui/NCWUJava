@@ -6,6 +6,11 @@ package com.akagiyui.sa;
 public class EquationRangeChecker implements EquationChecker {
     private final Range range; // 范围
 
+    /**
+     * 构造方法
+     * @param min 最小值
+     * @param max 最大值
+     */
     public EquationRangeChecker(short min, short max) {
         range = new Range(min, max);
     }
@@ -16,7 +21,7 @@ public class EquationRangeChecker implements EquationChecker {
      * @return 是否在范围内
      */
     @Override
-    public boolean check(BaseEquation equation) {
+    public boolean check(Equation equation) {
         return range.contains(equation.getOperand1())
                 && range.contains(equation.getOperand2())
                 && range.contains(equation.calculate());

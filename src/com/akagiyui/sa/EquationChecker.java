@@ -9,5 +9,5 @@ public interface EquationChecker {
      * @param equation 算式
      * @return 是否符合规定
      */
-    boolean check(BaseEquation equation);
+    boolean check(Equation equation);
 }

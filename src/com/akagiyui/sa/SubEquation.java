@@ -1,17 +1,49 @@
 package com.akagiyui.sa;
 
+import lombok.Setter;
+
 /**
  * 减法算式类
  */
-public class SubEquation extends BaseEquation {
-    public static final OperatorEnum OPERATOR = OperatorEnum.SUB;
+public class SubEquation extends Equation {
+    public static final Operator OPERATOR = Operator.SUB;
 
+    public SubEquation() {
+        super();
+        super.setOperator(OPERATOR);
+    };
+
+    /**
+     * 有参构造方法
+     * @param operand1 操作数1
+     * @param operand2 操作数2
+     */
     public SubEquation(short operand1, short operand2) {
         super(operand1, operand2, OPERATOR);
     }
 
     @Override
     public short calculate() {
-        return (short) (getOperand1() - getOperand2());
+        return (short)(getOperand1() - getOperand2());
+    }
+
+    /**
+     * 减法算式构造器
+     */
+    @Setter
+    public static class SubEquationBuilder {
+        private short operand1;
+        private short operand2;
+
+        /**
+         * 构造减法算式
+         * @return 减法算式
+         */
+        public SubEquation buildSubEquation() {
+            var equation = EquationFactory.getEquation("sub");
+            equation.setOperand1(operand1);
+            equation.setOperand2(operand2);
+            return (SubEquation) equation;
+        }
     }
 }
