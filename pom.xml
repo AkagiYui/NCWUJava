@@ -28,5 +28,11 @@
             <!--因为Lombok是在编译期生成代码,不需要进行运行期依赖,减少打包体积，使用Provided-->
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.9.0</version>
+        </dependency>
     </dependencies>
 </project>
