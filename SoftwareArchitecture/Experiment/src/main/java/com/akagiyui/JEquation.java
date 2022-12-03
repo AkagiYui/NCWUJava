@@ -77,10 +77,10 @@ public class JEquation extends JPanel {
         }
         if (answer == equation.calculate()) {
             resultLabel.setText("√");
-            resultLabel.setForeground(Color.GREEN);
+            resultLabel.setForeground(Color.BLUE);
         } else {
             resultLabel.setText("×");
-            resultLabel.setForeground(Color.BLUE);
+            resultLabel.setForeground(Color.RED);
         }
     }
 }
