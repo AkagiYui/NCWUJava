@@ -39,6 +39,15 @@ public class Exercise implements Iterator<Equation>, Iterable<Equation> {
     }
 
     /**
+     * 获取算式
+     * @param index 算式索引
+     * @return 算式
+     */
+    public Equation getEquation(int index) {
+        return equations.get(index);
+    }
+
+    /**
      * 获取算式的数目
      * @return 算式数目
      */
