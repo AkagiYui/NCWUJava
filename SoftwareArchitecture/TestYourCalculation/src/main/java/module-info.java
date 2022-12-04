@@ -4,6 +4,7 @@ module com.akagiyui.testyourcalculation {
 
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
+    requires org.jetbrains.annotations;
 
     opens com.akagiyui.testyourcalculation to javafx.fxml;
     exports com.akagiyui.testyourcalculation;
