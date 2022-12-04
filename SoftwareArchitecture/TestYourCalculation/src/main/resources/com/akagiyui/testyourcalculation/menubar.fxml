@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+
+<MenuBar xmlns="http://javafx.com/javafx"
+         xmlns:fx="http://javafx.com/fxml"
+         fx:controller="com.akagiyui.testyourcalculation.controller.MenubarController"
+         stylesheets="@bootstrapfx.css"
+>
+    <Menu text="操作">
+        <SeparatorMenuItem/>
+        <MenuItem text="退出" onAction="#exitMenuClick"/>
+    </Menu>
+</MenuBar>
