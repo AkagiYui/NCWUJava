@@ -16,6 +16,8 @@
 
 ### [软件构造实验](SoftwareArchitecture/Experiment)
 
+### [软件构造结课实验](SoftwareArchitecture/TestYourCalculation)
+
 ---
 
 ## [软件体系结构实验](SoftwareStructure)
