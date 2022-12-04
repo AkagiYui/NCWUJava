@@ -1,55 +1,62 @@
-plugins {
-    id 'java'
-    id 'application'
-    id 'org.openjfx.javafxplugin' version '0.0.13'
+plugins { // 插件
+    id 'java' // 提供 Java 编译/测试/打包的功能
+    id 'java-library' // 允许了在依赖中使用api和implementation
+    id 'application' // 提供 mainClass 的配置，用于创建可执行的 JVM 应用
+    id 'org.openjfx.javafxplugin' version '0.0.13' // 提供 JavaFX 的支持
     id 'org.beryx.jlink' version '2.25.0'
     id 'io.freefair.lombok' version '6.6' // lombok
 }
 
-group 'com.akagiyui'
-version '1.0-SNAPSHOT'
+group 'com.akagiyui' // 组织名
+version '1.0-SNAPSHOT' // 版本号
 
-repositories {
-    mavenCentral()
+repositories { // 远端仓库
+    mavenCentral() // Maven 中央仓库
 }
 
-ext {
-    junitVersion = '5.9.0'
+ext { // 扩展属性
+    junitVersion = '5.9.0' // JUnit 版本
 }
 
-sourceCompatibility = '17'
-targetCompatibility = '17'
+sourceCompatibility = '17' // 源码兼容版本
+targetCompatibility = '17' // 目标编译版本
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
+tasks.withType(JavaCompile) { // Java 编译任务
+    options.encoding = 'UTF-8' // 指定编码
 }
 
-application {
-    mainModule = 'com.akagiyui.testyourcalculation'
-    mainClass = 'com.akagiyui.testyourcalculation.HelloApplication'
+application { // 应用程序
+    mainModule = 'com.akagiyui.testyourcalculation' // 指定主模块
+    mainClass = 'com.akagiyui.testyourcalculation.HelloApplication' // 指定主类
 }
 
-javafx {
-    version = '17.0.2'
-    modules = ['javafx.controls', 'javafx.fxml']
+javafx { // JavaFX
+    version = '17.0.2' // JavaFX 版本
+    modules = ['javafx.controls', 'javafx.fxml'] // JavaFX 模块
 }
 
 dependencies {
-    implementation 'org.controlsfx:controlsfx:11.1.2'
-    implementation 'org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0'
-    implementation 'org.jetbrains:annotations:23.0.0'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.0'
-    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.0'
+    implementation 'org.jetbrains:annotations:23.0.0' // JetBrains Annotations，提供注解
 
+    implementation 'org.controlsfx:controlsfx:11.1.2' // ControlsFX，提供控件
+    implementation 'org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0' // BootstrapFX，提供样式
+    implementation 'org.kordamp.ikonli:ikonli-javafx:12.3.1' // ikonli图标库
+    implementation 'org.kordamp.ikonli:ikonli-bootstrapicons-pack:12.3.1' // bootstrap图标包
+    api 'io.github.typhon0:AnimateFX:1.2.3' // AnimateFX，提供动画
+
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.0' // Jackson，提供 JSON 解析
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.0' // Jackson的Yaml库，提供 Yaml 解析
+
+    // JUnit 5
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
 }
 
-test {
-    useJUnitPlatform()
+test { // 测试
+    useJUnitPlatform() // 使用 JUnit 5
 }
 
-jlink {
+jlink { // jlink，用于创建 JavaFX 运行时镜像
     imageZip = project.file("${buildDir}/distributions/app-${javafx.platform.classifier}.zip")
     options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
     launcher {

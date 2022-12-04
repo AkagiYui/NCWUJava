@@ -5,9 +5,9 @@
 <MenuBar xmlns="http://javafx.com/javafx"
          xmlns:fx="http://javafx.com/fxml"
          fx:controller="com.akagiyui.testyourcalculation.controller.MenubarController"
-         stylesheets="@bootstrapfx.css"
->
+         stylesheets="@../css/bootstrapfx.css">
     <Menu text="操作">
+        <MenuItem text="关闭习题簿" onAction="#closeExercise"/>
         <SeparatorMenuItem/>
         <MenuItem text="退出" onAction="#exitMenuClick"/>
     </Menu>
