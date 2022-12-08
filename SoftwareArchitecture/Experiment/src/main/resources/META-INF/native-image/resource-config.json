@@ -1,0 +1,27 @@
+{
+  "resources":{
+  "includes":[]},
+  "bundles":[
+    {
+      "name":"com.sun.swing.internal.plaf.basic.resources.basic",
+      "classNames":[
+        "com.sun.swing.internal.plaf.basic.resources.basic", 
+        "com.sun.swing.internal.plaf.basic.resources.basic_zh_CN"
+      ]
+    }, 
+    {
+      "name":"com.sun.swing.internal.plaf.metal.resources.metal",
+      "classNames":[
+        "com.sun.swing.internal.plaf.metal.resources.metal", 
+        "com.sun.swing.internal.plaf.metal.resources.metal_zh_CN"
+      ]
+    }, 
+    {
+      "name":"sun.awt.resources.awt",
+      "classNames":[
+        "sun.awt.resources.awt", 
+        "sun.awt.resources.awt_zh_CN"
+      ]
+    }
+  ]
+}

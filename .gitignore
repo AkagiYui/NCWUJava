@@ -1,6 +1,7 @@
 target/
 *.dat
 *.exe
+*.bat
 
 ### Java template
 # Compiled class file

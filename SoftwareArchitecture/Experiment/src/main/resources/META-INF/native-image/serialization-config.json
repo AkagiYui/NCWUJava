@@ -1,0 +1,26 @@
+{
+  "types":[
+    {
+      "name":"com.akagiyui.AddEquation"
+    },
+    {
+      "name":"com.akagiyui.Equation"
+    },
+    {
+      "name":"com.akagiyui.Operator"
+    },
+    {
+      "name":"com.akagiyui.SubEquation"
+    },
+    {
+      "name":"java.lang.Enum"
+    },
+    {
+      "name":"java.util.ArrayList"
+    }
+  ],
+  "lambdaCapturingTypes":[
+  ],
+  "proxies":[
+  ]
+}

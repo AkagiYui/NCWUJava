@@ -6,6 +6,10 @@ import javax.swing.*;
  * 程序入口
  */
 public class Main extends JFrame {
+    static {
+        System.setProperty("java.home", ".");
+    }
+
     public Main() {
         super("Test Your Calculation");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 关闭窗口时退出程序
