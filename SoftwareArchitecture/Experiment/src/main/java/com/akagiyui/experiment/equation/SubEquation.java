@@ -1,5 +1,7 @@
-package com.akagiyui;
+package com.akagiyui.experiment.equation;
 
+import com.akagiyui.experiment.EquationFactory;
+import com.akagiyui.experiment.Operator;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 

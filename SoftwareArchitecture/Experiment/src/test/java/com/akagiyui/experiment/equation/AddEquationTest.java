@@ -1,4 +1,4 @@
-package com.akagiyui;
+package com.akagiyui.experiment.equation;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -42,6 +42,12 @@
             <artifactId>junit-jupiter</artifactId>
             <version>5.9.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.49</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -77,7 +83,7 @@
                 <configuration>
                     <skip>false</skip>
                     <imageName>Main</imageName>
-                    <mainClass>com.akagiyui.Main</mainClass>
+                    <mainClass>com.akagiyui.experiment.Main</mainClass>
                     <!-- -no-fallback -H:-DeleteLocalSymbols -->
                     <buildArgs>
 
@@ -104,4 +110,17 @@
             </plugin>
         </plugins>
     </build>
+
+    <repositories>
+        <repository>
+            <id>maven-ali</id>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 </project>

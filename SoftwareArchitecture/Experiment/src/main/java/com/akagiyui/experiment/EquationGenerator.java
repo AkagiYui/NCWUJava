@@ -1,4 +1,8 @@
-package com.akagiyui;
+package com.akagiyui.experiment;
+
+import com.akagiyui.experiment.equation.AddEquation;
+import com.akagiyui.experiment.equation.Equation;
+import com.akagiyui.experiment.equation.SubEquation;
 
 import java.util.*;
 

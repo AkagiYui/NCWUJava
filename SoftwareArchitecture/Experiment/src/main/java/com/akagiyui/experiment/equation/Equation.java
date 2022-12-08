@@ -1,5 +1,6 @@
-package com.akagiyui;
+package com.akagiyui.experiment.equation;
 
+import com.akagiyui.experiment.Operator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

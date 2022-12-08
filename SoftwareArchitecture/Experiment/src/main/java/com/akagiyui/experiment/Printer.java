@@ -1,4 +1,6 @@
-package com.akagiyui;
+package com.akagiyui.experiment;
+
+import com.akagiyui.experiment.equation.Equation;
 
 /**
  * 打印类
