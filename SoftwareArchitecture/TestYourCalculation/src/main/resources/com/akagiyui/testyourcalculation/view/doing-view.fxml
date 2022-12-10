@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.akagiyui.testyourcalculation.controller.DoingController"
             prefHeight="400.0" prefWidth="600.0">
-        <bottom>
-            <HBox spacing="10.0" alignment="BOTTOM_CENTER">
-                <padding>
-                    <Insets bottom="10.0" left="20.0" right="20.0" top="10.0"/>
-                </padding>
-                <Button styleClass="btn, btn-warning" text="刷新题目"/>
-                <Button styleClass="btn, btn-primary" text="检查答案"/>
-            </HBox>
-        </bottom>
+    <top>
+        <MenuBar fx:id="menuBar">
+            <Menu text="操作">
+                <MenuItem fx:id="closeExerciseMenuItem" text="关闭习题簿"/>
+                <SeparatorMenuItem/>
+                <MenuItem fx:id="exitMenuItem" text="退出"/>
+            </Menu>
+        </MenuBar>
+    </top>
+    <bottom>
+        <HBox spacing="10.0" alignment="BOTTOM_CENTER">
+            <padding>
+                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0"/>
+            </padding>
+            <Button styleClass="btn, btn-warning" text="刷新题目"/>
+            <Button styleClass="btn, btn-primary" text="检查答案"/>
+        </HBox>
+    </bottom>
 </BorderPane>
