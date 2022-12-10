@@ -13,9 +13,7 @@ module com.akagiyui.testyourcalculation {
     requires org.kordamp.ikonli.javafx;
 
     opens com.akagiyui.testyourcalculation to javafx.fxml, com.fasterxml.jackson.databind;
-    opens com.akagiyui.testyourcalculation.controller to javafx.fxml, com.fasterxml.jackson.databind;
     exports com.akagiyui.testyourcalculation;
-    exports com.akagiyui.testyourcalculation.controller;
     exports com.akagiyui.testyourcalculation.equation;
     opens com.akagiyui.testyourcalculation.equation to com.fasterxml.jackson.databind, javafx.fxml;
     exports com.akagiyui.testyourcalculation.checker;

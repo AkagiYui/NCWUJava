@@ -1,6 +1,5 @@
 package com.akagiyui.testyourcalculation;
 
-import com.akagiyui.testyourcalculation.scene.DoingScene;
 import com.akagiyui.testyourcalculation.scene.HelloScene;
 import javafx.application.Application;
 import javafx.scene.control.Alert;
@@ -54,7 +53,6 @@ public class CalculateApplication extends Application {
 //        }
 
         var helloScene = new HelloScene();
-        var doingScene = new DoingScene();
 
         stage.setScene(helloScene); // 设置场景
         stage.show(); // 显示窗口
