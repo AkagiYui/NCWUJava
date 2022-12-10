@@ -43,7 +43,7 @@ public class AddEquation extends Equation {
          * 构造加法算式
          * @return 加法算式
          */
-        public AddEquation buildAddEquation() {
+        public AddEquation build() {
             var equation = EquationFactory.getEquation("add");
             equation.setOperand1(operand1);
             equation.setOperand2(operand2);

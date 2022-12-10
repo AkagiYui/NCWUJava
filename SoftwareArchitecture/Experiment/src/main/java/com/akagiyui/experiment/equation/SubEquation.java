@@ -43,7 +43,7 @@ public class SubEquation extends Equation {
          * 构造减法算式
          * @return 减法算式
          */
-        public SubEquation buildSubEquation() {
+        public SubEquation build() {
             var equation = EquationFactory.getEquation("sub");
             equation.setOperand1(operand1);
             equation.setOperand2(operand2);

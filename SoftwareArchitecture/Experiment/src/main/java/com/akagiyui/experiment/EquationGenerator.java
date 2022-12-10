@@ -65,7 +65,7 @@ public class EquationGenerator implements Iterator<Equation>, Iterable<Equation>
             return addEquationBuilder
                     .setOperand1(operand1)
                     .setOperand2(operand2)
-                    .buildAddEquation();
+                    .build();
         } else {
             var operand1 = (short)random.nextInt(range.getStart(), range.getEnd() + 1);
             var operand2 = (short)random.nextInt(range.getStart(), operand1 + 1);
@@ -74,7 +74,7 @@ public class EquationGenerator implements Iterator<Equation>, Iterable<Equation>
             return subEquationBuilder
                     .setOperand1(operand1)
                     .setOperand2(operand2)
-                    .buildSubEquation();
+                    .build();
         }
     }
 
