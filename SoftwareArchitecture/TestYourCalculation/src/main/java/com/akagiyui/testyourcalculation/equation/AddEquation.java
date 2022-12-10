@@ -21,13 +21,13 @@ public class AddEquation extends Equation {
      * @param operand1 操作数1
      * @param operand2 操作数2
      */
-    public AddEquation(short operand1, short operand2) {
+    public AddEquation(int operand1, int operand2) {
         super(operand1, operand2, OPERATOR);
     }
 
     @Override
-    public short calculate() {
-        return (short)(getOperand1() + getOperand2());
+    public int calculate() {
+        return getOperand1() + getOperand2();
     }
 
     /**
@@ -36,8 +36,8 @@ public class AddEquation extends Equation {
     @Setter
     @Accessors(chain = true)
     public static class AddEquationBuilder {
-        private short operand1;
-        private short operand2;
+        private int operand1;
+        private int operand2;
 
         /**
          * 构造加法算式

@@ -14,15 +14,15 @@ import java.io.Serializable;
 @NoArgsConstructor // 无参构造
 @AllArgsConstructor // 全参构造
 public abstract class Equation implements Serializable {
-    private short operand1; // 操作数1
-    private short operand2; // 操作数2
+    private int operand1; // 操作数1
+    private int operand2; // 操作数2
     private Operator operator; // 运算符
 
     /**
      * 计算结果
      * @return 结果
      */
-    public abstract short calculate();
+    public abstract int calculate();
 
     /**
      * 重写toString方法，用于输出算式

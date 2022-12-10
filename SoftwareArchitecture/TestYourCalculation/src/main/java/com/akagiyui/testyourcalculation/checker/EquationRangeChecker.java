@@ -14,7 +14,7 @@ public class EquationRangeChecker implements EquationChecker {
      * @param min 最小值
      * @param max 最大值
      */
-    public EquationRangeChecker(short min, short max) {
+    public EquationRangeChecker(int min, int max) {
         range = new Range(min, max);
     }
 

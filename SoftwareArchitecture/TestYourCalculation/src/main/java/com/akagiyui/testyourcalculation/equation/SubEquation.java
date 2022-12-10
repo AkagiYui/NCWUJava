@@ -21,13 +21,13 @@ public class SubEquation extends Equation {
      * @param operand1 操作数1
      * @param operand2 操作数2
      */
-    public SubEquation(short operand1, short operand2) {
+    public SubEquation(int operand1, int operand2) {
         super(operand1, operand2, OPERATOR);
     }
 
     @Override
-    public short calculate() {
-        return (short)(getOperand1() - getOperand2());
+    public int calculate() {
+        return getOperand1() - getOperand2();
     }
 
     /**
@@ -36,8 +36,8 @@ public class SubEquation extends Equation {
     @Setter
     @Accessors(chain = true)
     public static class SubEquationBuilder {
-        private short operand1;
-        private short operand2;
+        private int operand1;
+        private int operand2;
 
         /**
          * 构造减法算式

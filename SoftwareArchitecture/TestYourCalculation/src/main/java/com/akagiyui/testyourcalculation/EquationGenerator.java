@@ -61,15 +61,15 @@ public class EquationGenerator implements Iterator<Equation>, Iterable<Equation>
         // 如此生成数据可保证各个数都在要求范围内
         if (random.nextBoolean()) {
             var result = random.nextInt(range.getStart(), range.getEnd() + 1);
-            var operand1 = (short)random.nextInt(range.getStart(), result + 1);
-            var operand2 = (short)(result - operand1);
+            var operand1 = random.nextInt(range.getStart(), result + 1);
+            var operand2 = result - operand1;
             return addEquationBuilder
                     .setOperand1(operand1)
                     .setOperand2(operand2)
                     .buildAddEquation();
         } else {
-            var operand1 = (short)random.nextInt(range.getStart(), range.getEnd() + 1);
-            var operand2 = (short)random.nextInt(range.getStart(), operand1 + 1);
+            var operand1 = random.nextInt(range.getStart(), range.getEnd() + 1);
+            var operand2 = random.nextInt(range.getStart(), operand1 + 1);
             subEquationBuilder.setOperand1(operand1);
             subEquationBuilder.setOperand2(operand2);
             return subEquationBuilder
