@@ -6,6 +6,7 @@
 4. 工厂模式、构造模式、迭代器模式，反射机制，JSON序列化
 5. JUnit 及 Git 使用
 6. Swing GUI 软件构造
+7. MySQL JDBC 数据库应用
 
 ![运行截图](image/img_1.png)
 ![运行截图](image/img_2.png)
