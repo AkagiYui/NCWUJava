@@ -5,6 +5,7 @@ import lombok.Getter;
 /**
  * 范围类
  */
+@SuppressWarnings("ClassCanBeRecord")
 @Getter // 生成 getter 方法
 public class Range {
     private final short start; // 最小值

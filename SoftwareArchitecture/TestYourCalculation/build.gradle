@@ -21,7 +21,7 @@ ext { // 扩展属性
 sourceCompatibility = '17' // 源码兼容版本
 targetCompatibility = '17' // 目标编译版本
 
-tasks.withType(JavaCompile) { // Java 编译任务
+tasks.withType(JavaCompile).configureEach { // Java 编译任务
     options.encoding = 'UTF-8' // 指定编码
 }
 
