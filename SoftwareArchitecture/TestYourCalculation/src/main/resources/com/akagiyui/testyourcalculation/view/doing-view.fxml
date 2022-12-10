@@ -3,6 +3,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.Insets?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
@@ -14,10 +15,24 @@
                 <SeparatorMenuItem/>
                 <MenuItem fx:id="exitMenuItem" text="退出"/>
             </Menu>
+            <Menu text="关于">
+                <MenuItem fx:id="about" text="关于"/>
+            </Menu>
         </MenuBar>
     </top>
+    <center>
+        <BorderPane>
+            <center>
+                <Button styleClass="btn, btn-primary" text="生成习题">
+                    <graphic>
+                        <FontIcon iconLiteral="bi-plus-circle" iconColor="white"/>
+                    </graphic>
+                </Button>
+            </center>
+        </BorderPane>
+    </center>
     <bottom>
-        <HBox spacing="10.0" alignment="BOTTOM_CENTER">
+        <HBox spacing="10.0" alignment="BOTTOM_CENTER" visible="false">
             <padding>
                 <Insets bottom="10.0" left="20.0" right="20.0" top="10.0"/>
             </padding>
