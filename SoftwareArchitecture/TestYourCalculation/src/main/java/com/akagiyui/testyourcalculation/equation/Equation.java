@@ -30,6 +30,6 @@ public abstract class Equation implements Serializable {
      */
     @Override
     public String toString() {
-        return operand1 + "\t" + operator.getOperator() + "\t" + operand2 + "\t=\t";
+        return operand1 + " " + operator.getOperator() + " " + operand2 + " = ";
     }
 }

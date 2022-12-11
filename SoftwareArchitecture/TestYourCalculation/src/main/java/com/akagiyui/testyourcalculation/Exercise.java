@@ -12,7 +12,8 @@ import java.util.List;
  * 习题类
  */
 public class Exercise implements Iterator<Equation>, Iterable<Equation> {
-    private final short max_operand; // 操作数最大值
+    private final int max_operand; // 操作数最大值
+    private int count;
     private final List<Equation> equations = new ArrayList<>(); // 算式集合
     private final EquationGenerator generator = EquationGenerator.getInstance(); // 算式生成器
 
@@ -20,7 +21,7 @@ public class Exercise implements Iterator<Equation>, Iterable<Equation> {
      * 构造方法
      * @param max_operand 操作数最大值
      */
-    public Exercise(short max_operand) {
+    public Exercise(int max_operand) {
         this.max_operand = max_operand;
     }
 
@@ -29,12 +30,17 @@ public class Exercise implements Iterator<Equation>, Iterable<Equation> {
      * @param count 欲生成的算式数目
      */
     public void recreateEquation(int count) {
-        var checker = new EquationRangeChecker((short)0, max_operand);
+        var checker = new EquationRangeChecker(0, max_operand);
         generator.generate(count, checker);
+        this.count = count;
         equations.clear();
         for (var equation : generator) {
             equations.add(equation);
         }
+    }
+
+    public void recreateEquation() {
+        recreateEquation(this.count);
     }
 
     /**

@@ -20,7 +20,7 @@ public class CalculateApplication extends Application {
         stage.getIcons().add(icon);
 
         stage.setTitle("Test Your Calculation"); // 设置标题
-        stage.setResizable(false); // 禁止调整窗口大小
+//        stage.setResizable(false); // 禁止调整窗口大小
         stage.centerOnScreen(); // 窗口居中
 
         // 请求退出事件
