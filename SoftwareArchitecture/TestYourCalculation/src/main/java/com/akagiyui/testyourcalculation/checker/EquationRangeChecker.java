@@ -2,21 +2,17 @@ package com.akagiyui.testyourcalculation.checker;
 
 import com.akagiyui.testyourcalculation.Range;
 import com.akagiyui.testyourcalculation.equation.Equation;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 算式范围检查器类
  */
+@RequiredArgsConstructor
 public class EquationRangeChecker implements EquationChecker {
-    private final Range range; // 范围
-
     /**
-     * 构造方法
-     * @param min 最小值
-     * @param max 最大值
+     * 算式范围
      */
-    public EquationRangeChecker(int min, int max) {
-        range = new Range(min, max);
-    }
+    private final Range range;
 
     /**
      * 检查算式是否在范围内

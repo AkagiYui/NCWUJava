@@ -39,17 +39,6 @@ public class CalculateApplication extends Application {
             event.consume();
         });
 
-//        // 加载配置 TODO 加载失败应使用默认配置而非退出
-//        var config = Config.getInstance();
-//        if (!config.loadFromFile()) {
-//            var alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("错误");
-//            alert.setHeaderText("配置文件加载失败");
-//            alert.setContentText("请检查配置文件config.yaml\n是否存在或格式是否正确");
-//            alert.showAndWait();
-//            System.exit(1);
-//        }
-
         stage.setScene(new HelloScene()); // 设置场景
         stage.show(); // 显示窗口
     }

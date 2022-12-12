@@ -23,6 +23,9 @@ import java.io.File;
 import java.io.IOException;
 
 public class DoingScene extends Scene {
+    BorderPane root;
+    StackPane centerPane;
+    HBox buttonGroup;
     private ExerciseLayout exerciseLayout;
 
     public DoingScene() throws IOException {
@@ -33,7 +36,7 @@ public class DoingScene extends Scene {
                 320,
                 240
         );
-        initView();
+        getStylesheets().add(BootstrapFX.bootstrapFXStylesheet()); // 加载BootstrapFX样式
 
         getRoot().sceneProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println(observable);
@@ -43,37 +46,27 @@ public class DoingScene extends Scene {
                 ((Stage)newValue.getWindow()).setTitle("Test Your Calculation");
             }
         });
-    }
 
-    public DoingScene(File file) throws IOException {
-        super(
-                new FXMLLoader(
-                        CalculateApplication.class.getResource("view/doing-view.fxml")
-                ).load(),
-                320,
-                240
-        );
-        System.out.println(file);
-    }
-
-    private void initView() {
-        getStylesheets().add(BootstrapFX.bootstrapFXStylesheet()); // 加载BootstrapFX样式
-
-        var root = (BorderPane)getRoot();
-        var center = (StackPane)root.getCenter();
+        // 获取组件
+        root = (BorderPane)getRoot();
+        centerPane = (StackPane)root.getCenter();
         var menuBar = (MenuBar)root.lookup("#menuBar");
         var createExerciseButton = (Button)root.lookup("#createExerciseButton");
         var refreshButton = (Button)root.lookup("#refreshButton");
         var checkButton = (Button)root.lookup("#checkButton");
-        var buttonGroup = (HBox)root.lookup("#buttonGroup");
+        buttonGroup = (HBox)root.lookup("#buttonGroup");
         var successAlert = (TextFlow)root.lookup("#successAlert");
+
+        // 初始化
+        exerciseLayout = new ExerciseLayout();
+
 
         // 设置菜单事件
         menuBar.getMenus().forEach(menu -> menu.getItems().forEach(item -> item.setOnAction(event -> {
             var id = item.getId();
             switch (id) {
                 case "saveExerciseMenuItem" -> {
-                    if (exerciseLayout == null || exerciseLayout.size() == 0) {
+                    if (exerciseLayout == null || exerciseLayout.count() == 0) {
                         var alert = new Alert(Alert.AlertType.WARNING);
                         alert.setTitle("警告");
                         alert.setHeaderText("没有题目");
@@ -95,10 +88,10 @@ public class DoingScene extends Scene {
                     exerciseLayout.saveExercise(file);
                 }
                 case "closeExerciseMenuItem" -> {
-                    if (exerciseLayout != null && !exerciseLayout.isSaved()) {
+                    if (exerciseLayout != null && exerciseLayout.count() != 0 && !exerciseLayout.isSaved()) {
                         var alert = new Alert(Alert.AlertType.CONFIRMATION);
                         alert.setTitle("确认");
-                        alert.setHeaderText("练习簿未保存");
+                        alert.setHeaderText("练习簿尚未保存");
                         alert.setContentText("确定关闭习题簿吗？");
                         var result = alert.showAndWait();
                         if (result.isPresent() && result.get().getButtonData().isCancelButton()) {
@@ -133,9 +126,8 @@ public class DoingScene extends Scene {
         })));
 
         createExerciseButton.setOnMouseClicked(event -> {
-            var bp = (BorderPane)center.getChildren().get(0);
-            bp.setCenter(exerciseLayout);
-            buttonGroup.setVisible(true);
+            exerciseLayout.refresh();
+            showExerciseLayout();
         });
 
         refreshButton.setOnMouseClicked(event -> {
@@ -151,17 +143,22 @@ public class DoingScene extends Scene {
                     var inAnimate = new BounceInDown(successAlert);
                     var outAnimate = new BounceOutUp(successAlert);
                     outAnimate.setDelay(new Duration(3000));
-                    outAnimate.setOnFinished(e -> {
-                        successAlert.setVisible(false);
-                    });
+                    outAnimate.setOnFinished(e -> successAlert.setVisible(false));
                     inAnimate.playOnFinished(outAnimate);
                     inAnimate.play();
                 }
             }
         });
+    }
 
-        exerciseLayout = new ExerciseLayout();
-        var bp = (BorderPane)center.getChildren().get(0);
+    public DoingScene(File file) throws IOException {
+        this();
+        exerciseLayout.loadExercise(file);
+        showExerciseLayout();
+    }
+
+    private void showExerciseLayout() {
+        var bp = (BorderPane)centerPane.getChildren().get(0);
         bp.setCenter(exerciseLayout);
         buttonGroup.setVisible(true);
     }

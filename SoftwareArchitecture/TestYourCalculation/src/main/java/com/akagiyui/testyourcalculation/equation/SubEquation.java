@@ -34,7 +34,7 @@ public class SubEquation extends Equation {
      * 减法算式构造器
      */
     @Setter
-    @Accessors(chain = true)
+    @Accessors(chain = true) // 使得 setter 方法返回当前对象，以支持链式调用
     public static class SubEquationBuilder {
         private int operand1;
         private int operand2;
@@ -43,7 +43,7 @@ public class SubEquation extends Equation {
          * 构造减法算式
          * @return 减法算式
          */
-        public SubEquation buildSubEquation() {
+        public SubEquation build() {
             var equation = EquationFactory.getEquation("sub");
             equation.setOperand1(operand1);
             equation.setOperand2(operand2);

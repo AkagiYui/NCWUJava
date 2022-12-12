@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -13,13 +14,21 @@ import java.util.List;
  * 习题类
  */
 public class Exercise implements Iterator<Equation>, Iterable<Equation> {
-    private final int max_operand; // 操作数最大值
-    private int count;
-    private final List<Equation> equations = new ArrayList<>(); // 算式集合
-    private final EquationGenerator generator = EquationGenerator.getInstance(); // 算式生成器
+    /**
+     * 操作数最大值
+     */
+    private final int max_operand;
+    /**
+     * 算式集合
+     */
+    private final List<Equation> equations = new ArrayList<>();
+    /**
+     * 算式生成器
+     */
+    private final EquationGenerator generator = EquationGenerator.getInstance();
 
     /**
-     * 构造方法
+     * 习题
      * @param max_operand 操作数最大值
      */
     public Exercise(int max_operand) {
@@ -31,17 +40,14 @@ public class Exercise implements Iterator<Equation>, Iterable<Equation> {
      * @param count 欲生成的算式数目
      */
     public void recreateEquation(int count) {
-        var checker = new EquationRangeChecker(0, max_operand);
+        var checker = new EquationRangeChecker(new Range(0, max_operand));
         generator.generate(count, checker);
-        this.count = count;
         equations.clear();
-        for (var equation : generator) {
-            equations.add(equation);
-        }
+        generator.forEach(equations::add);
     }
 
     public void recreateEquation() {
-        recreateEquation(this.count);
+        recreateEquation(equations.size());
     }
 
     /**
@@ -61,35 +67,61 @@ public class Exercise implements Iterator<Equation>, Iterable<Equation> {
         return equations.size();
     }
 
-    public boolean loadEquations(File f) {
-        return false;
-    }
-
-
-    // 以下部分为Exercise类实现迭代功能
-    @Override
-    public boolean hasNext() {
-        return generator.hasNext();
-    }
-
-    @Override
-    public Equation next() {
-        return generator.next();
-    }
-
-    @Override
-    public Iterator<Equation> iterator() {
-        return generator.iterator();
-    }
-
-    public boolean save(File file) {
-        var mapper = new ObjectMapper();
+    /**
+     * 从文件中读取习题
+     * @param file 文件
+     * @return 是否读取成功
+     */
+    public boolean load(File file) {
         try {
-            mapper.writeValue(file, equations);
+            var mapper = new ObjectMapper();
+            var equations = mapper.readValue(file, Equation[].class);
+            this.equations.clear();
+            Collections.addAll(this.equations, equations);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
+    }
+
+    /**
+     * 保存习题到文件
+     * @param file 文件
+     * @return 是否保存成功
+     */
+    public boolean save(File file) {
+        var mapper = new ObjectMapper();
+        try {
+            mapper.writeValue(file, equations.toArray());
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // 以下部分为Exercise类实现迭代功能
+    private int index = 0;
+
+    @Override
+    public boolean hasNext() {
+        var r = index < equations.size();
+        if (!r) {
+            index = 0;
+        }
+        return r;
+    }
+
+    @Override
+    public Equation next() {
+        var equation = equations.get(index);
+        index++;
+        return equation;
+    }
+
+    @Override
+    public Iterator<Equation> iterator() {
+        return equations.iterator();
     }
 }

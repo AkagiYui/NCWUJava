@@ -4,25 +4,31 @@ import lombok.Getter;
 
 /**
  * 范围类
+ * 只读
  */
-@SuppressWarnings("ClassCanBeRecord")
 @Getter // 生成 getter 方法
 public class Range {
-    private final int start; // 最小值
-    private final int end; // 最大值
+    /**
+     * 最小值
+     */
+    private final int min;
+    /**
+     * 最大值
+     */
+    private final int max;
 
     /**
-     * 构造方法
-     * @param start 最小值
-     * @param end 最大值
+     * 范围
+     * @param min 最小值
+     * @param max 最大值
      */
-    public Range(int start, int end) {
-        if (start > end) {
+    public Range(int min, int max) {
+        if (min > max) {
             // 最小值不能大于最大值
-            throw new IllegalArgumentException("start > end");
+            throw new IllegalArgumentException("min > max");
         }
-        this.start = start;
-        this.end = end;
+        this.min = min;
+        this.max = max;
     }
 
     /**
@@ -31,6 +37,6 @@ public class Range {
      * @return 是否在范围内
      */
     public boolean contains(int value) {
-        return value >= start && value <= end;
+        return value >= min && value <= max;
     }
 }

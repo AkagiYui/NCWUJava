@@ -5,12 +5,23 @@ import lombok.RequiredArgsConstructor;
 
 /**
  * 运算符枚举类
+ * <p>
+ * TODO 加入更多运算符
  */
 @Getter
-@RequiredArgsConstructor // 生成全参构造
+@RequiredArgsConstructor // 生成全参构造方法
 public enum Operator {
-    ADD('+'),  // 加法
-    SUB('-');  // 减法
+    /**
+     * 加号
+     */
+    ADD('+'),
+    /**
+     * 减号
+     */
+    SUB('-');
 
-    private final char operator; // 运算符文本
+    /**
+     * 运算符字符
+     */
+    private final char operator;
 }

@@ -22,27 +22,29 @@ public class HelloScene extends Scene {
         );
         getStylesheets().add(BootstrapFX.bootstrapFXStylesheet()); // 加载BootstrapFX样式
 
+        // 获取组件并设置事件
         var root = getRoot();
         var openButton = (Button)root.lookup("#openButton");
         var createButton = (Button)root.lookup("#createButton");
 
         // 打开已有练习簿
         openButton.setOnMouseClicked(event -> {
-            if (event.getButton() == MouseButton.PRIMARY) {
+            if (event.getButton() == MouseButton.PRIMARY) { // 左键单击
+                // 选择已有练习簿
                 var fileChooser = new FileChooser();
                 fileChooser.setTitle("请选择练习簿");
+                // 设置文件过滤器，只显示json文件
                 fileChooser.getExtensionFilters().add(
                         new FileChooser.ExtensionFilter("练习簿", "*.json")
                 );
                 var stage = (Stage)getWindow();
                 var file = fileChooser.showOpenDialog(stage);
-                if (file == null) {
-                    return;
-                }
-                try {
-                    stage.setScene(new DoingScene(file));
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                if (file != null) {
+                    try {
+                        stage.setScene(new DoingScene(file));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         });
