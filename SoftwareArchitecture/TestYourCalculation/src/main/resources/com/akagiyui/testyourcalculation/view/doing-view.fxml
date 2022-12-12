@@ -12,6 +12,7 @@
     <top>
         <MenuBar fx:id="menuBar">
             <Menu text="操作">
+                <MenuItem fx:id="saveExerciseMenuItem" text="保存习题簿"/>
                 <MenuItem fx:id="closeExerciseMenuItem" text="关闭习题簿"/>
                 <SeparatorMenuItem/>
                 <MenuItem fx:id="exitMenuItem" text="退出"/>

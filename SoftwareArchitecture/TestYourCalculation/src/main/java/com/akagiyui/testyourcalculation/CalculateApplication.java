@@ -20,7 +20,7 @@ public class CalculateApplication extends Application {
         stage.getIcons().add(icon);
 
         stage.setTitle("Test Your Calculation"); // 设置标题
-//        stage.setResizable(false); // 禁止调整窗口大小
+        stage.setResizable(true); // 允许调整窗口大小
         stage.centerOnScreen(); // 窗口居中
 
         // 请求退出事件
@@ -32,8 +32,6 @@ public class CalculateApplication extends Application {
             alert.setTitle("退出");
             alert.setHeaderText("确认退出吗？");
             alert.initModality(Modality.APPLICATION_MODAL); // 应用程序级别的模态窗口
-//            alert.initOwner(stage);
-
             var result = alert.showAndWait();
             if (result.isPresent() && result.get().getButtonData().isDefaultButton()) {
                 return;
@@ -52,9 +50,7 @@ public class CalculateApplication extends Application {
 //            System.exit(1);
 //        }
 
-        var helloScene = new HelloScene();
-
-        stage.setScene(helloScene); // 设置场景
+        stage.setScene(new HelloScene()); // 设置场景
         stage.show(); // 显示窗口
     }
 

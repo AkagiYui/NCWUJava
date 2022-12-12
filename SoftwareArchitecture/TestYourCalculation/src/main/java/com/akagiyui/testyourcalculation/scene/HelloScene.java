@@ -2,9 +2,9 @@ package com.akagiyui.testyourcalculation.scene;
 
 import com.akagiyui.testyourcalculation.CalculateApplication;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseButton;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.kordamp.bootstrapfx.BootstrapFX;
@@ -26,28 +26,36 @@ public class HelloScene extends Scene {
         var openButton = (Button)root.lookup("#openButton");
         var createButton = (Button)root.lookup("#createButton");
 
+        // 打开已有练习簿
         openButton.setOnMouseClicked(event -> {
-            var fileChooser = new FileChooser();
-            fileChooser.setTitle("请选择练习簿");
-            fileChooser.getExtensionFilters().add(
-                    new FileChooser.ExtensionFilter("练习簿", "*.json")
-            );
-
-            var source = (Node)event.getSource();
-            var stage = source.getScene().getWindow();
-            var file = fileChooser.showOpenDialog(stage);
-            if (file == null) {
-                return;
+            if (event.getButton() == MouseButton.PRIMARY) {
+                var fileChooser = new FileChooser();
+                fileChooser.setTitle("请选择练习簿");
+                fileChooser.getExtensionFilters().add(
+                        new FileChooser.ExtensionFilter("练习簿", "*.json")
+                );
+                var stage = (Stage)getWindow();
+                var file = fileChooser.showOpenDialog(stage);
+                if (file == null) {
+                    return;
+                }
+                try {
+                    stage.setScene(new DoingScene(file));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
+        // 创建新的练习簿
         createButton.setOnMouseClicked(event -> {
-            var stage = (Stage)getWindow();
-            try {
-                var s = new DoingScene();
-                stage.setScene(s);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            if (event.getButton() == MouseButton.PRIMARY) {
+                var stage = (Stage)getWindow();
+                try {
+                    stage.setScene(new DoingScene());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
     }

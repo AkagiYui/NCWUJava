@@ -9,30 +9,36 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.TextAlignment;
 import lombok.Getter;
 
+/**
+ * 算式布局类
+ */
 public class EquationLayout extends HBox {
-    private final Label questionLabel;
-    private final TextField answerTextField;
-    private final Label resultLabel;
+    private final Label questionLabel; // 题目标签
+    private final TextField answerTextField; // 答案文本框
+    private final Label resultLabel; // 结果标签
     @Getter
-    private Equation equation;
+    private Equation equation; // 算式
 
     public EquationLayout() {
         super();
-        setSpacing(5);
-        setAlignment(Pos.CENTER);
-        setPrefHeight(40);
+        setSpacing(5); // 设置间距
+        setAlignment(Pos.CENTER); // 设置对齐方式
+        setPrefHeight(40); // 设置高度
 
         questionLabel = new Label();
-        questionLabel.setPrefWidth(80);
+        questionLabel.setPrefWidth(100);
         questionLabel.setTextAlignment(TextAlignment.RIGHT);
         questionLabel.setAlignment(Pos.CENTER_RIGHT);
-        questionLabel.getStyleClass().add("lbl, lbl-default");
+        questionLabel.setStyle("-fx-font-size: 15px;");
 
         answerTextField = new TextField();
-        answerTextField.setPrefWidth(50);
+        answerTextField.setPrefWidth(60);
+        answerTextField.setAlignment(Pos.CENTER);
 
         resultLabel = new Label("请输入答案");
         resultLabel.setPrefWidth(80);
+        resultLabel.setStyle("-fx-font-size: 15px;");
+
         getChildren().addAll(questionLabel, answerTextField, resultLabel);
     }
 
@@ -40,13 +46,17 @@ public class EquationLayout extends HBox {
         this.equation = equation;
         questionLabel.setText(equation.toString());
         answerTextField.setText("");
-        resultLabel.setText("");
+        resultLabel.setText("请输入答案");
+
+//        new FadeIn(questionLabel).setSpeed(1).play();
+//        new FadeIn(answerTextField).setSpeed(1).play();
     }
 
     public boolean checkAnswer() {
         var answer = answerTextField.getText();
         if (answer.isBlank()) {
             resultLabel.setText("请输入答案");
+            resultLabel.getStyleClass().clear();
             return false;
         }
         try {
@@ -62,6 +72,7 @@ public class EquationLayout extends HBox {
             }
         } catch (NumberFormatException e) {
             resultLabel.setText("请输入整数");
+            resultLabel.getStyleClass().clear();
         }
         return false;
     }

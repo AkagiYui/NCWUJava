@@ -2,6 +2,7 @@ package com.akagiyui.testyourcalculation;
 
 import com.akagiyui.testyourcalculation.checker.EquationRangeChecker;
 import com.akagiyui.testyourcalculation.equation.Equation;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -79,5 +80,16 @@ public class Exercise implements Iterator<Equation>, Iterable<Equation> {
     @Override
     public Iterator<Equation> iterator() {
         return generator.iterator();
+    }
+
+    public boolean save(File file) {
+        var mapper = new ObjectMapper();
+        try {
+            mapper.writeValue(file, equations);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
