@@ -1,5 +1,6 @@
 package com.akagiyui.testyourcalculation;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
@@ -7,6 +8,7 @@ import lombok.Getter;
  * 只读
  */
 @Getter // 生成 getter 方法
+@EqualsAndHashCode // 生成 equals 和 hashCode 方法
 public class Range {
     /**
      * 最小值

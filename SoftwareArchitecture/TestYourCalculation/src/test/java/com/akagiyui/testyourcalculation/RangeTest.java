@@ -23,13 +23,13 @@ class RangeTest {
     }
 
     @Test
-    void getStart() {
+    void getMin() {
         Range range = new Range((short)1, (short)10);
         assertEquals(1, range.getMin());
     }
 
     @Test
-    void getEnd() {
+    void getMax() {
         Range range = new Range((short)1, (short)10);
         assertEquals(10, range.getMax());
     }
