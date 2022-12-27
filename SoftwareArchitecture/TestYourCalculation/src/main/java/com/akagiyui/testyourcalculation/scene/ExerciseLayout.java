@@ -17,15 +17,15 @@ public class ExerciseLayout extends VBox {
     /**
      * 算式布局列表
      */
-    private List<EquationLayout> equationLayouts;
+    private final List<EquationLayout> equationLayouts;
     /**
      * 算式数目
      */
-    private int equationCount;
+    private final int equationCount;
     /**
      * 习题
      */
-    private Exercise exercise;
+    private final Exercise exercise;
     /**
      * 已保存
      */
@@ -74,7 +74,7 @@ public class ExerciseLayout extends VBox {
         getChildren().clear();
         getChildren().addAll(equationLayouts);
         saved = false; // 重置保存状态
-//        getScene().getWindow().setHeight(50 + new EquationLayout().getPrefHeight() * equationCount);
+        setPrefHeight(50 + new EquationLayout().getPrefHeight() * equationCount);
     }
 
     /**
@@ -101,7 +101,7 @@ public class ExerciseLayout extends VBox {
             getChildren().clear();
             getChildren().addAll(equationLayouts);
             saved = true; // 重置保存状态
-//            getScene().getWindow().setHeight(50 + new EquationLayout().getPrefHeight() * equationCount);
+            setPrefHeight(50 + new EquationLayout().getPrefHeight() * equationCount);
         }
     }
 

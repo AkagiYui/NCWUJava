@@ -11,7 +11,7 @@ class AddEquationTest {
     @DisplayName("测试toString方法")
     void testToString() {
         Equation equation = new AddEquation((short)1, (short)2);
-        assertEquals("1\t+\t2\t=\t", equation.toString());
+        assertEquals("1 + 2 = ", equation.toString());
     }
 
     @Test

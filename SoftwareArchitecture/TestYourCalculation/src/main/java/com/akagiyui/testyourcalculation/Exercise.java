@@ -46,25 +46,11 @@ public class Exercise implements Iterator<Equation>, Iterable<Equation> {
         generator.forEach(equations::add);
     }
 
+    /**
+     * 生成count个不重复的算式Equation（加法或减法）
+     */
     public void recreateEquation() {
         recreateEquation(equations.size());
-    }
-
-    /**
-     * 获取算式
-     * @param index 算式索引
-     * @return 算式
-     */
-    public Equation getEquation(int index) {
-        return equations.get(index);
-    }
-
-    /**
-     * 获取算式的数目
-     * @return 算式数目
-     */
-    public int getSize() {
-        return equations.size();
     }
 
     /**
@@ -106,11 +92,11 @@ public class Exercise implements Iterator<Equation>, Iterable<Equation> {
 
     @Override
     public boolean hasNext() {
-        var r = index < equations.size();
-        if (!r) {
+        var haveLeft = index < equations.size();
+        if (!haveLeft) {
             index = 0;
         }
-        return r;
+        return haveLeft;
     }
 
     @Override

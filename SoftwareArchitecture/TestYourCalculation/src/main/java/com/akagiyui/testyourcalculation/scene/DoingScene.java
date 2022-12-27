@@ -26,7 +26,7 @@ public class DoingScene extends Scene {
     BorderPane root;
     StackPane centerPane;
     HBox buttonGroup;
-    private ExerciseLayout exerciseLayout;
+    private final ExerciseLayout exerciseLayout;
 
     public DoingScene() throws IOException {
         super(
@@ -34,7 +34,7 @@ public class DoingScene extends Scene {
                         CalculateApplication.class.getResource("view/doing-view.fxml")
                 ).load(),
                 320,
-                240
+                320
         );
         getStylesheets().add(BootstrapFX.bootstrapFXStylesheet()); // 加载BootstrapFX样式
 
@@ -60,13 +60,12 @@ public class DoingScene extends Scene {
         // 初始化
         exerciseLayout = new ExerciseLayout();
 
-
         // 设置菜单事件
         menuBar.getMenus().forEach(menu -> menu.getItems().forEach(item -> item.setOnAction(event -> {
             var id = item.getId();
             switch (id) {
                 case "saveExerciseMenuItem" -> {
-                    if (exerciseLayout == null || exerciseLayout.count() == 0) {
+                    if (exerciseLayout.count() == 0) {
                         var alert = new Alert(Alert.AlertType.WARNING);
                         alert.setTitle("警告");
                         alert.setHeaderText("没有题目");
@@ -88,7 +87,7 @@ public class DoingScene extends Scene {
                     exerciseLayout.saveExercise(file);
                 }
                 case "closeExerciseMenuItem" -> {
-                    if (exerciseLayout != null && exerciseLayout.count() != 0 && !exerciseLayout.isSaved()) {
+                    if (exerciseLayout.count() != 0 && !exerciseLayout.isSaved()) {
                         var alert = new Alert(Alert.AlertType.CONFIRMATION);
                         alert.setTitle("确认");
                         alert.setHeaderText("练习簿尚未保存");
@@ -125,17 +124,23 @@ public class DoingScene extends Scene {
             }
         })));
 
+        // 生成习题按钮事件
         createExerciseButton.setOnMouseClicked(event -> {
             exerciseLayout.refresh();
             showExerciseLayout();
+            // 设置窗口高度
+            var stage = (Stage) getWindow();
+            stage.setHeight(exerciseLayout.getPrefHeight());
         });
 
+        // 刷新按钮事件
         refreshButton.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
                 exerciseLayout.refresh();
             }
         });
 
+        // 检查按钮事件
         checkButton.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
                 if (exerciseLayout.check()){

@@ -38,7 +38,7 @@ public class EquationLayout extends HBox {
         super();
         setSpacing(5); // 设置间距
         setAlignment(Pos.CENTER); // 设置对齐方式
-        setPrefHeight(45); // 设置高度
+        setPrefHeight(55); // 设置高度
 
         questionLabel = new Label();
         questionLabel.setPrefWidth(100); // 设置宽度
@@ -86,8 +86,12 @@ public class EquationLayout extends HBox {
     public boolean checkAnswer() {
         var answer = answerTextField.getText();
         if (answer.isBlank()) {
-            resultLabel.setText("请输入答案");
-            resultLabel.getStyleClass().clear();
+            if (resultLabel.getText().equals("请输入答案")) {
+                new Flash(resultLabel).setSpeed(2).play(); // 强调提示
+            } else {
+                resultLabel.setText("请输入答案");
+                resultLabel.getStyleClass().clear();
+            }
         } else {
             try {
                 var answerInt = Integer.parseInt(answer);

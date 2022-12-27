@@ -1,8 +1,10 @@
 package com.akagiyui.testyourcalculation.scene;
 
 import com.akagiyui.testyourcalculation.CalculateApplication;
+import com.akagiyui.testyourcalculation.Exercise;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseButton;
 import javafx.stage.FileChooser;
@@ -18,7 +20,7 @@ public class HelloScene extends Scene {
                         CalculateApplication.class.getResource("view/hello-view.fxml")
                 ).load(),
                 320,
-                240
+                320
         );
         getStylesheets().add(BootstrapFX.bootstrapFXStylesheet()); // 加载BootstrapFX样式
 
@@ -40,10 +42,17 @@ public class HelloScene extends Scene {
                 var stage = (Stage)getWindow();
                 var file = fileChooser.showOpenDialog(stage);
                 if (file != null) {
-                    try {
-                        stage.setScene(new DoingScene(file));
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+                    var exercise = new Exercise(100); // todo 可变
+                    if (exercise.load(file)) {
+                        try {
+                            stage.setScene(new DoingScene(file));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    } else {
+                        var alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setContentText("练习簿加载失败\n请检查文件是否损坏");
+                        alert.showAndWait();
                     }
                 }
             }
