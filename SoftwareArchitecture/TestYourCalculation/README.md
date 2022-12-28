@@ -4,6 +4,7 @@
 
 注意：该项目使用了大量 Java 9 到 Java 17 的新特性，需要使用 JDK 17 进行编译。
 
+![检查演示](image/img_5.gif)
 ![启动界面](image/img_1.png)
 ![练习界面](image/img_2.png)
 
