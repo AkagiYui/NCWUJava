@@ -31,7 +31,9 @@ public class EquationGenerator implements Iterator<Equation>, Iterable<Equation>
         return SingletonHolder.INSTANCE;
     }
 
-    // 算式集合
+    /**
+     * 算式集合
+     */
     private static ArrayList<Equation> equations = new ArrayList<>();
 
     /**
