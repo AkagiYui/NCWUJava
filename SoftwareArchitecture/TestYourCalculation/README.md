@@ -1,4 +1,4 @@
-# Test Your Calculation (WIP)
+# Test Your Calculation
 
 软件构造 结课实验 加减法算式习题薄的设计与优化
 
@@ -26,6 +26,7 @@
 - [ ] 多套习题
 - [ ] 为系统设计菜单，设计错题薄，提供正确率统计功能
 - [ ] 使用反射技术实现习题约束条件的动态加载（配置文件指明类名）
+- [ ] 使用[TestFX](https://github.com/TestFX/TestFX)进行GUI测试
 
 ---
 
