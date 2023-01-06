@@ -16,3 +16,24 @@ TcpServer -> TcpClient: 关闭流和Socket
 TcpClient -> TcpServer: 关闭流和Socket
 @enduml
 ```
+
+```
+[Shape]<>--[Circle]
+[Shape]<>--[Rectangle]
+[Shape]<>--[Triangle]
+[Shape]<|--[UnsupportedShapeException]
+[Shape]
+:+draw():void
+:+erase():void
+[ShapeFactory]
+:+createShape(shapeType: String): Shape
+[Circle]
+:+draw():void
+:+erase():void
+[Rectangle]
+:+draw():void
+:+erase():void
+[Triangle]
+:+draw():void
+:+erase():void
+```
