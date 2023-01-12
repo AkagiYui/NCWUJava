@@ -36,7 +36,7 @@ public class CalculateApplication extends Application {
             if (result.isPresent() && result.get().getButtonData().isDefaultButton()) {
                 return;
             }
-            event.consume();
+            event.consume(); // 消费事件
         });
 
         stage.setScene(new HelloScene()); // 设置场景
