@@ -27,7 +27,7 @@ tasks.withType(JavaCompile).configureEach { // Java 编译任务
 
 application { // 应用程序
     mainModule = 'com.akagiyui.testyourcalculation' // 指定主模块
-    mainClass = 'com.akagiyui.testyourcalculation.HelloApplication' // 指定主类
+    mainClass = 'com.akagiyui.testyourcalculation.CalculateApplication' // 指定主类
 }
 
 javafx { // JavaFX
