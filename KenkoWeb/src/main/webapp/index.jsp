@@ -5,9 +5,12 @@
     <title>JSP - Hello World</title>
 </head>
 <body>
-<h1><%= "Hello World!" %>
+<h1><%= "AkagiYui 的 JSP 作业" %>
 </h1>
 <br/>
-<a href="hello-servlet">Hello Servlet</a>
+<a href="hello-servlet">Hello Servlet</a><br>
+<a href="rect.jsp">计算矩形周长与面积</a><br>
+<a href="register.jsp">用户注册界面</a><br>
+<a href="simpleform.jsp">form表单练习</a><br>
 </body>
 </html>
