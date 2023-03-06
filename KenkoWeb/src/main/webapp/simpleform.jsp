@@ -9,7 +9,7 @@
     <title>form表单练习</title>
 </head>
 <body>
-    <form>
+    <form method="post" action="form?action=information">
         <p>
             <label for="username">用户名：</label>
             <input type="text" name="username" id="username">
