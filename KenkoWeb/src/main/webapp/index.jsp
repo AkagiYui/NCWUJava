@@ -12,5 +12,6 @@
 <a href="rect.jsp">计算矩形周长与面积</a><br>
 <a href="register.jsp">用户注册界面</a><br>
 <a href="simpleform.jsp">form表单练习</a><br>
+<a href="internal?name=这是我的名字">实验3 JSP内置对象使用</a><br>
 </body>
 </html>
