@@ -15,5 +15,14 @@
 <a href="internal?name=这是我的名字">实验3：JSP内置对象使用</a><br>
 <a href="simpleform.jsp">实验4：JSP处理form及URL参数</a><br>
 <a href="jdbc-basic">实验5：JDBC基础</a><br>
+
+<h1>输入矩形的长和宽</h1>
+<form method="post" action="check.jsp">
+    <label>长：</label>
+    <input type="number" name="length"><br><br>
+    <label>宽：</label>
+    <input type="number" name="width"><br><br>
+    <input type="submit" value="计算面积">
+</form>
 </body>
 </html>
