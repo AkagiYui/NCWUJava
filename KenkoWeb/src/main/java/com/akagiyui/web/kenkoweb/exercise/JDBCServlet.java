@@ -1,5 +1,6 @@
-package com.akagiyui.web.kenkoweb;
+package com.akagiyui.web.kenkoweb.exercise;
 
+import com.akagiyui.web.kenkoweb.Database;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,7 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet(name = "jdbcServlet", value = "/jdbc-basic")
+@WebServlet(name = "jdbcServlet", value = "/exercise/jdbc-basic")
 public class JDBCServlet extends HttpServlet {
     Database database;
 
@@ -94,7 +95,10 @@ public class JDBCServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
 
-        out.println("</body></html>");
+        out.println("</body>");
+        out.println("<script src=\"../static/showCode.js\"></script>\n");
+        out.println("<script>showCode('src/main/java/com/akagiyui/web/kenkoweb/exercise/JDBCServlet.java')</script>");
+        out.println("</html>");
     }
 
     @Override

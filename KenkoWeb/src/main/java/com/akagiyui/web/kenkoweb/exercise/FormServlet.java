@@ -1,4 +1,4 @@
-package com.akagiyui.web.kenkoweb;
+package com.akagiyui.web.kenkoweb.exercise;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -7,14 +7,14 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "formServlet", value = "/form")
+@WebServlet(name = "formServlet", value = "/exercise/form")
 public class FormServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
         var out = response.getWriter();
         out.println("<html><body>");
-        out.println("<a href=\"simpleform.jsp\">返回</a>");
+        out.println("<button onclick=\"window.history.back()\">返回</button>");
 
         // 列出URL请求参数
         out.println("<h1>URL 请求参数</h1>");
@@ -50,6 +50,9 @@ public class FormServlet extends HttpServlet {
             out.println(cookie.getName() + ": " + cookie.getValue() + "<br>");
         }
 
-        out.println("</body></html>");
+        out.println("</body>");
+        out.println("<script src=\"../static/showCode.js\"></script>\n");
+        out.println("<script>showCode('src/main/java/com/akagiyui/web/kenkoweb/exercise/FormServlet.java')</script>");
+        out.println("</html>");
     }
 }
