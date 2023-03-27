@@ -31,7 +31,7 @@
                 indexList.add(Arrays.asList("实验4：JSP处理form及URL参数", "exercise/simpleform.jsp"));
                 indexList.add(Arrays.asList("实验5：JDBC基础", "exercise/jdbc-basic"));
                 indexList.add(Arrays.asList("作业：用javaBean实现求矩形面积（在本页面下方）", "#用javaBean实现求矩形面积"));
-                indexList.add(Arrays.asList("实验6：使用JDBC完成用户的注册", "user-manager/register.jsp"));
+                indexList.add(Arrays.asList("实验6：使用JDBC完成用户的注册", "register.jsp"));
             %>
             <p>
                 <% for (int i = 0; i < indexList.size(); i++) {

@@ -58,12 +58,13 @@ public class JDBCServlet extends HttpServlet {
             var users = database.getAllUsers();
             out.println("<h1>user表数据</h1>");
             out.println("<table>");
-            out.println("<tr><th>id</th><th>name</th><th>password</th></tr>");
+            out.println("<tr><th>id</th><th>name</th><th>password</th><th>email</th></tr>");
             for (var user : users) {
                 out.println("<tr>");
                 out.println("<td>" + user.getId() + "</td>");
                 out.println("<td>" + user.getUsername() + "</td>");
                 out.println("<td>" + user.getPassword() + "</td>");
+                out.println("<td>" + user.getEmail() + "</td>");
                 out.println("</tr>");
             }
             out.println("</table>");

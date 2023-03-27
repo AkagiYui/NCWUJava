@@ -54,6 +54,7 @@ public class Database {
             user.setId(rs.getInt("id"));
             user.setUsername(rs.getString("username"));
             user.setPassword(rs.getString("password"));
+            user.setEmail(rs.getString("email"));
             users.add(user);
         }
         return users;
@@ -81,5 +82,13 @@ public class Database {
             columnType.put(metaData.getColumnName(i), metaData.getColumnTypeName(i));
         }
         return columnType;
+    }
+
+    public boolean addUser(User user) throws SQLException {
+        var stmt = conn.createStatement();
+        var sql = "INSERT INTO user (username, password, email) VALUES ('"
+                + user.getUsername() + "', '" + user.getPassword() + "', '" + user.getEmail()
+                + "')";
+        return stmt.executeUpdate(sql) == 1;
     }
 }
