@@ -34,6 +34,7 @@ public class RectangleServlet extends HttpServlet {
             out.println("<h1>输入错误：" + e + "</h1>");
 
             out.println("</body>");
+            out.println("<script src=\"../static/addHomeButton.js\"></script>\n");
             out.println("<script src=\"../static/showCode.js\"></script>\n");
             out.println("<script>showCode('src/main/java/com/akagiyui/web/kenkoweb/exercise/RectangleServlet.java')</script>");
             out.println("</html>");

@@ -32,6 +32,7 @@
                 indexList.add(Arrays.asList("实验5：JDBC基础", "exercise/jdbc-basic"));
                 indexList.add(Arrays.asList("作业：用javaBean实现求矩形面积（在本页面下方）", "#用javaBean实现求矩形面积"));
                 indexList.add(Arrays.asList("实验6：使用JDBC完成用户的注册", "register.jsp"));
+                indexList.add(Arrays.asList("登录", "login.jsp"));
             %>
             <p>
                 <% for (int i = 0; i < indexList.size(); i++) {
@@ -65,6 +66,7 @@
             padding: 10px;
         }
     </style>
+    <script src="static/addHomeButton.js"></script>
     <script src="static/showCode.js"></script>
     <script>showCode('src/main/webapp/index.jsp')</script>
 </html>

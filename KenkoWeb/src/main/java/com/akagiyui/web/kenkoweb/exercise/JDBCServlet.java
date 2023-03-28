@@ -15,12 +15,8 @@ public class JDBCServlet extends HttpServlet {
 
     @Override
     public void init() {
-        try {
-            database = new Database();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        if (!database.connect()) {
+        database = Database.getInstance();
+        if (!database.isConnected()) {
             System.out.println("Failed to connect to database");
         }
     }
@@ -97,6 +93,7 @@ public class JDBCServlet extends HttpServlet {
         }
 
         out.println("</body>");
+        out.println("<script src=\"../static/addHomeButton.js\"></script>\n");
         out.println("<script src=\"../static/showCode.js\"></script>\n");
         out.println("<script>showCode('src/main/java/com/akagiyui/web/kenkoweb/exercise/JDBCServlet.java')</script>");
         out.println("</html>");

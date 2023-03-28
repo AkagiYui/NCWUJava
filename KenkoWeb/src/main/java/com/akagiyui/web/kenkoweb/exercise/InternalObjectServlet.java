@@ -65,6 +65,7 @@ public class InternalObjectServlet extends HttpServlet {
         out.println("<h1>" + config.getServletName() + "</h1>");
 
         out.println("</body>");
+        out.println("<script src=\"../static/addHomeButton.js\"></script>\n");
         out.println("<script src=\"../static/showCode.js\"></script>\n");
         out.println("<script>showCode('src/main/java/com/akagiyui/web/kenkoweb/exercise/InternalObjectServlet.java')</script>");
         out.println("</html>");

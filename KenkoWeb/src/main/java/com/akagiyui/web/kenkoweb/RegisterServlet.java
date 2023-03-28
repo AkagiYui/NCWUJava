@@ -1,5 +1,6 @@
 package com.akagiyui.web.kenkoweb;
 
+import com.akagiyui.web.kenkoweb.entity.UserRegister;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -7,36 +8,48 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "registerServlet", value = "/register")
+@WebServlet(name = "registerServlet", value = "/register.do")
 public class RegisterServlet extends HttpServlet {
-    Database database;
-
     @Override
-    public void init() {
-        try {
-            database = new Database();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        if (!database.connect()) {
-            System.out.println("Failed to connect to database");
-        }
-    }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        var out = response.getWriter();
-        // 展示接收信息
-        out.println("<html>");
-        out.println("<body>");
-        out.println("<h1>注册信息</h1>");
-        out.println("<p>用户名：" + request.getParameter("username") + "</p>");
-        out.println("<p>密码：" + request.getParameter("password") + "</p>");
-        out.println("<p>邮箱：" + request.getParameter("email") + "</p>");
-        out.println("<br>");
-        out.println("<a href=\"register.jsp\">返回注册页面</a>");
-        out.println("</body>");
-    }
+        var database = Database.getInstance();
 
-    public void destroy() {
-        database.disconnect();
+        // 获取用户信息
+        var username = request.getParameter("username");
+        var password = request.getParameter("password");
+        var email = request.getParameter("email");
+        var user = new UserRegister(username, password, email);
+
+        var session = request.getSession();
+        session.setAttribute("result", false);
+        var msg = "";
+
+        // 数据校验
+        if (username == null || username.isBlank()) {
+            msg = "用户名不能为空";
+        }
+        else if (password == null || password.isBlank()) {
+            msg = "密码不能为空";
+        }
+        else if (email == null || email.isBlank()) {
+            msg = "邮箱不能为空";
+        }
+
+        // 检查用户名是否已存在
+        else if (database.isUsernameExist(username)) {
+            msg = "用户名已存在";
+        }
+
+        // 保存用户信息
+        if ("".equals(msg) && database.addUser(user)) {
+            System.out.println("用户" + username + "注册成功");
+            session.setAttribute("result", true);
+        } else {
+            session.setAttribute("msg", msg);
+            System.out.println("用户注册失败");
+        }
+
+        // 跳转到结果页面
+        response.sendRedirect("register-result.jsp");
     }
 }

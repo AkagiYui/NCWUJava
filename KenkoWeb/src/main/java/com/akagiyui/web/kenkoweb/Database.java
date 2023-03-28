@@ -1,6 +1,7 @@
 package com.akagiyui.web.kenkoweb;
 
 import com.akagiyui.web.kenkoweb.entity.User;
+import com.akagiyui.web.kenkoweb.entity.UserRegister;
 import lombok.Getter;
 
 import java.sql.Connection;
@@ -19,17 +20,31 @@ public class Database {
     static final String USERNAME = "root";
     static final String PASSWORD = "";
 
+    private static Database instance;
+
     @Getter
     private Connection conn = null;
 
     @Getter
     private boolean connected = false;
 
-    public Database() throws ClassNotFoundException {
+    private Database() throws ClassNotFoundException {
         Class.forName(JDBC_DRIVER); // 加载类从而注册驱动
     }
 
-    public boolean connect() {
+    public static Database getInstance() {
+        if (instance == null) {
+            try {
+                instance = new Database();
+                instance.connect();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return instance;
+    }
+
+    private synchronized boolean connect() {
         try {
             conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
 
@@ -43,21 +58,6 @@ public class Database {
             se.printStackTrace();
         }
         return connected;
-    }
-
-    public List<User> getAllUsers() throws SQLException {
-        var stmt = conn.createStatement();
-        var rs = stmt.executeQuery("SELECT * FROM user");
-        var users = new ArrayList<User>();
-        while (rs.next()) {
-            var user = new User();
-            user.setId(rs.getInt("id"));
-            user.setUsername(rs.getString("username"));
-            user.setPassword(rs.getString("password"));
-            user.setEmail(rs.getString("email"));
-            users.add(user);
-        }
-        return users;
     }
 
     public void disconnect() {
@@ -84,11 +84,61 @@ public class Database {
         return columnType;
     }
 
-    public boolean addUser(User user) throws SQLException {
+    public boolean isUsernameExist(String username) {
+        try {
+            var stmt = conn.createStatement();
+            var rs = stmt.executeQuery("SELECT * FROM user WHERE username = '" + username + "'");
+            return rs.next();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+            return false;
+        }
+    }
+
+    public List<User> getAllUsers() throws SQLException {
         var stmt = conn.createStatement();
-        var sql = "INSERT INTO user (username, password, email) VALUES ('"
-                + user.getUsername() + "', '" + user.getPassword() + "', '" + user.getEmail()
-                + "')";
-        return stmt.executeUpdate(sql) == 1;
+        var rs = stmt.executeQuery("SELECT * FROM user");
+        var users = new ArrayList<User>();
+        while (rs.next()) {
+            var user = new User();
+            user.setId(rs.getInt("id"));
+            user.setUsername(rs.getString("username"));
+            user.setPassword(rs.getString("password"));
+            user.setEmail(rs.getString("email"));
+            users.add(user);
+        }
+        return users;
+    }
+
+    public boolean addUser(UserRegister user){
+        try {
+            var stmt = conn.createStatement();
+            var sql = "INSERT INTO user (username, password, email) VALUES ('"
+                    + user.getUsername() + "', '" + user.getPassword() + "', '" + user.getEmail()
+                    + "')";
+            return stmt.executeUpdate(sql) == 1;
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+            return false;
+        }
+    }
+
+    public User getUser(String username, String password) {
+        try {
+            var stmt = conn.createStatement();
+            var rs = stmt.executeQuery("SELECT * FROM user WHERE username = '" + username + "' AND password = '" + password + "'");
+            if (rs.next()) {
+                var user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setEmail(rs.getString("email"));
+                return user;
+            }
+            return null;
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+            return null;
+        }
     }
 }

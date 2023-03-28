@@ -49,6 +49,8 @@
             </p>
         </form>
     </body>
+
+    <script src="../static/addHomeButton.js"></script>
     <script src="../static/showCode.js"></script>
     <script>showCode('src/main/webapp/exercise/simpleform.jsp')</script>
 </html>

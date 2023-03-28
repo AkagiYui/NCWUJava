@@ -51,6 +51,7 @@ public class FormServlet extends HttpServlet {
         }
 
         out.println("</body>");
+        out.println("<script src=\"../static/addHomeButton.js\"></script>\n");
         out.println("<script src=\"../static/showCode.js\"></script>\n");
         out.println("<script>showCode('src/main/java/com/akagiyui/web/kenkoweb/exercise/FormServlet.java')</script>");
         out.println("</html>");

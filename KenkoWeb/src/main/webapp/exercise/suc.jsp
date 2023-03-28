@@ -13,6 +13,8 @@
         <h1>矩形面积计算结果</h1>
         <p>矩形的面积是：<%= session.getAttribute("area") %>。</p>
     </body>
+
+    <script src="../static/addHomeButton.js"></script>
     <script src="../static/showCode.js"></script>
     <script>showCode('src/main/webapp/exercise/suc.jsp')</script>
 </html>

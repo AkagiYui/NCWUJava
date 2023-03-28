@@ -47,6 +47,8 @@
         <% } %>
         <input type="button" value="下一步（重定向到 suc.jsp ）" onclick="location.href='suc.jsp'">
     </body>
+
+    <script src="../static/addHomeButton.js"></script>
     <script src="../static/showCode.js"></script>
     <script>showCode('src/main/webapp/exercise/check.jsp')</script>
 </html>
