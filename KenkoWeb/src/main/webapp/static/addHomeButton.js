@@ -2,7 +2,7 @@
 
 const currentPath = window.location.pathname;
 const appName = currentPath.split("/")[1];
-console.log("当前路径：" + currentPath);
+
 if (currentPath !== "/" + appName + "/" && currentPath !== "/" + appName + "/index.jsp") {
     const homeButton = document.createElement("button");
     homeButton.innerHTML = "返回首页";

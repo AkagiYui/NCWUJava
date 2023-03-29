@@ -10,6 +10,7 @@
     </head>
     <body>
     <h1>用户注册</h1>
+    掌握如何使用JDBC完成对数据的连接操作。
     <form action="register.do" method="post">
         <table>
             <tr>

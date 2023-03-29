@@ -22,6 +22,7 @@ public class RegisterServlet extends HttpServlet {
 
         var session = request.getSession();
         session.setAttribute("result", false);
+        session.setAttribute("user", user);
         var msg = "";
 
         // 数据校验

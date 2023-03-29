@@ -10,6 +10,7 @@
     </head>
     <body>
     <h1>登录</h1>
+    目前这个还未布置作业，仅用来检验注册功能是否正常。
     <form action="login.do" method="post">
         <table>
             <tr>
