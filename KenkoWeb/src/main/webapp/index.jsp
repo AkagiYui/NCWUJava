@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Arrays" %>
@@ -6,6 +7,24 @@
     String title = "AkagiYui 的 JSP 作业";
     String qqNumber = "1050314133";
     String repository = "https://github.com/AkagiYui/NCWUJava/tree/master/KenkoWeb";
+
+    List<List<String>> workList = new ArrayList<>();
+    workList.add(Arrays.asList("环境安装：Hello Servlet", "exercise/hello"));
+    workList.add(Arrays.asList("jsp入门：计算矩形周长与面积", "exercise/rect.jsp"));
+    workList.add(Arrays.asList("jsp入门：用户注册界面", "exercise/register.jsp"));
+    workList.add(Arrays.asList("form表单编写：form表单练习", "exercise/simpleform.jsp"));
+    workList.add(Arrays.asList("实验3：JSP内置对象使用", "exercise/internal?name=这是我的名字"));
+    workList.add(Arrays.asList("实验4：JSP处理form及URL参数", "exercise/simpleform.jsp"));
+    workList.add(Arrays.asList("实验5：JDBC基础", "exercise/jdbc-basic"));
+    workList.add(Arrays.asList("作业：用javaBean实现求矩形面积（在本页面下方）", "#用javaBean实现求矩形面积"));
+    workList.add(Arrays.asList("实验6：使用JDBC完成用户的注册", "register-show.jsp"));
+    workList.add(Arrays.asList("登录（未要求）", "login.jsp"));
+    pageContext.setAttribute("workList", workList);
+
+    List<List<String>> projectList = new ArrayList<>();
+    projectList.add(Arrays.asList("用户注册", "register.jsp"));
+    projectList.add(Arrays.asList("用户登录", "login.jsp"));
+    pageContext.setAttribute("projectList", projectList);
 %>
 <!DOCTYPE html>
 <html>
@@ -20,26 +39,17 @@
 
         <div>
             <h1>作业目录</h1>
-            <%
-                List<List<String>> indexList = new ArrayList<>();
-
-                indexList.add(Arrays.asList("环境安装：Hello Servlet", "exercise/hello"));
-                indexList.add(Arrays.asList("jsp入门：计算矩形周长与面积", "exercise/rect.jsp"));
-                indexList.add(Arrays.asList("jsp入门：用户注册界面", "exercise/register.jsp"));
-                indexList.add(Arrays.asList("form表单编写：form表单练习", "exercise/simpleform.jsp"));
-                indexList.add(Arrays.asList("实验3：JSP内置对象使用", "exercise/internal?name=这是我的名字"));
-                indexList.add(Arrays.asList("实验4：JSP处理form及URL参数", "exercise/simpleform.jsp"));
-                indexList.add(Arrays.asList("实验5：JDBC基础", "exercise/jdbc-basic"));
-                indexList.add(Arrays.asList("作业：用javaBean实现求矩形面积（在本页面下方）", "#用javaBean实现求矩形面积"));
-                indexList.add(Arrays.asList("实验6：使用JDBC完成用户的注册", "register.jsp"));
-                indexList.add(Arrays.asList("登录", "login.jsp"));
-            %>
             <p>
-                <% for (int i = 0; i < indexList.size(); i++) {
-                    var item = indexList.get(i);
-                %>
-                    <a href="<%= item.get(1) %>"><%= i + 1 %>. <%= item.get(0) %></a><br>
-                <% } %>
+                <c:forEach items="${workList}" var="item" varStatus="status">
+                    <a href="${item[1]}">${status.index + 1}. ${item[0]}</a><br>
+                </c:forEach>
+            </p>
+
+            <h1>大作业</h1>
+            <p>
+                <c:forEach items="${projectList}" var="item" varStatus="status">
+                    <a href="${item[1]}">${status.index + 1}. ${item[0]}</a><br>
+                </c:forEach>
             </p>
         </div>
 

@@ -49,4 +49,8 @@
             return true;
         }
     </script>
+
+    <script src="static/addHomeButton.js"></script>
+    <script src="static/showCode.js"></script>
+    <script>showCode('src/main/webapp/login-show.jsp')</script>
 </html>

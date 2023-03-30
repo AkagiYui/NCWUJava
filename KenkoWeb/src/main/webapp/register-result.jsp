@@ -22,8 +22,8 @@
                 <h2><%= msg %></h2>
             <% } %>
         <% } %>
-        <button onclick="window.location.href='register.jsp'">返回注册</button>
-        <button onclick="window.location.href='login.jsp'">去登录</button>
+        <button onclick="window.location.href='register-show.jsp'">返回注册</button>
+        <button onclick="window.location.href='login-show.jsp'">去登录</button>
         <button onclick="window.location.href='index.jsp'">去首页</button>
     </body>
     <script src="static/addHomeButton.js"></script>
