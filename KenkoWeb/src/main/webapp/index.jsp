@@ -18,12 +18,12 @@
     workList.add(Arrays.asList("实验5：JDBC基础", "exercise/jdbc-basic"));
     workList.add(Arrays.asList("作业：用javaBean实现求矩形面积（在本页面下方）", "#用javaBean实现求矩形面积"));
     workList.add(Arrays.asList("实验6：使用JDBC完成用户的注册", "register-show.jsp"));
-    workList.add(Arrays.asList("登录（未要求）", "login.jsp"));
+    workList.add(Arrays.asList("登录（未要求）", "login-show.jsp"));
     pageContext.setAttribute("workList", workList);
 
     List<List<String>> projectList = new ArrayList<>();
     projectList.add(Arrays.asList("用户注册", "register.jsp"));
-    projectList.add(Arrays.asList("用户登录", "login.jsp"));
+//    projectList.add(Arrays.asList("用户登录", "login.jsp"));
     pageContext.setAttribute("projectList", projectList);
 %>
 <!DOCTYPE html>
@@ -45,7 +45,9 @@
                 </c:forEach>
             </p>
 
-            <h1>大作业</h1>
+            <p>为了使得参考方便，我在每一页底部添加了本页的代码展示。</p>
+
+            <h1>其它</h1>
             <p>
                 <c:forEach items="${projectList}" var="item" varStatus="status">
                     <a href="${item[1]}">${status.index + 1}. ${item[0]}</a><br>
@@ -53,7 +55,6 @@
             </p>
         </div>
 
-        <p>为了使得参考方便，我在每一页底部添加了本页的代码展示。</p>
 
         <div id="用javaBean实现求矩形面积">
             <h1>作业：用 javaBean 实现求矩形面积</h1>
