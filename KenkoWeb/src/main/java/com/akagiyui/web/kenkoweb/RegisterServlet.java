@@ -35,22 +35,17 @@ public class RegisterServlet extends HttpServlet {
         else if (email == null || email.isBlank()) {
             msg = "邮箱不能为空";
         }
-
-        // 检查用户名是否已存在
-        else if (database.isUsernameExist(username)) {
+        else if (database.isUsernameExist(username)) { // 检查用户名是否已存在
             msg = "用户名已存在";
         }
 
         // 保存用户信息
         if ("".equals(msg) && database.addUser(user)) {
-            System.out.println("用户" + username + "注册成功");
             session.setAttribute("result", true);
         } else {
             session.setAttribute("msg", msg);
-            System.out.println("用户注册失败");
         }
 
-        // 跳转到结果页面
-        response.sendRedirect("register-result.jsp");
+        response.sendRedirect("register-result.jsp"); // 跳转到结果页面
     }
 }

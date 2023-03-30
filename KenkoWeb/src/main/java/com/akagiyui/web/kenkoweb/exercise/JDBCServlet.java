@@ -16,9 +16,6 @@ public class JDBCServlet extends HttpServlet {
     @Override
     public void init() {
         database = Database.getInstance();
-        if (!database.isConnected()) {
-            System.out.println("Failed to connect to database");
-        }
     }
 
     @Override
@@ -70,7 +67,7 @@ public class JDBCServlet extends HttpServlet {
 
         // 获取数据库基本信息
         try {
-            var metaData = database.getConn().getMetaData();
+            var metaData = database.getConnection().getMetaData();
             out.println("<h1>数据库基本信息</h1>");
             // major version
             out.println("major version: " + metaData.getDatabaseMajorVersion() + "<br>");
@@ -97,10 +94,5 @@ public class JDBCServlet extends HttpServlet {
         out.println("<script src=\"../static/showCode.js\"></script>\n");
         out.println("<script>showCode('src/main/java/com/akagiyui/web/kenkoweb/exercise/JDBCServlet.java')</script>");
         out.println("</html>");
-    }
-
-    @Override
-    public void destroy() {
-        database.disconnect();
     }
 }

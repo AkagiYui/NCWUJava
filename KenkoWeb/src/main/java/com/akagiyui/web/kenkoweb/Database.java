@@ -15,17 +15,14 @@ import java.util.Map;
 
 public class Database {
 //    public static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    public static final String JDBC_DRIVER = "org.sqlite.JDBC";
 //    public static final String DB_URL = "jdbc:mysql://localhost:3306/javaweb?user=root&password";
-    public static final String DB_URL = "jdbc:sqlite:kenkoweb.db";
 
+    public static final String JDBC_DRIVER = "org.sqlite.JDBC";
+    public static final String DB_URL = "jdbc:sqlite:./data/kenkoweb.db";
+
+    @Getter
+    private Connection connection = null;
     private static Database instance;
-
-    @Getter
-    private Connection conn = null;
-
-    @Getter
-    private boolean connected = false;
 
     private Database() throws ClassNotFoundException {
         Class.forName(JDBC_DRIVER); // 加载类从而注册驱动
@@ -37,7 +34,7 @@ public class Database {
                 instance = new Database();
                 instance.connect();
                 instance.createTables();
-            } catch (ClassNotFoundException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 throw new RuntimeException(e);
             }
         }
@@ -46,7 +43,7 @@ public class Database {
 
     private void createTables() {
         try {
-            var stmt = conn.createStatement();
+            var stmt = connection.createStatement();
             stmt.execute("""
                     CREATE TABLE IF NOT EXISTS user (
                         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -60,36 +57,15 @@ public class Database {
         }
     }
 
-    private synchronized boolean connect() {
-        try {
-            conn = DriverManager.getConnection(DB_URL);
-
-            DatabaseMetaData dbMeta = conn.getMetaData();
-            System.out.println("当前用户：" + dbMeta.getUserName());
-            System.out.println("驱动版本：" + dbMeta.getDriverVersion());
-
-            connected = true;
-        } catch (Exception se) {
-            connected = false;
-            se.printStackTrace();
-        }
-        return connected;
-    }
-
-    public void disconnect() {
-        try {
-            if (conn != null) {
-                conn.close();
-                conn = null;
-                connected = false;
-            }
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
+    private synchronized void connect() throws SQLException {
+        connection = DriverManager.getConnection(DB_URL);
+        DatabaseMetaData dbMeta = connection.getMetaData();
+        System.out.println("当前用户：" + dbMeta.getUserName());
+        System.out.println("驱动版本：" + dbMeta.getDriverVersion());
     }
 
     public Map<String, String> getColumnType(String tableName) throws SQLException {
-        var stmt = conn.createStatement();
+        var stmt = connection.createStatement();
         var rs = stmt.executeQuery("SELECT * FROM " + tableName);
         var metaData = rs.getMetaData();
         var columnCount = metaData.getColumnCount();
@@ -102,7 +78,7 @@ public class Database {
 
     public boolean isUsernameExist(String username) {
         try {
-            var stmt = conn.createStatement();
+            var stmt = connection.createStatement();
             var rs = stmt.executeQuery("SELECT * FROM user WHERE username = '" + username + "'");
             return rs.next();
         } catch (SQLException throwable) {
@@ -112,7 +88,7 @@ public class Database {
     }
 
     public List<User> getAllUsers() throws SQLException {
-        var stmt = conn.createStatement();
+        var stmt = connection.createStatement();
         var rs = stmt.executeQuery("SELECT * FROM user");
         var users = new ArrayList<User>();
         while (rs.next()) {
@@ -128,7 +104,7 @@ public class Database {
 
     public boolean addUser(UserRegister user){
         try {
-            var stmt = conn.createStatement();
+            var stmt = connection.createStatement();
             var sql = "INSERT INTO user (username, password, email) VALUES ('"
                     + user.getUsername() + "', '" + user.getPassword() + "', '" + user.getEmail()
                     + "')";
@@ -141,7 +117,7 @@ public class Database {
 
     public User getUser(String username, String password) {
         try {
-            var stmt = conn.createStatement();
+            var stmt = connection.createStatement();
             var rs = stmt.executeQuery("SELECT * FROM user WHERE username = '" + username + "' AND password = '" + password + "'");
             if (rs.next()) {
                 var user = new User();
