@@ -45,14 +45,14 @@ public class Database {
         try {
             var stmt = connection.createStatement();
             stmt.execute("""
-                    CREATE TABLE IF NOT EXISTS user (
-                        id INT PRIMARY KEY auto_increment,
-                        username VARCHAR(255) NOT NULL UNIQUE,
-                        password VARCHAR(255) NOT NULL,
-                        email VARCHAR(255) NOT NULL,
-                        nickname VARCHAR(255) NOT NULL
-                    )
-            """);
+                            CREATE TABLE IF NOT EXISTS user (
+                                id INTEGER PRIMARY KEY,
+                                username VARCHAR(255) NOT NULL UNIQUE,
+                                password VARCHAR(255) NOT NULL,
+                                email VARCHAR(255) NOT NULL,
+                                nickname VARCHAR(255)
+                            )
+                    """);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -112,7 +112,7 @@ public class Database {
         return users;
     }
 
-    public boolean addUser(UserRegister user){
+    public boolean addUser(UserRegister user) {
         try {
             var stmt = connection.createStatement();
             var sql = "INSERT INTO user (username, password, email, nickname) VALUES ('" + user.getUsername() + "', '" + user.getPassword() + "', '" + user.getEmail() + "', '" + user.getNickname() + "')";
@@ -123,7 +123,7 @@ public class Database {
         }
     }
 
-    public boolean deleteUser(int id){
+    public boolean deleteUser(int id) {
         try {
             var stmt = connection.createStatement();
             var sql = "DELETE FROM user WHERE id = " + id;
@@ -142,6 +142,21 @@ public class Database {
                 return resultToUser(rs);
             }
             return null;
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<User> getUsersByNickname(String nickname) {
+        try {
+            var stmt = connection.createStatement();
+            var rs = stmt.executeQuery("SELECT * FROM user WHERE nickname LIKE '%" + nickname + "%'");
+            var users = new ArrayList<User>();
+            while (rs.next()) {
+                users.add(resultToUser(rs));
+            }
+            return users;
         } catch (SQLException throwable) {
             throwable.printStackTrace();
             return null;

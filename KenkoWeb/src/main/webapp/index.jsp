@@ -18,6 +18,7 @@
     workList.add(Arrays.asList("实验5：JDBC基础", "exercise/jdbc-basic"));
     workList.add(Arrays.asList("作业：用javaBean实现求矩形面积（在本页面下方）", "#用javaBean实现求矩形面积"));
     workList.add(Arrays.asList("实验6：使用JDBC完成用户的注册", "register-show.jsp"));
+    workList.add(Arrays.asList("实验6：JDBC增删查改操作", "exercise/list.jsp"));
     workList.add(Arrays.asList("登录（未要求）", "login-show.jsp"));
     pageContext.setAttribute("workList", workList);
 
