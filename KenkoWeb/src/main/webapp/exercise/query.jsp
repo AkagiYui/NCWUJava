@@ -28,7 +28,8 @@
       设计表单，比如查询姓名，单击查询按钮后，检索数据库表记录，用列表显示结果。
     </p>
     <form action="#" method="get">
-      昵称：<input type="text" name="nickname" id="nickname" required value="<%= request.getParameter("nickname") != null ? request.getParameter("nickname") : ""%>">
+      昵称：<input type="text" name="nickname" id="nickname" required
+                  value="<%= request.getParameter("nickname") != null ? request.getParameter("nickname") : ""%>">
       <button type="submit" onclick="return check()">查询</button>
     </form>
     <% if (isQuery) { %>

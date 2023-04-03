@@ -115,7 +115,9 @@ public class Database {
     public boolean addUser(UserRegister user) {
         try {
             var stmt = connection.createStatement();
-            var sql = "INSERT INTO user (username, password, email, nickname) VALUES ('" + user.getUsername() + "', '" + user.getPassword() + "', '" + user.getEmail() + "', '" + user.getNickname() + "')";
+            var sql = "INSERT INTO user (username, password, email, nickname) VALUES " +
+                    "('" + user.getUsername() + "', '" + user.getPassword() + "', '"
+                    + user.getEmail() + "', '" + user.getNickname() + "')";
             return stmt.executeUpdate(sql) == 1;
         } catch (SQLException throwable) {
             throwable.printStackTrace();

@@ -10,8 +10,3 @@
   var db = Database.getInstance();
   db.updateNickname(Integer.parseInt(request.getParameter("id")), request.getParameter("nickname"));
 %>
-<html>
-  <head>
-      <title>更新昵称</title>
-  </head>
-</html>

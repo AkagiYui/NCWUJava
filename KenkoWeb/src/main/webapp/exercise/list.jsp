@@ -4,7 +4,7 @@
   Time: 9:31
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="com.akagiyui.web.kenkoweb.Database" %>
 <%
   var db = Database.getInstance();
@@ -46,7 +46,8 @@
           <td>${user.username}</td>
           <td>${user.password}</td>
           <td>${user.email}</td>
-          <td><a href="javascript:void(0);" onclick="modifyNickname('${user.id}', '${user.nickname}')">${user.nickname}</a></td>
+          <td><a href="javascript:void(0);"
+                 onclick="modifyNickname('${user.id}', '${user.nickname}')">${user.nickname}</a></td>
           <td><input type="button" onclick="confirmDelete(${user.id})" value="删除" /></td>
         </tr>
       </c:forEach>
