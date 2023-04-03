@@ -162,4 +162,15 @@ public class Database {
             return null;
         }
     }
+
+    public boolean updateNickname(int id, String nickname) {
+        try {
+            var stmt = connection.createStatement();
+            var sql = "UPDATE user SET nickname = '" + nickname + "' WHERE id = " + id;
+            return stmt.executeUpdate(sql) == 1;
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+            return false;
+        }
+    }
 }

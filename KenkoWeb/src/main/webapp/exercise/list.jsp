@@ -27,6 +27,7 @@
       <li>query.jsp：设计表单，比如查询姓名，单击查询按钮后，检索数据库表记录，用列表显示结果。</li>
     </ol>
     <p>
+      <input type="button" onclick="window.location.reload()" value="刷新" />
       <input type="button" onclick="window.location.href='insert.jsp'" value="插入" />
       <input type="button" onclick="window.location.href='query.jsp'" value="查询" />
     </p>
@@ -45,7 +46,7 @@
           <td>${user.username}</td>
           <td>${user.password}</td>
           <td>${user.email}</td>
-          <td>${user.nickname}</td>
+          <td><a href="javascript:void(0);" onclick="modifyNickname('${user.id}', '${user.nickname}')">${user.nickname}</a></td>
           <td><input type="button" onclick="confirmDelete(${user.id})" value="删除" /></td>
         </tr>
       </c:forEach>
@@ -55,6 +56,26 @@
     function confirmDelete(id) {
       if (confirm('确定删除 ID 为 ' + id + ' 的用户吗？')) {
         window.location.href = 'delete.jsp?id=' + id;
+      }
+    }
+    function modifyNickname(id, nickname) {
+        const newNickname = prompt('请输入新的昵称', nickname);
+        if (newNickname != null) {
+          // 使用 fetch 发送 POST 请求
+          fetch('update.jsp', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: 'id=' + id + '&nickname=' + newNickname
+          }).then(function (response) {
+            if (response.ok) {
+              alert('修改成功');
+              window.location.reload();
+            } else {
+              alert('修改失败');
+            }
+          });
       }
     }
   </script>
