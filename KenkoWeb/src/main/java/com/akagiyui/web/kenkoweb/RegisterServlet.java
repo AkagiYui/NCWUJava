@@ -18,7 +18,12 @@ public class RegisterServlet extends HttpServlet {
         var username = request.getParameter("username");
         var password = request.getParameter("password");
         var email = request.getParameter("email");
-        var user = new UserRegister(username, password, email);
+        var nickname = request.getParameter("nickname");
+        if (nickname == null || nickname.isBlank()) {
+            nickname = username;
+        }
+
+        var user = new UserRegister(username, password, email, nickname);
 
         var session = request.getSession();
         session.setAttribute("result", false);

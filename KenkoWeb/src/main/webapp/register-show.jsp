@@ -16,25 +16,31 @@
             <tr>
                 <td>用户名：</td>
                 <td><label>
-                    <input type="text" name="username" >
+                    <input required type="text" name="username" >
                 </label></td>
             </tr>
             <tr>
                 <td>密码：</td>
                 <td><label>
-                    <input type="password" name="password">
+                    <input required type="password" name="password">
                 </label></td>
             </tr>
             <tr>
                 <td>确认密码：</td>
                 <td><label>
-                    <input type="password" name="repassword">
+                    <input required type="password" name="repassword">
                 </label></td>
             </tr>
             <tr>
                 <td>邮箱：</td>
                 <td><label>
-                    <input type="email" name="email">
+                    <input required type="email" name="email">
+                </label></td>
+            </tr>
+            <tr>
+                <td>昵称：</td>
+                <td><label>
+                    <input type="text" name="nickname">
                 </label></td>
             </tr>
             <tr>

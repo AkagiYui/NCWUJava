@@ -47,23 +47,20 @@ public class JDBCServlet extends HttpServlet {
         }
 
         // 获取用户数据
-        try {
-            var users = database.getAllUsers();
-            out.println("<h1>user表数据</h1>");
-            out.println("<table>");
-            out.println("<tr><th>id</th><th>name</th><th>password</th><th>email</th></tr>");
-            for (var user : users) {
-                out.println("<tr>");
-                out.println("<td>" + user.getId() + "</td>");
-                out.println("<td>" + user.getUsername() + "</td>");
-                out.println("<td>" + user.getPassword() + "</td>");
-                out.println("<td>" + user.getEmail() + "</td>");
-                out.println("</tr>");
-            }
-            out.println("</table>");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        var users = database.getAllUsers();
+        out.println("<h1>user表数据</h1>");
+        out.println("<table>");
+        out.println("<tr><th>id</th><th>用户名</th><th>密码</th><th>邮箱</th><th>昵称</th></tr>");
+        for (var user : users) {
+            out.println("<tr>");
+            out.println("<td>" + user.getId() + "</td>");
+            out.println("<td>" + user.getUsername() + "</td>");
+            out.println("<td>" + user.getPassword() + "</td>");
+            out.println("<td>" + user.getEmail() + "</td>");
+            out.println("<td>" + user.getNickname() + "</td>");
+            out.println("</tr>");
         }
+        out.println("</table>");
 
         // 获取数据库基本信息
         try {

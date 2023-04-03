@@ -20,7 +20,7 @@
         %>
                 <h1>发生错误：<%= msg %></h1>
             <% } else { %>
-                <h1>欢迎回来，<%= user.getUsername() %></h1>
+                <h1>欢迎回来，<%= user.getNickname() %></h1>
 
             <% } %>
         <button onclick="window.location.href='login.jsp'">返回登录</button>
