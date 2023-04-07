@@ -1,7 +1,7 @@
 package com.akagiyui.web.kenkoweb.exercise;
 
-import com.akagiyui.web.kenkoweb.entity.User;
-import com.akagiyui.web.kenkoweb.entity.UserRegister;
+import com.akagiyui.web.kenkoweb.exercise.entity.User;
+import com.akagiyui.web.kenkoweb.exercise.entity.UserRegister;
 import lombok.Getter;
 
 import java.sql.Connection;

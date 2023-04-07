@@ -1,4 +1,4 @@
-package com.akagiyui.web.kenkoweb.entity;
+package com.akagiyui.web.kenkoweb.exercise.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -5,7 +5,7 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ page import="com.akagiyui.web.kenkoweb.exercise.Database" %>
-<%@ page import="com.akagiyui.web.kenkoweb.entity.User" %>
+<%@ page import="com.akagiyui.web.kenkoweb.exercise.entity.User" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
   var isQuery = request.getParameter("nickname") != null;

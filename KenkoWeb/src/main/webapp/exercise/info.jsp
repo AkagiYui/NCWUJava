@@ -4,7 +4,7 @@
   Time: 14:41
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<jsp:useBean id="user" class="com.akagiyui.web.kenkoweb.entity.User" scope="session"/>
+<jsp:useBean id="user" class="com.akagiyui.web.kenkoweb.exercise.entity.User" scope="session"/>
 <html>
     <head>
         <title>个人信息</title>

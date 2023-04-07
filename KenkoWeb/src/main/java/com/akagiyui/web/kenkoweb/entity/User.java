@@ -1,12 +1,8 @@
 package com.akagiyui.web.kenkoweb.entity;
 
-import lombok.Data;
+/**
+ * @author AkagiYui
+ */
 
-@Data
 public class User {
-    private Integer id;
-    private String username;
-    private String password;
-    private String email;
-    private String nickname;
 }

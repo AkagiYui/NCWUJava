@@ -4,7 +4,7 @@
   Time: 10:10
 --%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="com.akagiyui.web.kenkoweb.entity.Rectangle" %>
+<%@ page import="com.akagiyui.web.kenkoweb.exercise.entity.Rectangle" %>
 <!DOCTYPE html>
 <html>
     <head>

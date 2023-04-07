@@ -13,7 +13,7 @@
     </head>
     <body>
         <% if (result){ %>
-            <jsp:useBean id="user" class="com.akagiyui.web.kenkoweb.entity.UserRegister" scope="session"/>
+            <jsp:useBean id="user" class="com.akagiyui.web.kenkoweb.exercise.entity.UserRegister" scope="session"/>
             <h1>用户 <jsp:getProperty name="user" property="username"/> 注册成功</h1>
         <% }else{ %>
             <h1>注册失败</h1>

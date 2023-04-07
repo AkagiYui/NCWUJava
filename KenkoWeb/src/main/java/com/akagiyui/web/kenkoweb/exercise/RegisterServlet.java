@@ -1,6 +1,6 @@
 package com.akagiyui.web.kenkoweb.exercise;
 
-import com.akagiyui.web.kenkoweb.entity.UserRegister;
+import com.akagiyui.web.kenkoweb.exercise.entity.UserRegister;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
