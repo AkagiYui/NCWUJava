@@ -24,10 +24,10 @@
 
             <% } %>
         <button onclick="window.location.href='login.jsp'">返回登录</button>
-        <button onclick="window.location.href='index.jsp'">去首页</button>
+        <button onclick="window.location.href='../index.jsp'">去首页</button>
     </body>
 
-    <script src="static/addHomeButton.js"></script>
-    <script src="static/showCode.js"></script>
-    <script>showCode('src/main/webapp/info.jsp')</script>
+    <script src="../static/addHomeButton.js"></script>
+    <script src="../static/showCode.js"></script>
+    <script>showCode('src/main/webapp/exercise/info.jsp')</script>
 </html>

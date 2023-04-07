@@ -1,4 +1,4 @@
-package com.akagiyui.web.kenkoweb;
+package com.akagiyui.web.kenkoweb.exercise;
 
 import com.akagiyui.web.kenkoweb.entity.UserRegister;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "registerServlet", value = "/register.do")
+@WebServlet(name = "registerServlet", value = "/exercise/register.do")
 public class RegisterServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {

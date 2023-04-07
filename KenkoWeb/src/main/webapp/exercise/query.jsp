@@ -4,7 +4,7 @@
   Time: 11:29
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
-<%@ page import="com.akagiyui.web.kenkoweb.Database" %>
+<%@ page import="com.akagiyui.web.kenkoweb.exercise.Database" %>
 <%@ page import="com.akagiyui.web.kenkoweb.entity.User" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%

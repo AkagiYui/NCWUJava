@@ -17,9 +17,9 @@
     workList.add(Arrays.asList("实验4：JSP处理form及URL参数", "exercise/simpleform.jsp"));
     workList.add(Arrays.asList("实验5：JDBC基础", "exercise/jdbc-basic"));
     workList.add(Arrays.asList("作业：用javaBean实现求矩形面积（在本页面下方）", "#用javaBean实现求矩形面积"));
-    workList.add(Arrays.asList("实验6：使用JDBC完成用户的注册", "register-show.jsp"));
+    workList.add(Arrays.asList("实验6：使用JDBC完成用户的注册", "exercise/register.jsp"));
     workList.add(Arrays.asList("实验6：JDBC增删查改操作", "exercise/list.jsp"));
-    workList.add(Arrays.asList("登录（未要求）", "login-show.jsp"));
+    workList.add(Arrays.asList("登录（未要求）", "exercise/login.jsp"));
     pageContext.setAttribute("workList", workList);
 
     List<List<String>> projectList = new ArrayList<>();
@@ -48,7 +48,7 @@
 
             <p>为了使得参考方便，我在每一页底部添加了本页的代码展示。</p>
 
-            <h1>其它</h1>
+            <h1>结课作业</h1>
             <p>
                 <c:forEach items="${projectList}" var="item" varStatus="status">
                     <a href="${item[1]}">${status.index + 1}. ${item[0]}</a><br>

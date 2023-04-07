@@ -1,4 +1,4 @@
-package com.akagiyui.web.kenkoweb;
+package com.akagiyui.web.kenkoweb.exercise;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "loginServlet", value = "/login.do")
+@WebServlet(name = "loginServlet", value = "/exercise/login.do")
 public class LoginServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {

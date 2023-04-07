@@ -1,6 +1,5 @@
 package com.akagiyui.web.kenkoweb.exercise;
 
-import com.akagiyui.web.kenkoweb.Database;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,4 +1,4 @@
-package com.akagiyui.web.kenkoweb;
+package com.akagiyui.web.kenkoweb.exercise;
 
 import com.akagiyui.web.kenkoweb.entity.User;
 import com.akagiyui.web.kenkoweb.entity.UserRegister;
