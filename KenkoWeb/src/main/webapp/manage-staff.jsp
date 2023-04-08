@@ -164,11 +164,18 @@
   </script>
 </head>
 <body>
+<div class="ui pointing menu">
+  <div class="header item">员工信息管理系统</div>
+  <div class="header item">欢迎回来，${staff.nickname}</div>
+</div>
   <div class="ui pointing menu">
-    <div class="header item">欢迎回来，<%= ((Staff)session.getAttribute("staff")).getNickname() %></div>
-    <a class="item" href="manage.jsp">管理</a>
+    <div class="header item">菜单</div>
+    <a class="item" href="manage.jsp">
+      <i class="child icon"></i>
+      个人信息
+    </a>
     <a class="active item">
-      <i class="users icon" style="visibility: visible;"></i>
+      <i class="users icon"></i>
       员工管理
     </a>
     <a class="item" onclick="addStaff()">
@@ -194,16 +201,17 @@
     </div>
   </div>
   <div class="ui menu">
-    <div class="header item">管理员拥有管理员工的权限。</div>
+    <div class="header item">员工数量：${staffList.size()}</div>
+    <div class="header item">管理员拥有&nbsp;管理员工&nbsp;的权限。</div>
     <div class="header item">点击即可切换用户的“管理员”与“普通用户”的身份。</div>
   </div>
   <table class="ui striped right aligned table">
     <thead>
       <tr>
-        <th class="left aligned">用户名</th>
-        <th>姓名</th>
-        <th>邮箱</th>
-        <th>操作</th>
+        <th class="left aligned"><i class="address card icon"></i>用户名</th>
+        <th><i class="quote left icon"></i>姓名</th>
+        <th><i class="envelope icon"></i>邮箱</th>
+        <th><i class="edit icon"></i>操作</th>
       </tr>
     </thead>
     <tbody>

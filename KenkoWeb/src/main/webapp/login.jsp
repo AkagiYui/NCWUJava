@@ -46,7 +46,7 @@
   <div class="column">
     <h2 class="ui teal image header">
       <div class="content">
-        房间管理系统
+        员工信息管理系统
       </div>
     </h2>
     <form class="ui large form" action="login.do" method="post">

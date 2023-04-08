@@ -142,4 +142,20 @@ public class Database {
             throw new RuntimeException(e);
         }
     }
+
+    public void addStaff(Staff staff) {
+        try {
+            instance.connect();
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO staff (username, password, email, nickname, is_manager) VALUES (?, ?, ?, ?, ?)");
+            statement.setString(1, staff.getUsername());
+            statement.setString(2, staff.getPassword());
+            statement.setString(3, staff.getEmail());
+            statement.setString(4, staff.getNickname());
+            statement.setBoolean(5, staff.getIsManager());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
