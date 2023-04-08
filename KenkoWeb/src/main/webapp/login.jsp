@@ -44,10 +44,8 @@
 <body style="padding: 20px">
 <div class="ui middle aligned center aligned grid">
   <div class="column">
-    <h2 class="ui teal image header">
-      <div class="content">
+    <h2 class="ui teal header">
         员工信息管理系统
-      </div>
     </h2>
     <form class="ui large form" action="login.do" method="post">
       <div class="ui stacked segment">
@@ -64,6 +62,7 @@
           </div>
         </div>
         <div class="ui fluid large teal submit button" onclick="login()">登录</div>
+        <div class="ui large label" style="margin-top: 10px">测试账号：用户名&nbsp;ddi，密码&nbsp;haha</div>
       </div>
       <div class="ui error message"></div>
     </form>

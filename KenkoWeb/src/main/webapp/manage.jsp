@@ -35,7 +35,41 @@
   </style>
 
   <!--- Example Javascript -->
-  <script>
+  <script>function saveNickname() {
+      const nickname = $("#nickname").val();
+      $.ajax({
+      url: "changeNickname.do",
+      type: "POST",
+      data: {
+        target: ${staff.id},
+          new: nickname
+      },
+      success: function () {
+          location.reload();
+      }
+    })
+  }
+
+  function savePassword() {
+      const password = $("input[type=password]").val();
+      $.ajax({
+      url: "changePassword.do",
+      type: "POST",
+      data: {
+        target: ${staff.id},
+          new: password
+      },
+      success: function () {
+          $.toast({
+              class: 'success',
+              showIcon: false,
+              message: '修改成功'
+          })
+          ;
+      }
+    })
+  }
+
   </script>
 </head>
 <body>
@@ -75,7 +109,7 @@
           </div>
           <input type="text" disabled value="${staff.username}">
         </div>
-        <button class="ui green button" style="margin-left: 10px">保存</button>
+        <button class="ui grey button" style="margin-left: 10px">无法修改</button>
       </div>
       <div class="ui segment" style=" display: flex; flex-wrap: wrap;">
         <div class="ui labeled input" style="flex:1">
@@ -85,7 +119,7 @@
           </div>
           <input type="password">
         </div>
-        <button class="ui green button" style="margin-left: 10px">保存</button>
+        <button class="ui green button" style="margin-left: 10px" onclick="savePassword()">保存</button>
       </div>
       <div class="ui segment" style=" display: flex; flex-wrap: wrap;">
         <div class="ui labeled input" style="flex:1">
@@ -93,9 +127,9 @@
             <i class="quote left icon"></i>
             姓名
           </div>
-          <input type="text" value="${staff.nickname}">
+          <input type="text" id="nickname" value="${staff.nickname}">
         </div>
-        <button class="ui green button" style="margin-left: 10px">保存</button>
+        <button class="ui green button" style="margin-left: 10px" onclick="saveNickname()">保存</button>
       </div>
       <div class="ui segment" style=" display: flex; flex-wrap: wrap;">
         <div class="ui labeled input" style="flex:1">

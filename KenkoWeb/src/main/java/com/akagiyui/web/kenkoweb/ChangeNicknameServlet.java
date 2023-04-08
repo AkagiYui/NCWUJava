@@ -12,8 +12,8 @@ import java.io.IOException;
 /**
  * @author AkagiYui
  */
-@WebServlet(name = "changePasswordServlet", value = "/changePassword.do")
-public class ChangePasswordServlet extends HttpServlet {
+@WebServlet(name = "changeNicknameServlet", value = "/changeNickname.do")
+public class ChangeNicknameServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String targetId = request.getParameter("target");
@@ -32,9 +32,14 @@ public class ChangePasswordServlet extends HttpServlet {
                 return;
             }
 
-            String newPassword = request.getParameter("new");
+            String newNickname = request.getParameter("new");
             Database database = Database.getInstance();
-            database.changePassword(id, newPassword);
+            database.changeNickname(id, newNickname);
+
+            if (currentStaff.getId() == id) {
+                currentStaff.setNickname(newNickname);
+                session.setAttribute("staff", currentStaff);
+            }
         } catch (NumberFormatException e) {
             response.sendRedirect("manage-staff.jsp");
         }

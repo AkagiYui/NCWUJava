@@ -158,4 +158,15 @@ public class Database {
         }
     }
 
+    public void changeNickname(int id, String newNickname) {
+        try {
+            instance.connect();
+            PreparedStatement statement = connection.prepareStatement("UPDATE staff SET nickname = ? WHERE id = ?");
+            statement.setString(1, newNickname);
+            statement.setInt(2, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
