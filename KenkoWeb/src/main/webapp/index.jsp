@@ -23,8 +23,9 @@
     pageContext.setAttribute("workList", workList);
 
     List<List<String>> projectList = new ArrayList<>();
-    projectList.add(Arrays.asList("用户注册", "register.jsp"));
-//    projectList.add(Arrays.asList("用户登录", "login.jsp"));
+    projectList.add(Arrays.asList("用户登录", "login.jsp"));
+    projectList.add(Arrays.asList("管理", "manage.jsp"));
+    projectList.add(Arrays.asList("员工管理", "manage-staff.jsp"));
     pageContext.setAttribute("projectList", projectList);
 %>
 <!DOCTYPE html>

@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "loginServlet", value = "/exercise/login.do")
+@WebServlet(name = "exerciseLoginServlet", value = "/exercise/login.do")
 public class LoginServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
