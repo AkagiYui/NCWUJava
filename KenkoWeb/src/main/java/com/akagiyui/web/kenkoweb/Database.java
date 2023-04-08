@@ -169,4 +169,16 @@ public class Database {
             throw new RuntimeException(e);
         }
     }
+
+    public void changeEmail(int id, String newEmail) {
+        try {
+            instance.connect();
+            PreparedStatement statement = connection.prepareStatement("UPDATE staff SET email = ? WHERE id = ?");
+            statement.setString(1, newEmail);
+            statement.setInt(2, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

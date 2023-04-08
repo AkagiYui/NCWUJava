@@ -35,7 +35,27 @@
   </style>
 
   <!--- Example Javascript -->
-  <script>function saveNickname() {
+  <script>
+  function saveEmail() {
+      const email = $("input[type=email]").val();
+      $.ajax({
+      url: "changeEmail.do",
+      type: "POST",
+      data: {
+        target: ${staff.id},
+          new: email
+      },
+      success: function () {
+          $.toast({
+              class: 'success',
+              showIcon: true,
+              message: '修改成功'
+          })
+      }
+    })
+  }
+
+  function saveNickname() {
       const nickname = $("#nickname").val();
       $.ajax({
       url: "changeNickname.do",
@@ -62,7 +82,7 @@
       success: function () {
           $.toast({
               class: 'success',
-              showIcon: false,
+              showIcon: true,
               message: '修改成功'
           })
           ;
@@ -139,7 +159,7 @@
           </div>
           <input type="email" value="${staff.email}">
         </div>
-        <button class="ui green button" style="margin-left: 10px">保存</button>
+        <button class="ui green button" style="margin-left: 10px" onclick="saveEmail()">保存</button>
       </div>
     </div>
   </div>
