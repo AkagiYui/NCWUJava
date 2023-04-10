@@ -48,7 +48,8 @@
           margin-bottom: 110px;
       }
   </style>
-  <script>function changePassword(id) {
+  <script>
+  function changePassword(id) {
     $.modal({
         title: '修改密码',
         class: 'mini',
@@ -152,7 +153,7 @@
               }
           }]
       }).modal('show');
-    }
+  }
 
   function searchStaff(text) {
     if (text === "" || text === null || text === undefined) {
@@ -222,14 +223,11 @@
         <td>${staffi.email}</td>
         <td>
           <div class="ui buttons">
-            <button style="min-width: 150px" class="ui ${staffi.isManager ? "violet" : "green"} button" id="managerButton${staffi.id}" onclick="switchManager(${staffi.id})">
+            <button style="min-width: 150px" class="ui ${staffi.isManager ? "violet" : "green"} button"
+                    id="managerButton${staffi.id}" onclick="switchManager(${staffi.id})">
               <i id="managerIcon${staffi.id}" class="${staffi.isManager ? "accessible" : "user"} icon"></i>
-              <c:if test="${staffi.isManager}">
-                管理员
-              </c:if>
-              <c:if test="${!staffi.isManager}">
-                普通用户
-              </c:if>
+              <c:if test="${staffi.isManager}">管理员</c:if>
+              <c:if test="${!staffi.isManager}">普通用户</c:if>
             </button>
             <button class="ui orange basic button" onclick="changePassword(${staffi.id})">修改密码</button>
             <button class="ui negative basic button" onclick="deleteStaff(${staffi.id})">删除</button>

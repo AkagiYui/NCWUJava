@@ -1,9 +1,10 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="com.akagiyui.web.kenkoweb.entity.Staff" %><%--
+<%--
   User: AkagiYui
   Date: 0007 2023/4/7
   Time: 17:08
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.akagiyui.web.kenkoweb.entity.Staff" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
   Staff staff = (Staff)session.getAttribute("staff");
@@ -105,15 +106,15 @@
     </a>
     <c:if test="${isManager}">
       <a class="item" href="manage-staff.jsp">
-        <i class="users icon" style="visibility: visible;"></i>员工管理</a>
+        <i class="users icon"></i>员工管理</a>
     </c:if>
     <div class="right menu">
       <a  href="index.jsp" class="ui item">
-        <i class="home icon" style="visibility: visible;"></i>
+        <i class="home icon"></i>
         回到首页
       </a>
       <a href="logout.do" class="ui item">
-        <i class="log out icon" style="visibility: visible;"></i>
+        <i class="log out icon"></i>
         退出
       </a>
     </div>
