@@ -24,6 +24,14 @@ public class KenkoSpringApplication {
         InstanceFactoryBean instanceFactoryBean = (InstanceFactoryBean)context.getBean("instanceFactoryBean");
         instanceFactoryBean.sayHello();
 
+        // 构造注入Bean
+        ConstructInjectBean constructInjectBean = (ConstructInjectBean)context.getBean("constructInjectBean");
+        constructInjectBean.sayHello();
+
+        // 设值注入Bean
+        SetterInjectBean setterInjectBean = (SetterInjectBean)context.getBean("setterInjectBean");
+        setterInjectBean.sayHello();
+
         // 列举当前ApplicationContext中的Bean
         System.out.println("列举当前ApplicationContext中的Bean：");
         String[] beanNames = context.getBeanDefinitionNames();

@@ -13,4 +13,12 @@
 
 	<bean id="instanceFactory" class="com.akagiyui.InstanceFactory" />
 	<bean id="instanceFactoryBean" factory-bean="instanceFactory" factory-method="createInstanceFactoryBean" />
+
+	<bean id="constructInjectBean" class="com.akagiyui.ConstructInjectBean">
+		<constructor-arg name="name" value="akagiyui" />
+	</bean>
+
+	<bean id="setterInjectBean" class="com.akagiyui.SetterInjectBean">
+		<property name="name" value="akagiyui" />
+	</bean>
 </beans>
