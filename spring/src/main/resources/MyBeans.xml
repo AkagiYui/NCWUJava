@@ -8,5 +8,6 @@
 		http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<bean id="myBean"  class="com.akagiyui.MyBean" />
-</beans>
 
+	<bean id="staticFactoryBean" class="com.akagiyui.StaticFactory" factory-method="createStaticFactoryBean" />
+</beans>
