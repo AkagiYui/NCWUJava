@@ -12,11 +12,17 @@ public class KenkoSpringApplication {
         ApplicationContext context =
                 new ClassPathXmlApplicationContext(new String[] {"MyBeans.xml"});
 
+        // 一般的Bean
         MyBean myBean = (MyBean)context.getBean("myBean");
         myBean.sayHello();
 
+        // 静态工厂Bean
         StaticFactoryBean staticFactoryBean = (StaticFactoryBean)context.getBean("staticFactoryBean");
         staticFactoryBean.sayHello();
+
+        // 实例工厂Bean
+        InstanceFactoryBean instanceFactoryBean = (InstanceFactoryBean)context.getBean("instanceFactoryBean");
+        instanceFactoryBean.sayHello();
 
         // 列举当前ApplicationContext中的Bean
         System.out.println("列举当前ApplicationContext中的Bean：");

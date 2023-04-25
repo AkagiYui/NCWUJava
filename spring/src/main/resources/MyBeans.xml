@@ -10,4 +10,7 @@
 	<bean id="myBean"  class="com.akagiyui.MyBean" />
 
 	<bean id="staticFactoryBean" class="com.akagiyui.StaticFactory" factory-method="createStaticFactoryBean" />
+
+	<bean id="instanceFactory" class="com.akagiyui.InstanceFactory" />
+	<bean id="instanceFactoryBean" factory-bean="instanceFactory" factory-method="createInstanceFactoryBean" />
 </beans>
