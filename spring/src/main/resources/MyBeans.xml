@@ -21,4 +21,7 @@
 	<bean id="setterInjectBean" class="com.akagiyui.SetterInjectBean">
 		<property name="name" value="akagiyui" />
 	</bean>
+
+	<bean id="singletonBean" class="com.akagiyui.SingletonBean" scope="singleton" />
+	<bean id="prototypeBean" class="com.akagiyui.PrototypeBean" scope="prototype" />
 </beans>
