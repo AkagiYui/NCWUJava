@@ -1,8 +1,6 @@
 package com.akagiyui;
 
 import com.akagiyui.ex1.*;
-import com.akagiyui.ex2.MyBean2;
-import com.akagiyui.ex2.MyInject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -10,10 +8,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author AkagiYui
  */
 
-public class KenkoSpringApplication {
+public class Ex1Application {
     public static void main(String[] args) {
         ApplicationContext context =
-                new ClassPathXmlApplicationContext(new String[] {"MyBeans.xml"});
+                new ClassPathXmlApplicationContext(new String[] {"MyBeansEx1.xml"});
 
         // 一般的Bean
         MyBean myBean = (MyBean)context.getBean("myBean");
@@ -51,14 +49,5 @@ public class KenkoSpringApplication {
         for (String beanName : beanNames) {
             System.out.println(beanName);
         }
-
-        /*
-          实验2
-         */
-        MyBean2 myBean2 = context.getBean(MyBean2.class);
-        myBean2.sayHello();
-
-        MyInject myInject = context.getBean(MyInject.class);
-        myInject.sayHello();
     }
 }

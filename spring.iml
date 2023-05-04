@@ -6,6 +6,9 @@
         <fileset id="fileset" name="Spring 应用程序上下文" removed="false">
           <file>file://$MODULE_DIR$/spring/src/main/resources/MyBeans.xml</file>
         </fileset>
+        <fileset id="fileset2" name="Spring 应用程序上下文 (2)" removed="false">
+          <file>file://$MODULE_DIR$/spring/src/main/resources/MyBeansEx2.xml</file>
+        </fileset>
       </configuration>
     </facet>
   </component>
