@@ -1,5 +1,8 @@
 package com.akagiyui;
 
+import com.akagiyui.ex1.*;
+import com.akagiyui.ex2.MyBean2;
+import com.akagiyui.ex2.MyInject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -48,5 +51,14 @@ public class KenkoSpringApplication {
         for (String beanName : beanNames) {
             System.out.println(beanName);
         }
+
+        /*
+          实验2
+         */
+        MyBean2 myBean2 = context.getBean(MyBean2.class);
+        myBean2.sayHello();
+
+        MyInject myInject = context.getBean(MyInject.class);
+        myInject.sayHello();
     }
 }

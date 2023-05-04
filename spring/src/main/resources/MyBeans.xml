@@ -4,24 +4,26 @@
 	   xmlns:context="http://www.springframework.org/schema/context"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context/
+		http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context.xsd">
+	<context:component-scan base-package="com.akagiyui.ex2"/>
 
-	<bean id="myBean"  class="com.akagiyui.MyBean" />
+	<bean id="myBean"  class="com.akagiyui.ex1.MyBean" />
 
-	<bean id="staticFactoryBean" class="com.akagiyui.StaticFactory" factory-method="createStaticFactoryBean" />
+	<bean id="staticFactoryBean" class="com.akagiyui.ex1.StaticFactory" factory-method="createStaticFactoryBean" />
 
-	<bean id="instanceFactory" class="com.akagiyui.InstanceFactory" />
+	<bean id="instanceFactory" class="com.akagiyui.ex1.InstanceFactory" />
 	<bean id="instanceFactoryBean" factory-bean="instanceFactory" factory-method="createInstanceFactoryBean" />
 
-	<bean id="constructInjectBean" class="com.akagiyui.ConstructInjectBean">
+	<bean id="constructInjectBean" class="com.akagiyui.ex1.ConstructInjectBean">
 		<constructor-arg name="name" value="akagiyui" />
 	</bean>
 
-	<bean id="setterInjectBean" class="com.akagiyui.SetterInjectBean">
+	<bean id="setterInjectBean" class="com.akagiyui.ex1.SetterInjectBean">
 		<property name="name" value="akagiyui" />
 	</bean>
 
-	<bean id="singletonBean" class="com.akagiyui.SingletonBean" scope="singleton" />
-	<bean id="prototypeBean" class="com.akagiyui.PrototypeBean" scope="prototype" />
+	<bean id="singletonBean" class="com.akagiyui.ex1.SingletonBean" scope="singleton" />
+	<bean id="prototypeBean" class="com.akagiyui.ex1.PrototypeBean" scope="prototype" />
+
 </beans>

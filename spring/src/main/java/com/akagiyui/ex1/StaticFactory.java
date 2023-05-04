@@ -1,4 +1,4 @@
-package com.akagiyui;
+package com.akagiyui.ex1;
 
 /**
  * @author AkagiYui
