@@ -42,5 +42,11 @@ public class Ex2Application {
         System.out.println("prototypeBean1 == prototypeBean2: " + Objects.equals(prototypeBean1, prototypeBean2));
 
         context.close();
+
+        ApplicationContext context3 = new AnnotationConfigApplicationContext(ConfigB.class);
+        ConfigA.A a = context3.getBean(ConfigA.A.class);
+        ConfigB.B b = context3.getBean(ConfigB.B.class);
+        a.sayHello();
+        b.sayHello();
     }
 }
