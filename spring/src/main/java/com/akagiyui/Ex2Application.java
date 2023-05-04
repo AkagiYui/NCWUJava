@@ -5,6 +5,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.Objects;
+
 /**
  * @author AkagiYui
  */
@@ -29,6 +31,15 @@ public class Ex2Application {
 
         LifeCycleBean lifeCycleBean = context.getBean(LifeCycleBean.class);
         lifeCycleBean.sayHello();
+
+        AwareBean awareBean = context.getBean(AwareBean.class);
+        System.out.println(awareBean.getBeanName());
+        System.out.println(awareBean.getContext());
+        System.out.println("awareBean.context == context: " + Objects.equals(awareBean.getContext(), context));
+
+        PrototypeBean prototypeBean1 = context.getBean(PrototypeBean.class);
+        PrototypeBean prototypeBean2 = context.getBean(PrototypeBean.class);
+        System.out.println("prototypeBean1 == prototypeBean2: " + Objects.equals(prototypeBean1, prototypeBean2));
 
         context.close();
     }
