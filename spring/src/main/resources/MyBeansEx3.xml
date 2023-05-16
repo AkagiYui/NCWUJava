@@ -11,7 +11,7 @@
       http://www.springframework.org/schema/aop
       http://www.springframework.org/schema/aop/spring-aop.xsd">
 	<!-- 扫描组件Bean -->
-	<context:component-scan base-package="com.**" />
+	<context:component-scan base-package="com.akagiyui.ex3" />
 
 	<!-- 开启@aspectj的自动代理支持 -->
 	<aop:aspectj-autoproxy/>
