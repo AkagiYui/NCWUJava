@@ -13,6 +13,9 @@
         <fileset id="fileset3" name="MyBeansEx3" removed="false">
           <file>file://$MODULE_DIR$/spring/src/main/resources/MyBeansEx3.xml</file>
         </fileset>
+        <fileset id="fileset4" name="Ex4Application" removed="false">
+          <file>file://$MODULE_DIR$/spring/src/main/java/com/akagiyui/Ex4Application.java</file>
+        </fileset>
       </configuration>
     </facet>
   </component>
