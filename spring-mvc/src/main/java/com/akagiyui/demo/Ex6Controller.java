@@ -4,13 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
 /**
  * @author AkagiYui
  */
 @Controller
-public class DemoController {
+public class Ex6Controller {
 	@GetMapping("/demo")
 	public String welcome(Model model)	{
 		model.addAttribute("name", "A silent man");
@@ -63,11 +61,5 @@ public class DemoController {
 	public User returnUser(@RequestBody User user) {
 		user.setAge(user.getAge() + 1);
 		return user;
-	}
-
-	@PostMapping("/map")
-	@ResponseBody
-	public String getMap(@RequestParam Map<String, Object> map) {
-		return map.toString();
 	}
 }
