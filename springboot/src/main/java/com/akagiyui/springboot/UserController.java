@@ -32,8 +32,8 @@ public class UserController {
 
 	@GetMapping("/{id}")
 	public User getUser(@PathVariable Long id) {
-		// User user = null;
-		// user.setAge(10);
+		 User user = null;
+		 user.setAge(10);
 		return users.get(id);
 	}
 
