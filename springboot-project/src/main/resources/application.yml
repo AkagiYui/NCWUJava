@@ -1,0 +1,15 @@
+server:
+  # 端口号
+  port: 9900
+spring:
+  jpa:
+    # 开启 SQL 日志
+    show-sql: true
+    hibernate:
+      # 自动修正数据表
+      ddl-auto: update
+    open-in-view: true
+  datasource:
+    # 数据库驱动
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/boot2?user=root&password=
