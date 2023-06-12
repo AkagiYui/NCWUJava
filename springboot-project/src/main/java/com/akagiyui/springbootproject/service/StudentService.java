@@ -10,16 +10,21 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 /**
+ * 学生 服务
  * @author AkagiYui
  */
 @Service
 public class StudentService {
 
-    // 只有一个实现类还要定义接口是为什么
-
     @Resource
     StudentRepository studentRepository;
 
+    /**
+     * 分页查询
+     * @param page 页码
+     * @param size 每页大小
+     * @return 分页结果
+     */
     public Page<Student> find(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         return studentRepository.findAll(pageable);

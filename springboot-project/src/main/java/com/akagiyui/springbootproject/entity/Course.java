@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import java.util.List;
 
 /**
+ * 课程 实体
  * @author AkagiYui
  */
 @Data
@@ -21,13 +22,20 @@ import java.util.List;
 @Entity
 @Table
 public class Course extends BaseEntity{
+    /**
+     * 课程名称
+     */
     @Column(nullable = false, unique = true)
     String name;
+
+    /**
+     * 选课记录
+     */
+    @OneToMany(mappedBy = "course")
+    private List<Enrollment> enrollments;
 
     public Course(String name) {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "course")
-    private List<Enrollment> enrollments;
 }

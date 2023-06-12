@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
+ * 选课 实体
  * @author AkagiYui
  */
 @Data
@@ -16,10 +17,16 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "enrollment")
 public class Enrollment extends BaseEntity{
+    /**
+     * 学生
+     */
     @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;
 
+    /**
+     * 课程
+     */
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course course;
