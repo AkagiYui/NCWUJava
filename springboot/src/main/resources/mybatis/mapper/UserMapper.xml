@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.akagiyui.springboot.mapper.UserMapper">
+<!--    <resultMap type="com.akagiyui.springboot.domain.User" id="UserResult">-->
+<!--        <id     property="id"       column="id"      />-->
+<!--        <result property="name"       column="name"      />-->
+<!--        <result property="age"     column="age"    />-->
+<!--    </resultMap>-->
+
+<!--    <select id="getUser" parameterType="long" resultMap="UserResult">-->
+<!--        select id, name, age-->
+<!--        from user-->
+<!--        where id = #{id}-->
+<!--    </select>-->
+
+<!--    <select id="listUser" resultMap="UserResult">-->
+<!--        select id, name, age-->
+<!--        from user-->
+<!--    </select>-->
+
+<!--    <update id="updateUser" parameterType="com.akagiyui.springboot.domain.User">-->
+<!--        update user-->
+<!--        <set>-->
+<!--            <if test="name != null">name = #{name},</if>-->
+<!--            <if test="age != null">age = #{age},</if>-->
+<!--        </set>-->
+<!--        where id = #{id}-->
+<!--    </update>-->
+
+<!--    <insert id="insertUser" parameterType="com.akagiyui.springboot.domain.User">-->
+<!--        insert into user(name, age)-->
+<!--        values(#{name}, #{age})-->
+<!--    </insert>-->
+
+<!--    <delete id="deleteUser" parameterType="long">-->
+<!--        delete from user-->
+<!--        where id = #{id}-->
+<!--    </delete>-->
+</mapper>

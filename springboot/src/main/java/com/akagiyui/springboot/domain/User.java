@@ -1,4 +1,4 @@
-package com.akagiyui.springboot;
+package com.akagiyui.springboot.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
