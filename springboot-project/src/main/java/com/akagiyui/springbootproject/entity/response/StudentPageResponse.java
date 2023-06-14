@@ -24,9 +24,14 @@ public class StudentPageResponse {
     Integer size;
 
     /**
-     * 总页数
+     * 页数
      */
     Integer pageCount;
+
+    /**
+     * 总数
+     */
+    Long total;
 
     /**
      * 内容

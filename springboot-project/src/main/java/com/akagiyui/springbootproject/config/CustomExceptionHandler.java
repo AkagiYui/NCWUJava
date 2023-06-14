@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -17,6 +18,7 @@ import static com.akagiyui.springbootproject.component.ResponseEnum.*;
 
 /**
  * 全局异常处理器
+ *
  * @author AkagiYui
  */
 @RestControllerAdvice
@@ -36,14 +38,14 @@ public class CustomExceptionHandler {
      * 400 请求体错误异常处理
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseResult<?> jsonParseException(HttpMessageNotReadableException e) {
+    @ExceptionHandler({HttpMessageNotReadableException.class, MissingServletRequestParameterException.class})
+    public ResponseResult<?> jsonParseException(Exception e) {
         // 目前可预见的是 JSON 解析错误
         Throwable cause = e.getCause();
         if (cause != null) {
             return ResponseResult.response(BAD_REQUEST, cause.getMessage());
         }
-        // i无请求体错误
+        // 无请求体错误
         if (e.getMessage() != null && e.getMessage().startsWith("Required request body is missing")) {
             return ResponseResult.response(BAD_REQUEST, "Request body is missing");
         }

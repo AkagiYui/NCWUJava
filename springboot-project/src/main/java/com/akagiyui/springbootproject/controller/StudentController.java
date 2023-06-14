@@ -1,26 +1,95 @@
 package com.akagiyui.springbootproject.controller;
 
+import com.akagiyui.springbootproject.entity.Course;
 import com.akagiyui.springbootproject.entity.Student;
+import com.akagiyui.springbootproject.entity.request.AddStudentRequest;
+import com.akagiyui.springbootproject.entity.request.StudentFilterRequest;
+import com.akagiyui.springbootproject.entity.response.CourseResponse;
+import com.akagiyui.springbootproject.entity.response.StudentPageResponse;
+import com.akagiyui.springbootproject.entity.response.StudentResponse;
 import com.akagiyui.springbootproject.service.StudentService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 学生 API
  * @author AkagiYui
  */
 @RestController
-@RequestMapping("/student")
+@RequestMapping("/students")
 public class StudentController {
     @Resource
     StudentService studentService;
 
-    @GetMapping("/page/{page}/size/{size}")
-    public List<Student> showAll(@PathVariable Integer page, @PathVariable Integer size) {
-        return studentService.find(page, size).getContent();
+    /**
+     * 分页查询学生
+     * @param page 页码
+     * @param size 每页大小
+     * @return 学生分页响应
+     */
+    @GetMapping("")
+    public StudentPageResponse getStudentPage(@RequestParam Integer page, @RequestParam Integer size, @ModelAttribute StudentFilterRequest filter) {
+        Page<Student> students = studentService.find(page, size, filter);
+        List<Student> studentList = students.getContent();
+        List<StudentResponse> studentResponseList = new ArrayList<>();
+        for (Student student : studentList) {
+            StudentResponse studentResponse = new StudentResponse();
+            BeanUtils.copyProperties(student, studentResponse);
+            studentResponseList.add(studentResponse);
+        }
+
+        return new StudentPageResponse()
+                .setPage(page)
+                .setSize(size)
+                .setPageCount(students.getTotalPages())
+                .setTotal(students.getTotalElements())
+                .setList(studentResponseList);
+    }
+
+    /**
+     * 根据 ID 删除学生
+     * @param id 学生 ID
+     */
+    @DeleteMapping("/{id}")
+    public Boolean delete(@PathVariable Long id) {
+        return studentService.delete(id);
+    }
+
+    /**
+     * 根据 ID 查询学生所选课程
+     * @param id 学生 ID
+     * @return 课程列表
+     */
+    @GetMapping("/{id}/courses")
+    public List<CourseResponse> showCourses(@PathVariable Long id) {
+        List<Course> course = studentService.getCourseByStudentId(id);
+        List<CourseResponse> courseResponseList = new ArrayList<>();
+        for (Course c : course) {
+            CourseResponse courseResponse = new CourseResponse();
+            BeanUtils.copyProperties(c, courseResponse);
+            courseResponseList.add(courseResponse);
+        }
+        return courseResponseList;
+    }
+
+    /**
+     * 创建学生
+     */
+    @PostMapping("")
+    public Boolean create(@RequestBody AddStudentRequest student) {
+        return studentService.create(student);
+    }
+
+    /**
+     * 更新学生信息
+     */
+    @PutMapping("/{id}")
+    public Boolean update(@PathVariable Long id, @RequestBody AddStudentRequest student) {
+        return studentService.update(id, student);
     }
 }

@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.List;
 @Accessors(chain = true)
 @Entity
 @Table
+@DynamicUpdate
 public class Student extends BaseEntity{
     /**
      * 学号
