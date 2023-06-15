@@ -2,6 +2,9 @@ server:
   # 端口号
   port: 9900
 spring:
+  mvc:
+    # 抛出 404 异常
+    throw-exception-if-no-handler-found: true
   jpa:
     # 开启 SQL 日志
     show-sql: true

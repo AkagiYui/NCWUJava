@@ -6,6 +6,7 @@ import com.akagiyui.springbootproject.exception.CustomException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -28,11 +29,10 @@ public class CustomExceptionHandler {
      * 404 异常处理
      */
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(NoHandlerFoundException.class)
-    public ResponseResult<?> noRouteException(NoHandlerFoundException ignored) {
+    @ExceptionHandler({NoHandlerFoundException.class, HttpRequestMethodNotSupportedException.class})
+    public ResponseResult<?> noRouteException(Exception ignored) {
         return ResponseResult.response(NOT_FOUND);
     }
-
 
     /**
      * 400 请求体错误异常处理
@@ -51,7 +51,6 @@ public class CustomExceptionHandler {
         }
         return ResponseResult.response(BAD_REQUEST, e.getMessage());
     }
-
 
     /**
      * 全局异常处理

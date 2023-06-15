@@ -10,5 +10,5 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(chain = true)
-public class StudentPageResponse extends PageResponse<StudentResponse>{
+public class CoursePageResponse extends PageResponse<CourseResponse> {
 }

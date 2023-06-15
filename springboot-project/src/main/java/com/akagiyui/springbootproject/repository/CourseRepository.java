@@ -10,5 +10,17 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Long> {
+    /**
+     * 根据课程名判断是否存在
+     * @param name 课程名
+     * @return 是否存在
+     */
+    Boolean existsByName(String name);
 
+    /**
+     * 根据课程名查找
+     * @param name 课程名
+     * @return 课程
+     */
+    Course findByName(String name);
 }

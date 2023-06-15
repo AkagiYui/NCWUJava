@@ -5,10 +5,12 @@ import com.akagiyui.springbootproject.entity.Course;
 import com.akagiyui.springbootproject.entity.Student;
 import com.akagiyui.springbootproject.entity.request.AddStudentRequest;
 import com.akagiyui.springbootproject.entity.request.StudentFilterRequest;
+import com.akagiyui.springbootproject.entity.request.UpdateStudentCourseRequest;
 import com.akagiyui.springbootproject.exception.CustomException;
 import com.akagiyui.springbootproject.repository.StudentRepository;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -25,6 +27,9 @@ public class StudentService {
 
     @Resource
     StudentRepository studentRepository;
+
+    @Resource
+    EnrollmentService enrollmentService;
 
     /**
      * 分页查询
@@ -81,6 +86,21 @@ public class StudentService {
     public List<Course> getCourseByStudentId(Long id) {
         Student student = studentRepository.findById(id).orElseThrow(() -> new CustomException(ResponseEnum.NOT_FOUND));
         return student.getCourses();
+    }
+
+    /**
+     * 根据 ID 更新学生课程
+     *
+     * @param id      学生 ID
+     * @param courses 课程列表
+     * @return 是否成功
+     */
+    @Transactional
+    public Boolean updateCourseByStudentId(Long id, List<UpdateStudentCourseRequest> courses) {
+        for (UpdateStudentCourseRequest course : courses) {
+            enrollmentService.save(id, course.getId());
+        }
+        return true;
     }
 
     /**

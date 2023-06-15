@@ -1,6 +1,7 @@
 package com.akagiyui.springbootproject.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import javax.persistence.Entity;
@@ -15,6 +16,7 @@ import javax.persistence.Table;
 @Data
 @Accessors(chain = true)
 @Entity
+@NoArgsConstructor
 @Table(name = "enrollment")
 public class Enrollment extends BaseEntity{
     /**
@@ -30,4 +32,9 @@ public class Enrollment extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course course;
+
+    public Enrollment(Student student, Course course) {
+        this.student = student;
+        this.course = course;
+    }
 }
