@@ -5,7 +5,7 @@ import com.akagiyui.springbootproject.entity.Course;
 import com.akagiyui.springbootproject.entity.Student;
 import com.akagiyui.springbootproject.entity.request.AddStudentRequest;
 import com.akagiyui.springbootproject.entity.request.StudentFilterRequest;
-import com.akagiyui.springbootproject.entity.request.UpdateStudentCourseRequest;
+import com.akagiyui.springbootproject.entity.request.UpdateCourseRequest;
 import com.akagiyui.springbootproject.exception.CustomException;
 import com.akagiyui.springbootproject.repository.StudentRepository;
 import org.springframework.data.domain.*;
@@ -57,8 +57,8 @@ public class StudentService {
                 .withIgnoreCase()
                 .withIgnoreNullValues()
                 .withMatcher("name", ExampleMatcher.GenericPropertyMatcher::contains)
-                .withMatcher("className", ExampleMatcher.GenericPropertyMatcher::contains)
-                .withMatcher("number", ExampleMatcher.GenericPropertyMatcher::contains);
+                .withMatcher("number", ExampleMatcher.GenericPropertyMatcher::contains)
+                .withMatcher("className", ExampleMatcher.GenericPropertyMatcher::contains);
 
         return studentRepository.findAll(Example.of(filter.toStudent(), matcher), pageable);
     }
@@ -96,8 +96,8 @@ public class StudentService {
      * @return 是否成功
      */
     @Transactional
-    public Boolean updateCourseByStudentId(Long id, List<UpdateStudentCourseRequest> courses) {
-        for (UpdateStudentCourseRequest course : courses) {
+    public Boolean updateCourseByStudentId(Long id, List<UpdateCourseRequest> courses) {
+        for (UpdateCourseRequest course : courses) {
             enrollmentService.save(id, course.getId());
         }
         return true;

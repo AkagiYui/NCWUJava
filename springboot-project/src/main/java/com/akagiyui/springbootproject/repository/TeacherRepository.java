@@ -10,5 +10,17 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface TeacherRepository extends JpaRepository<Teacher, Long> {
+    /**
+     * 根据工号判断是否存在
+     * @param number 工号
+     * @return 是否存在
+     */
+    Boolean existsByNumber(String number);
 
+    /**
+     * 根据工号查找
+     * @param number 工号
+     * @return 教师
+     */
+    Teacher findByNumber(String number);
 }

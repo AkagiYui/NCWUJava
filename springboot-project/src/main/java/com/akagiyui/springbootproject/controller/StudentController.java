@@ -4,7 +4,7 @@ import com.akagiyui.springbootproject.entity.Course;
 import com.akagiyui.springbootproject.entity.Student;
 import com.akagiyui.springbootproject.entity.request.AddStudentRequest;
 import com.akagiyui.springbootproject.entity.request.StudentFilterRequest;
-import com.akagiyui.springbootproject.entity.request.UpdateStudentCourseRequest;
+import com.akagiyui.springbootproject.entity.request.UpdateCourseRequest;
 import com.akagiyui.springbootproject.entity.response.CourseResponse;
 import com.akagiyui.springbootproject.entity.response.PageResponse;
 import com.akagiyui.springbootproject.entity.response.StudentPageResponse;
@@ -13,6 +13,7 @@ import com.akagiyui.springbootproject.service.StudentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -95,7 +96,7 @@ public class StudentController {
     @PutMapping("/{id}/courses")
     public Boolean updateCourses(@PathVariable Long id, @RequestBody List<Long> courseIds) {
         return studentService.updateCourseByStudentId(id, courseIds.stream()
-                .map(courseId -> new UpdateStudentCourseRequest().setId(courseId))
+                .map(courseId -> new UpdateCourseRequest().setId(courseId))
                 .collect(Collectors.toList()));
     }
 
@@ -103,7 +104,7 @@ public class StudentController {
      * 创建学生
      */
     @PostMapping("")
-    public Boolean create(@RequestBody AddStudentRequest student) {
+    public Boolean create(@RequestBody @Validated AddStudentRequest student) {
         return studentService.create(student);
     }
 
@@ -111,7 +112,7 @@ public class StudentController {
      * 更新学生信息
      */
     @PutMapping("/{id}")
-    public Boolean update(@PathVariable Long id, @RequestBody AddStudentRequest student) {
+    public Boolean update(@PathVariable Long id, @RequestBody @Validated AddStudentRequest student) {
         return studentService.update(id, student);
     }
 }

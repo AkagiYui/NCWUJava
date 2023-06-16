@@ -6,7 +6,9 @@ import com.akagiyui.springbootproject.entity.request.CourseFilterRequest;
 import com.akagiyui.springbootproject.entity.response.CoursePageResponse;
 import com.akagiyui.springbootproject.entity.response.CourseResponse;
 import com.akagiyui.springbootproject.entity.response.PageResponse;
+import com.akagiyui.springbootproject.entity.response.TeacherResponse;
 import com.akagiyui.springbootproject.service.CourseService;
+import com.akagiyui.springbootproject.service.TeachingService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +28,9 @@ public class CourseController {
 
     @Resource
     CourseService courseService;
+
+    @Resource
+    TeachingService teachingService;
 
     /**
      * 分页查询课程
@@ -87,5 +92,17 @@ public class CourseController {
     @PutMapping("/{id}")
     public Boolean update(@PathVariable Long id, @RequestBody AddCourseRequest course) {
         return courseService.update(id, course);
+    }
+
+    /**
+     * 根据 ID 查询任课教师
+     * @param id 课程 ID
+     * @return 课程
+     */
+    @GetMapping("/{id}/teachers")
+    public List<TeacherResponse> getTeachers(@PathVariable Long id) {
+        return teachingService.findTeachesByCourseId(id).stream()
+                .map(TeacherResponse::fromTeacher)
+                .collect(Collectors.toList());
     }
 }

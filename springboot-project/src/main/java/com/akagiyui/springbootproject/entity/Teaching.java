@@ -1,6 +1,7 @@
 package com.akagiyui.springbootproject.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ import javax.persistence.Table;
  */
 @Data
 @Entity
+@NoArgsConstructor
 @Table
 @Accessors(chain = true)
 public class Teaching extends BaseEntity{
@@ -30,4 +32,9 @@ public class Teaching extends BaseEntity{
     @ManyToOne
     @JoinColumn(name="course_id")
     Course course;
+
+    public Teaching(Teacher teacher, Course course) {
+        this.teacher = teacher;
+        this.course = course;
+    }
 }
