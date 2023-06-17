@@ -31,6 +31,12 @@ public class TeacherResponse {
      */
     String phone;
 
+    /**
+     * 任教课程数量
+     */
+    Integer courseCount;
+
+    /** 转换为 TeacherResponse 对象 */
     public static TeacherResponse fromTeacher(Teacher teacher) {
         return new TeacherResponse()
                 .setId(teacher.getId())

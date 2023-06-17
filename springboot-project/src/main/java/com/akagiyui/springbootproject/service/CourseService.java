@@ -6,6 +6,7 @@ import com.akagiyui.springbootproject.entity.request.AddCourseRequest;
 import com.akagiyui.springbootproject.entity.request.CourseFilterRequest;
 import com.akagiyui.springbootproject.exception.CustomException;
 import com.akagiyui.springbootproject.repository.CourseRepository;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -16,12 +17,17 @@ import java.util.Objects;
 
 /**
  * 课程 服务
+ *
  * @author AkagiYui
  */
 @Service
 public class CourseService {
     @Resource
     CourseRepository courseRepository;
+
+    @Resource
+    @Lazy
+    TeachingService teachingService;
 
     /**
      * 分页查询
@@ -49,13 +55,20 @@ public class CourseService {
     }
 
     /**
+     * 根据id查询
+     */
+    public Course find(Long id) {
+        return courseRepository.findById(id).orElseThrow(() -> new CustomException(ResponseEnum.NOT_FOUND));
+    }
+
+    /**
      * 删除课程
      */
     public Boolean delete(Long id) {
-        if (!courseRepository.existsById(id)) {
-            throw new CustomException(ResponseEnum.NOT_FOUND);
-        }
-        courseRepository.deleteById(id);
+        Course course = courseRepository.findById(id).orElseThrow(() -> new CustomException(ResponseEnum.NOT_FOUND));
+        // 删除课程前，先删除教师-课程关系
+        teachingService.delete(course);
+        courseRepository.delete(course);
         return true;
     }
 

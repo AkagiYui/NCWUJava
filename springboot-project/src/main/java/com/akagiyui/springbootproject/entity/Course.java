@@ -16,7 +16,7 @@ import java.util.List;
  * @author AkagiYui
  */
 @Data
-@ToString(exclude = "enrollments")
+@ToString(exclude = {"enrollments", "teachings"})
 @NoArgsConstructor
 @Accessors(chain = true)
 @Entity
@@ -33,6 +33,12 @@ public class Course extends BaseEntity{
      */
     @OneToMany(mappedBy = "course")
     private List<Enrollment> enrollments;
+
+    /**
+     * 任教记录
+     */
+    @OneToMany(mappedBy = "course")
+    private List<Teaching> teachings;
 
     public Course(String name) {
         this.name = name;

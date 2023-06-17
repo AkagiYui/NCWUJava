@@ -8,6 +8,7 @@ import com.akagiyui.springbootproject.entity.request.StudentFilterRequest;
 import com.akagiyui.springbootproject.entity.request.UpdateCourseRequest;
 import com.akagiyui.springbootproject.exception.CustomException;
 import com.akagiyui.springbootproject.repository.StudentRepository;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,7 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * 学生 服务
@@ -24,11 +26,11 @@ import java.util.Objects;
  */
 @Service
 public class StudentService {
-
     @Resource
     StudentRepository studentRepository;
 
     @Resource
+    @Lazy
     EnrollmentService enrollmentService;
 
     /**
@@ -97,8 +99,16 @@ public class StudentService {
      */
     @Transactional
     public Boolean updateCourseByStudentId(Long id, List<UpdateCourseRequest> courses) {
-        for (UpdateCourseRequest course : courses) {
-            enrollmentService.save(id, course.getId());
+        Student student = studentRepository.findById(id).orElseThrow(() -> new CustomException(ResponseEnum.NOT_FOUND));
+        List<Long> courseIds = student.getCourses().stream().map(Course::getId).collect(Collectors.toList());
+        List<Long> newCourseIds = courses.stream().map(UpdateCourseRequest::getId).collect(Collectors.toList());
+        List<Long> removeCourseIds = courseIds.stream().filter(courseId -> !newCourseIds.contains(courseId)).collect(Collectors.toList());
+
+        for (Long course : newCourseIds) {
+            enrollmentService.save(id, course);
+        }
+        for (Long course : removeCourseIds) {
+            enrollmentService.delete(id, course);
         }
         return true;
     }
@@ -144,5 +154,9 @@ public class StudentService {
         }
         studentRepository.save(oldStudent);
         return true;
+    }
+
+    public Student find(Long id) {
+        return studentRepository.findById(id).orElseThrow(() -> new CustomException(ResponseEnum.NOT_FOUND));
     }
 }

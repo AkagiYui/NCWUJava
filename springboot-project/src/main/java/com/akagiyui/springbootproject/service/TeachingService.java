@@ -1,11 +1,10 @@
 package com.akagiyui.springbootproject.service;
 
-import com.akagiyui.springbootproject.component.ResponseEnum;
-import com.akagiyui.springbootproject.entity.*;
-import com.akagiyui.springbootproject.exception.CustomException;
-import com.akagiyui.springbootproject.repository.CourseRepository;
-import com.akagiyui.springbootproject.repository.TeacherRepository;
+import com.akagiyui.springbootproject.entity.Course;
+import com.akagiyui.springbootproject.entity.Teacher;
+import com.akagiyui.springbootproject.entity.Teaching;
 import com.akagiyui.springbootproject.repository.TeachingRepository;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -18,15 +17,15 @@ import java.util.stream.Collectors;
  */
 @Service
 public class TeachingService {
-
     @Resource
     TeachingRepository teachingRepository;
 
     @Resource
-    TeacherRepository teacherRepository;
+    @Lazy
+    TeacherService teacherService;
 
     @Resource
-    CourseRepository courseRepository;
+    CourseService courseService;
 
     /**
      * 根据课程ID查找任教教师
@@ -45,9 +44,22 @@ public class TeachingService {
         if (teachingRepository.existsByTeacherIdAndCourseId(teacherId, courseId)) {
             return true;
         }
-        Teacher teacher = teacherRepository.findById(teacherId).orElseThrow(() -> new CustomException(ResponseEnum.NOT_FOUND));
-        Course course = courseRepository.findById(courseId).orElseThrow(() -> new CustomException(ResponseEnum.NOT_FOUND));
+        Teacher teacher = teacherService.find(teacherId);
+        Course course = courseService.find(courseId);
         teachingRepository.save(new Teaching(teacher, course));
         return true;
+    }
+
+    public void delete(Long teacherId, Long courseId) {
+        Teaching teaching = teachingRepository.findByTeacherIdAndCourseId(teacherId, courseId);
+        teachingRepository.delete(teaching);
+    }
+
+    public Integer countByTeacherId(Long teacherId) {
+        return teachingRepository.countByTeacherId(teacherId);
+    }
+
+    public Integer delete(Course course) {
+        return teachingRepository.deleteAllByCourseId(course.getId());
     }
 }

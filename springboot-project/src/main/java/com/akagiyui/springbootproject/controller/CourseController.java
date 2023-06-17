@@ -9,12 +9,10 @@ import com.akagiyui.springbootproject.entity.response.PageResponse;
 import com.akagiyui.springbootproject.entity.response.TeacherResponse;
 import com.akagiyui.springbootproject.service.CourseService;
 import com.akagiyui.springbootproject.service.TeachingService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,12 +40,14 @@ public class CourseController {
     public PageResponse<CourseResponse> getCoursePage(@RequestParam Integer page, @RequestParam Integer size, @ModelAttribute CourseFilterRequest filter) {
         Page<Course> courses = courseService.find(page, size, filter);
         List<Course> courseList = courses.getContent();
-        List<CourseResponse> courseResponseList = new ArrayList<>();
-        for (Course course : courseList) {
-            CourseResponse studentResponse = new CourseResponse();
-            BeanUtils.copyProperties(course, studentResponse);
-            courseResponseList.add(studentResponse);
-        }
+        List<CourseResponse> courseResponseList = courseList.stream()
+                .map((course -> {
+                    CourseResponse courseResponse = CourseResponse.fromCourse(course);
+                    courseResponse.setTeachingCount(course.getTeachings().size());
+                    courseResponse.setEnrolledCount(course.getEnrollments().size());
+                    return courseResponse;
+                }))
+                .collect(Collectors.toList());
 
         return new CoursePageResponse()
                 .setPage(page)
@@ -102,7 +102,11 @@ public class CourseController {
     @GetMapping("/{id}/teachers")
     public List<TeacherResponse> getTeachers(@PathVariable Long id) {
         return teachingService.findTeachesByCourseId(id).stream()
-                .map(TeacherResponse::fromTeacher)
+                .map(v -> {
+                    TeacherResponse teacherResponse = TeacherResponse.fromTeacher(v);
+                    teacherResponse.setCourseCount(teachingService.countByTeacherId(v.getId()));
+                    return teacherResponse;
+                })
                 .collect(Collectors.toList());
     }
 }

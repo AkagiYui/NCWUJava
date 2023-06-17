@@ -16,6 +16,7 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * 教师 服务
@@ -23,7 +24,6 @@ import java.util.Objects;
  */
 @Service
 public class TeacherService {
-
     @Resource
     TeacherRepository teacherRepository;
 
@@ -48,6 +48,16 @@ public class TeacherService {
                 .withMatcher("phone", ExampleMatcher.GenericPropertyMatcher::contains);
 
         return teacherRepository.findAll(Example.of(filter.toTeacher(), matcher), pageable);
+    }
+
+    /**
+     * 根据 ID 查询教师
+     *
+     * @param id 教师 ID
+     * @return 教师信息
+     */
+    public Teacher find(Long id) {
+        return teacherRepository.findById(id).orElseThrow(() -> new CustomException(ResponseEnum.NOT_FOUND));
     }
 
     /**
@@ -84,8 +94,16 @@ public class TeacherService {
      */
     @Transactional
     public Boolean updateCourseByTeacherId(Long id, List<UpdateCourseRequest> courses) {
+        Teacher teacher = teacherRepository.findById(id).orElseThrow(() -> new CustomException(ResponseEnum.NOT_FOUND));
+        List<Long> courseIds = teacher.getCourses().stream().map(Course::getId).collect(Collectors.toList());
+        List<Long> newCourseIds = courses.stream().map(UpdateCourseRequest::getId).collect(Collectors.toList());
+        List<Long> removeCourseIds = courseIds.stream().filter(courseId -> !newCourseIds.contains(courseId)).collect(Collectors.toList());
+
         for (UpdateCourseRequest course : courses) {
             teachingService.save(id, course.getId());
+        }
+        for (Long courseId : removeCourseIds) {
+            teachingService.delete(id, courseId);
         }
         return true;
     }

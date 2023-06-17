@@ -11,13 +11,11 @@ import com.akagiyui.springbootproject.entity.response.StudentPageResponse;
 import com.akagiyui.springbootproject.entity.response.StudentResponse;
 import com.akagiyui.springbootproject.service.StudentService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,12 +42,9 @@ public class StudentController {
     public PageResponse<StudentResponse> getStudentPage(@RequestParam Integer page, @RequestParam Integer size, @ModelAttribute StudentFilterRequest filter) {
         Page<Student> students = studentService.find(page, size, filter);
         List<Student> studentList = students.getContent();
-        List<StudentResponse> studentResponseList = new ArrayList<>();
-        for (Student student : studentList) {
-            StudentResponse studentResponse = new StudentResponse();
-            BeanUtils.copyProperties(student, studentResponse);
-            studentResponseList.add(studentResponse);
-        }
+        List<StudentResponse> studentResponseList = studentList.stream()
+                .map(StudentResponse::fromStudent)
+                .collect(Collectors.toList());
 
         return new StudentPageResponse()
                 .setPage(page)
@@ -77,14 +72,10 @@ public class StudentController {
      */
     @GetMapping("/{id}/courses")
     public List<CourseResponse> showCourses(@PathVariable Long id) {
-        List<Course> course = studentService.getCourseByStudentId(id);
-        List<CourseResponse> courseResponseList = new ArrayList<>();
-        for (Course c : course) {
-            CourseResponse courseResponse = new CourseResponse();
-            BeanUtils.copyProperties(c, courseResponse);
-            courseResponseList.add(courseResponse);
-        }
-        return courseResponseList;
+        List<Course> courses = studentService.getCourseByStudentId(id);
+        return courses.stream()
+                .map(CourseResponse::fromCourse)
+                .collect(Collectors.toList());
     }
 
     /**

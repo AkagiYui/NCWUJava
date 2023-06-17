@@ -10,7 +10,6 @@ import com.akagiyui.springbootproject.entity.response.PageResponse;
 import com.akagiyui.springbootproject.entity.response.TeacherPageResponse;
 import com.akagiyui.springbootproject.entity.response.TeacherResponse;
 import com.akagiyui.springbootproject.service.TeacherService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -44,8 +43,8 @@ public class TeacherController {
         List<Teacher> teacherList = teachers.getContent();
         List<TeacherResponse> teacherResponseList = new ArrayList<>();
         for (Teacher teacher : teacherList) {
-            TeacherResponse teacherResponse = new TeacherResponse();
-            BeanUtils.copyProperties(teacher, teacherResponse);
+            TeacherResponse teacherResponse = TeacherResponse.fromTeacher(teacher);
+            teacherResponse.setCourseCount(teacher.getCourses().size());
             teacherResponseList.add(teacherResponse);
         }
 
@@ -75,14 +74,10 @@ public class TeacherController {
      */
     @GetMapping("/{id}/courses")
     public List<CourseResponse> showCourses(@PathVariable Long id) {
-        List<Course> course = teacherService.getCourseByTeacherId(id);
-        List<CourseResponse> courseResponseList = new ArrayList<>();
-        for (Course c : course) {
-            CourseResponse courseResponse = new CourseResponse();
-            BeanUtils.copyProperties(c, courseResponse);
-            courseResponseList.add(courseResponse);
-        }
-        return courseResponseList;
+        List<Course> courses = teacherService.getCourseByTeacherId(id);
+        return courses.stream()
+                .map(CourseResponse::fromCourse)
+                .collect(Collectors.toList());
     }
 
     /**
