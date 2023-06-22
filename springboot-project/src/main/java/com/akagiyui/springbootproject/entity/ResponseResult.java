@@ -74,5 +74,4 @@ public class ResponseResult<T> {
     public static ResponseResult<?> success() {
         return success(null);
     }
-
 }

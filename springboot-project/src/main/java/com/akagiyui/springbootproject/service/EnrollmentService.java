@@ -36,6 +36,11 @@ public class EnrollmentService {
         return true;
     }
 
+    /**
+     * 删除选课信息
+     * @param studentId 学生 ID
+     * @param courseId 课程 ID
+     */
     public void delete(Long studentId, Long courseId) {
         Enrollment enrollment = enrollmentRepository.findByStudentIdAndCourseId(studentId, courseId);
         enrollmentRepository.delete(enrollment);

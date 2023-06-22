@@ -1,7 +1,7 @@
 package com.akagiyui.springbootproject.entity.request;
 
 
-import com.akagiyui.springbootproject.entity.Teacher;
+import com.akagiyui.springbootproject.entity.Student;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -9,13 +9,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * 添加教师 请求
+ * 添加学生 请求
  * @author AkagiYui
  */
 @Data
-public class AddTeacherRequest {
+public class AddStudent {
     /**
-     * 工号
+     * 学号
      */
     @NotBlank(message = "Number cannot be empty")
     @NotNull(message = "Number cannot be empty")
@@ -30,19 +30,19 @@ public class AddTeacherRequest {
     private String name;
 
     /**
-     * 联系电话
+     * 班级
      */
-    @Size(min = 8, max = 20, message = "Phone number length must be less than 20")
-    private String phone;
+    @Size(min = 3, max = 20, message = "ClassName length must be less than 20")
+    private String className;
 
     /**
-     * 转换为 Teacher 对象
-     * @return Teacher 对象
+     * 转换为 Student 对象
+     * @return Student 对象
      */
-    public Teacher toTeacher() {
-        return new Teacher()
+    public Student toStudent() {
+        return new Student()
                 .setNumber(number)
                 .setName(name)
-                .setPhone(phone);
+                .setClassName(className);
     }
 }

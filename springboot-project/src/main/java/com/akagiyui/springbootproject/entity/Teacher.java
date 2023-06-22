@@ -35,6 +35,9 @@ public class Teacher extends BaseEntity{
      */
     String phone;
 
+    /**
+     * 所教课程
+     */
     @ManyToMany
     @JoinTable(
             name = "teaching",

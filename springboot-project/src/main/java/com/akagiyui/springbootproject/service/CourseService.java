@@ -2,8 +2,8 @@ package com.akagiyui.springbootproject.service;
 
 import com.akagiyui.springbootproject.component.ResponseEnum;
 import com.akagiyui.springbootproject.entity.Course;
-import com.akagiyui.springbootproject.entity.request.AddCourseRequest;
-import com.akagiyui.springbootproject.entity.request.CourseFilterRequest;
+import com.akagiyui.springbootproject.entity.request.AddCourse;
+import com.akagiyui.springbootproject.entity.filter.CourseFilter;
 import com.akagiyui.springbootproject.exception.CustomException;
 import com.akagiyui.springbootproject.repository.CourseRepository;
 import org.springframework.context.annotation.Lazy;
@@ -37,7 +37,7 @@ public class CourseService {
      * @param filter 过滤条件
      * @return 分页结果
      */
-    public Page<Course> find(Integer page, Integer size, CourseFilterRequest filter) {
+    public Page<Course> find(Integer page, Integer size, CourseFilter filter) {
         Pageable pageable = PageRequest.of(page, size);
         ExampleMatcher matcher = ExampleMatcher.matchingAll()
                 .withIgnoreCase()
@@ -58,7 +58,8 @@ public class CourseService {
      * 根据id查询
      */
     public Course find(Long id) {
-        return courseRepository.findById(id).orElseThrow(() -> new CustomException(ResponseEnum.NOT_FOUND));
+        return courseRepository.findById(id)
+                .orElseThrow(() -> new CustomException(ResponseEnum.NOT_FOUND));
     }
 
     /**
@@ -75,7 +76,7 @@ public class CourseService {
     /**
      * 添加课程
      */
-    public Boolean create(AddCourseRequest course) {
+    public Boolean create(AddCourse course) {
         if (courseRepository.existsByName(course.getName())) {
             throw new CustomException(ResponseEnum.EXIST);
         }
@@ -86,8 +87,9 @@ public class CourseService {
     /**
      * 更新课程
      */
-    public Boolean update(Long id, AddCourseRequest course) {
-        Course oldCourse = courseRepository.findById(id).orElseThrow(() -> new CustomException(ResponseEnum.NOT_FOUND));
+    public Boolean update(Long id, AddCourse course) {
+        Course oldCourse = courseRepository.findById(id)
+                .orElseThrow(() -> new CustomException(ResponseEnum.NOT_FOUND));
         if (courseRepository.existsByName(course.getName())) {
             Course course1 = courseRepository.findByName(course.getName());
             if (!Objects.equals(course1.getId(), id)) {

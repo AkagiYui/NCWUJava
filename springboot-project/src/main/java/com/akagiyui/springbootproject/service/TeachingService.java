@@ -50,16 +50,31 @@ public class TeachingService {
         return true;
     }
 
+    /**
+     * 删除任课信息
+     * @param teacherId 教师 ID
+     * @param courseId 课程 ID
+     */
     public void delete(Long teacherId, Long courseId) {
         Teaching teaching = teachingRepository.findByTeacherIdAndCourseId(teacherId, courseId);
         teachingRepository.delete(teaching);
     }
 
-    public Integer countByTeacherId(Long teacherId) {
-        return teachingRepository.countByTeacherId(teacherId);
-    }
-
+    /**
+     * 删除任课信息
+     * @param course 课程
+     * @return 删除的数量
+     */
     public Integer delete(Course course) {
         return teachingRepository.deleteAllByCourseId(course.getId());
+    }
+
+    /**
+     * 根据教师ID统计任课数量
+     * @param teacherId 教师ID
+     * @return 任课数量
+     */
+    public Integer countByTeacherId(Long teacherId) {
+        return teachingRepository.countByTeacherId(teacherId);
     }
 }

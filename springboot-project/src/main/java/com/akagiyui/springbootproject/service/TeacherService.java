@@ -3,14 +3,13 @@ package com.akagiyui.springbootproject.service;
 import com.akagiyui.springbootproject.component.ResponseEnum;
 import com.akagiyui.springbootproject.entity.Course;
 import com.akagiyui.springbootproject.entity.Teacher;
-import com.akagiyui.springbootproject.entity.request.AddTeacherRequest;
-import com.akagiyui.springbootproject.entity.request.TeacherFilterRequest;
-import com.akagiyui.springbootproject.entity.request.UpdateCourseRequest;
+import com.akagiyui.springbootproject.entity.request.AddTeacher;
+import com.akagiyui.springbootproject.entity.filter.TeacherFilter;
+import com.akagiyui.springbootproject.entity.request.UpdateCourse;
 import com.akagiyui.springbootproject.exception.CustomException;
 import com.akagiyui.springbootproject.repository.TeacherRepository;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -38,7 +37,7 @@ public class TeacherService {
      * @param filter 过滤条件
      * @return 分页结果
      */
-    public Page<Teacher> find(Integer page, Integer size, TeacherFilterRequest filter) {
+    public Page<Teacher> find(Integer page, Integer size, TeacherFilter filter) {
         Pageable pageable = PageRequest.of(page, size);
         ExampleMatcher matcher = ExampleMatcher.matchingAll()
                 .withIgnoreCase()
@@ -57,7 +56,8 @@ public class TeacherService {
      * @return 教师信息
      */
     public Teacher find(Long id) {
-        return teacherRepository.findById(id).orElseThrow(() -> new CustomException(ResponseEnum.NOT_FOUND));
+        return teacherRepository.findById(id)
+                .orElseThrow(() -> new CustomException(ResponseEnum.NOT_FOUND));
     }
 
     /**
@@ -81,7 +81,8 @@ public class TeacherService {
      * @return 课程列表
      */
     public List<Course> getCourseByTeacherId(Long id) {
-        Teacher teacher = teacherRepository.findById(id).orElseThrow(() -> new CustomException(ResponseEnum.NOT_FOUND));
+        Teacher teacher = teacherRepository.findById(id)
+                .orElseThrow(() -> new CustomException(ResponseEnum.NOT_FOUND));
         return teacher.getCourses();
     }
 
@@ -92,14 +93,17 @@ public class TeacherService {
      * @param courses 课程列表
      * @return 是否成功
      */
-    @Transactional
-    public Boolean updateCourseByTeacherId(Long id, List<UpdateCourseRequest> courses) {
-        Teacher teacher = teacherRepository.findById(id).orElseThrow(() -> new CustomException(ResponseEnum.NOT_FOUND));
-        List<Long> courseIds = teacher.getCourses().stream().map(Course::getId).collect(Collectors.toList());
-        List<Long> newCourseIds = courses.stream().map(UpdateCourseRequest::getId).collect(Collectors.toList());
-        List<Long> removeCourseIds = courseIds.stream().filter(courseId -> !newCourseIds.contains(courseId)).collect(Collectors.toList());
+    public Boolean updateCourseByTeacherId(Long id, List<UpdateCourse> courses) {
+        Teacher teacher = teacherRepository.findById(id)
+                .orElseThrow(() -> new CustomException(ResponseEnum.NOT_FOUND));
+        List<Long> courseIds = teacher.getCourses().stream()
+                .map(Course::getId).collect(Collectors.toList());
+        List<Long> newCourseIds = courses.stream()
+                .map(UpdateCourse::getId).collect(Collectors.toList());
+        List<Long> removeCourseIds = courseIds.stream()
+                .filter(courseId -> !newCourseIds.contains(courseId)).collect(Collectors.toList());
 
-        for (UpdateCourseRequest course : courses) {
+        for (UpdateCourse course : courses) {
             teachingService.save(id, course.getId());
         }
         for (Long courseId : removeCourseIds) {
@@ -114,7 +118,7 @@ public class TeacherService {
      * @param teacher 教师信息
      * @return 是否成功
      */
-    public Boolean create(AddTeacherRequest teacher) {
+    public Boolean create(AddTeacher teacher) {
         if (teacherRepository.existsByNumber(teacher.getNumber())) {
             throw new CustomException(ResponseEnum.EXIST);
         }
@@ -129,8 +133,9 @@ public class TeacherService {
      * @param teacher 教师信息
      * @return 是否成功
      */
-    public Boolean update(Long id, AddTeacherRequest teacher) {
-        Teacher oldTeacher = teacherRepository.findById(id).orElseThrow(() -> new CustomException(ResponseEnum.NOT_FOUND));
+    public Boolean update(Long id, AddTeacher teacher) {
+        Teacher oldTeacher = teacherRepository.findById(id)
+                .orElseThrow(() -> new CustomException(ResponseEnum.NOT_FOUND));
         if (StringUtils.hasText(teacher.getNumber())) {
             // 如果工号已存在，且不是当前教师的工号，则报错
             if (teacherRepository.existsByNumber(teacher.getNumber())) {

@@ -1,8 +1,8 @@
 package com.akagiyui.springbootproject.controller;
 
 import com.akagiyui.springbootproject.entity.Course;
-import com.akagiyui.springbootproject.entity.request.AddCourseRequest;
-import com.akagiyui.springbootproject.entity.request.CourseFilterRequest;
+import com.akagiyui.springbootproject.entity.request.AddCourse;
+import com.akagiyui.springbootproject.entity.filter.CourseFilter;
 import com.akagiyui.springbootproject.entity.response.CoursePageResponse;
 import com.akagiyui.springbootproject.entity.response.CourseResponse;
 import com.akagiyui.springbootproject.entity.response.PageResponse;
@@ -37,7 +37,11 @@ public class CourseController {
      * @return 学生分页响应
      */
     @GetMapping("")
-    public PageResponse<CourseResponse> getCoursePage(@RequestParam Integer page, @RequestParam Integer size, @ModelAttribute CourseFilterRequest filter) {
+    public PageResponse<CourseResponse> getCoursePage(
+            @RequestParam Integer page,
+            @RequestParam Integer size,
+            @ModelAttribute CourseFilter filter
+    ) {
         Page<Course> courses = courseService.find(page, size, filter);
         List<Course> courseList = courses.getContent();
         List<CourseResponse> courseResponseList = courseList.stream()
@@ -82,7 +86,7 @@ public class CourseController {
      * @return 课程
      */
     @PostMapping("")
-    public Boolean create(@RequestBody AddCourseRequest course) {
+    public Boolean create(@RequestBody AddCourse course) {
         return courseService.create(course);
     }
 
@@ -90,7 +94,7 @@ public class CourseController {
      * 更新课程信息
      */
     @PutMapping("/{id}")
-    public Boolean update(@PathVariable Long id, @RequestBody AddCourseRequest course) {
+    public Boolean update(@PathVariable Long id, @RequestBody AddCourse course) {
         return courseService.update(id, course);
     }
 
@@ -102,11 +106,7 @@ public class CourseController {
     @GetMapping("/{id}/teachers")
     public List<TeacherResponse> getTeachers(@PathVariable Long id) {
         return teachingService.findTeachesByCourseId(id).stream()
-                .map(v -> {
-                    TeacherResponse teacherResponse = TeacherResponse.fromTeacher(v);
-                    teacherResponse.setCourseCount(teachingService.countByTeacherId(v.getId()));
-                    return teacherResponse;
-                })
+                .map(TeacherResponse::fromTeacher)
                 .collect(Collectors.toList());
     }
 }

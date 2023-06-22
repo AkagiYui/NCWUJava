@@ -2,9 +2,9 @@ package com.akagiyui.springbootproject.controller;
 
 import com.akagiyui.springbootproject.entity.Course;
 import com.akagiyui.springbootproject.entity.Teacher;
-import com.akagiyui.springbootproject.entity.request.AddTeacherRequest;
-import com.akagiyui.springbootproject.entity.request.TeacherFilterRequest;
-import com.akagiyui.springbootproject.entity.request.UpdateCourseRequest;
+import com.akagiyui.springbootproject.entity.request.AddTeacher;
+import com.akagiyui.springbootproject.entity.filter.TeacherFilter;
+import com.akagiyui.springbootproject.entity.request.UpdateCourse;
 import com.akagiyui.springbootproject.entity.response.CourseResponse;
 import com.akagiyui.springbootproject.entity.response.PageResponse;
 import com.akagiyui.springbootproject.entity.response.TeacherPageResponse;
@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 
 /**
  * 教师 API
+ *
  * @author AkagiYui
  */
 @RestController
@@ -38,7 +39,11 @@ public class TeacherController {
      * @return 分页响应
      */
     @GetMapping("")
-    public PageResponse<TeacherResponse> getTeacherPage(@RequestParam Integer page, @RequestParam Integer size, @ModelAttribute TeacherFilterRequest filter) {
+    public PageResponse<TeacherResponse> getTeacherPage(
+            @RequestParam Integer page,
+            @RequestParam Integer size,
+            @ModelAttribute TeacherFilter filter
+    ) {
         Page<Teacher> teachers = teacherService.find(page, size, filter);
         List<Teacher> teacherList = teachers.getContent();
         List<TeacherResponse> teacherResponseList = new ArrayList<>();
@@ -89,7 +94,7 @@ public class TeacherController {
     @PutMapping("/{id}/courses")
     public Boolean updateCourses(@PathVariable Long id, @RequestBody List<Long> courseIds) {
         return teacherService.updateCourseByTeacherId(id, courseIds.stream()
-                .map(courseId -> new UpdateCourseRequest().setId(courseId))
+                .map(courseId -> new UpdateCourse().setId(courseId))
                 .collect(Collectors.toList()));
     }
 
@@ -97,7 +102,7 @@ public class TeacherController {
      * 创建教师
      */
     @PostMapping("")
-    public Boolean create(@RequestBody @Validated AddTeacherRequest teacher) {
+    public Boolean create(@RequestBody @Validated AddTeacher teacher) {
         return teacherService.create(teacher);
     }
 
@@ -105,7 +110,7 @@ public class TeacherController {
      * 更新教师信息
      */
     @PutMapping("/{id}")
-    public Boolean update(@PathVariable Long id, @RequestBody @Validated AddTeacherRequest student) {
+    public Boolean update(@PathVariable Long id, @RequestBody @Validated AddTeacher student) {
         return teacherService.update(id, student);
     }
 }

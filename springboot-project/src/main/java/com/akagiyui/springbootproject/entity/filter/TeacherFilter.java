@@ -1,4 +1,4 @@
-package com.akagiyui.springbootproject.entity.request;
+package com.akagiyui.springbootproject.entity.filter;
 
 import com.akagiyui.springbootproject.entity.Teacher;
 import lombok.Data;
@@ -11,7 +11,7 @@ import org.springframework.util.StringUtils;
  */
 @Data
 @Accessors(chain = true)
-public class TeacherFilterRequest {
+public class TeacherFilter {
     /**
      * 学号
      */

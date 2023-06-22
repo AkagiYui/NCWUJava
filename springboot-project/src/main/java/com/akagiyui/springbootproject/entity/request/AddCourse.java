@@ -12,15 +12,13 @@ import javax.validation.constraints.NotNull;
  * @author AkagiYui
  */
 @Data
-public class AddCourseRequest {
-
+public class AddCourse {
     /**
      * 课程名称
      */
     @NotBlank(message = "Name cannot be empty")
     @NotNull(message = "Name cannot be empty")
     private String name;
-
 
     /**
      * 转换为 Course 对象

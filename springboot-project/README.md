@@ -4,34 +4,35 @@
 
 ```mermaid
 erDiagram
-    "教师" {
+    teacher {
         int id PK
         string name "姓名"
-        string teacherNumber UK "教师编号"
+        string number UK "工号"
     }
-    "学生" {
+    student {
         int id PK
         string name "姓名"
-        string studentNumber UK "学号"
+        string number UK "学号"
+        string class_name "班级"
     }
-    "课程" {
+    course {
         int id PK
         string name UK "课程名"
     }
 
-    "教授" {
+    teaching {
         int id PK
-        int teacherId "教师id"
-        int courseId "课程id"
+        int teacher_id "教师id"
+        int course_id "课程id"
     }
-    "修读" {
+    enrollment {
         int id PK
-        int studentId "学生id"
-        int courseId "课程id"
+        int student_id "学生id"
+        int course_id "课程id"
     }
 
-    "学生" ||--|{ "修读" : ""
-    "教师" ||--|{ "教授" : ""
-    "课程" ||--|{ "教授" : ""
-    "课程" ||--|{ "修读" : ""
+    student ||--|{ enrollment : ""
+    teacher ||--|{ teaching : ""
+    course ||--|{ teaching : ""
+    course ||--|{ enrollment : ""
 ```

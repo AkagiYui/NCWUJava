@@ -42,20 +42,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Guava -->
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>31.1-jre</version>
-		</dependency>
-
-		<!-- Hutool -->
-		<dependency>
-			<groupId>cn.hutool</groupId>
-			<artifactId>hutool-all</artifactId>
-			<version>5.8.16</version>
-		</dependency>
-
 		<!-- JetBrains 注解 -->
 		<dependency>
 			<groupId>org.jetbrains</groupId>

@@ -29,7 +29,10 @@ public class CustomExceptionHandler {
      * 404 异常处理
      */
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler({NoHandlerFoundException.class, HttpRequestMethodNotSupportedException.class})
+    @ExceptionHandler({
+            NoHandlerFoundException.class,
+            HttpRequestMethodNotSupportedException.class,
+    })
     public ResponseResult<?> noRouteException(Exception ignored) {
         return ResponseResult.response(NOT_FOUND);
     }
@@ -53,7 +56,7 @@ public class CustomExceptionHandler {
     }
 
     /**
-     * 全局异常处理
+     * 其他异常处理
      */
     @ExceptionHandler(Exception.class)
     public ResponseResult<?> unknownException(Exception e) {
