@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Queue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * 客户端连接
@@ -87,7 +89,11 @@ public class Client {
         }
         if (!isOnline) {
             log.info("对方不在线。");
-            sendMessage(new MessageResponse(false, "对方不在线。"));
+            if (!Server.OFFLINE_MESSAGES.containsKey(message1.getTo())) {
+                Server.OFFLINE_MESSAGES.put(message1.getTo(), new LinkedBlockingQueue<>());
+            }
+            Server.OFFLINE_MESSAGES.get(message1.getTo()).add(new MessageTransmit(user.getNumber(), message1.getContent()));
+            sendMessage(new MessageResponse(true, "对方不在线，已加入离线消息。"));
         }
     }
 
@@ -133,6 +139,15 @@ public class Client {
             log.info("登录成功。{}", user);
             status = ClientStatus.WAITING_MESSAGE;
             sendMessage(new LoginResponse(true, "", user));
+            // 发送离线消息
+            new Thread(() -> {
+                if (Server.OFFLINE_MESSAGES.containsKey(user.getNumber())) {
+                    Queue<MessageTransmit> messageQueue = Server.OFFLINE_MESSAGES.get(user.getNumber());
+                    while (!messageQueue.isEmpty()) {
+                        sendMessage(messageQueue.poll());
+                    }
+                }
+            }).start();
         }
     }
 
