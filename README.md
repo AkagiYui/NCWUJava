@@ -39,3 +39,11 @@
 ## [SpringBoot](springboot)
 
 ## [SpringBoot结课作业](springboot-project)
+
+---
+
+## 聊天室项目（Java 网络基础）
+
+### [学习部分项目](chat-learn)
+
+### [结课项目](chat-project)
