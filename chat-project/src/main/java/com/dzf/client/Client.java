@@ -25,8 +25,8 @@ public class Client {
             server = new Server(client);
 
             // Scanner 读取用户输入
+            Scanner scanner = new Scanner(System.in);
             while (true) {
-                Scanner scanner = new Scanner(System.in);
                 String input = scanner.nextLine();
                 if ("__exit".equals(input)) {
                     break;
