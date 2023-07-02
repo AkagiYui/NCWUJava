@@ -1,5 +1,6 @@
 package com.dzf.framework.logging;
 
+import com.dzf.framework.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.Marker;
 
@@ -30,27 +31,26 @@ public class MyLogger implements Logger {
 
     @Override
     public void trace(String s) {
-        info(s);
+        System.out.printf("[%5s] [%18s]: %s\n", "TRACE", name, s);
     }
 
     @Override
     public void trace(String s, Object o) {
-        info(s, o);
+        System.out.printf("[%5s] [%18s]: %s\n", "TRACE", name, StringUtil.format(s, o));
     }
 
     @Override
     public void trace(String s, Object o, Object o1) {
-        info(s, o, o1);
+        System.out.printf("[%5s] [%18s]: %s\n", "TRACE", name, StringUtil.format(s, o, o1));
     }
 
     @Override
     public void trace(String s, Object... objects) {
-        info(s, objects);
+        System.out.printf("[%5s] [%18s]: %s\n", "TRACE", name, StringUtil.format(s, objects));
     }
 
     @Override
     public void trace(String s, Throwable throwable) {
-        info(s, throwable);
     }
 
     @Override
@@ -91,22 +91,22 @@ public class MyLogger implements Logger {
 
     @Override
     public void debug(String s, Object o) {
-        info(s, o);
+        System.out.printf("[%5s] [%18s]: %s\n", "DEBUG", name, StringUtil.format(s, o));
     }
 
     @Override
     public void debug(String s, Object o, Object o1) {
-        info(s, o, o1);
+        System.out.printf("[%5s] [%18s]: %s\n", "DEBUG", name, StringUtil.format(s, o, o1));
     }
 
     @Override
     public void debug(String s, Object... objects) {
-        info(s, objects);
+        System.out.printf("[%5s] [%18s]: %s\n", "DEBUG", name, StringUtil.format(s, objects));
     }
 
     @Override
     public void debug(String s, Throwable throwable) {
-        info(s, throwable);
+
     }
 
     @Override
@@ -147,17 +147,17 @@ public class MyLogger implements Logger {
 
     @Override
     public void info(String s, Object o) {
-        info(s);
+        System.out.printf("[%5s] [%18s]: %s\n", "INFO", name, StringUtil.format(s, o));
     }
 
     @Override
     public void info(String s, Object o, Object o1) {
-
+        System.out.printf("[%5s] [%18s]: %s\n", "INFO", name, StringUtil.format(s, o1));
     }
 
     @Override
     public void info(String s, Object... objects) {
-
+        System.out.printf("[%5s] [%18s]: %s\n", "INFO", name, StringUtil.format(s, objects));
     }
 
     @Override
@@ -207,22 +207,21 @@ public class MyLogger implements Logger {
 
     @Override
     public void warn(String s, Object o) {
-
+        System.out.printf("[%5s] [%18s]: %s\n", "WARN", name, StringUtil.format(s, o));
     }
 
     @Override
     public void warn(String s, Object... objects) {
-
+        System.out.printf("[%5s] [%18s]: %s\n", "WARN", name, StringUtil.format(s, objects));
     }
 
     @Override
     public void warn(String s, Object o, Object o1) {
-
+        System.out.printf("[%5s] [%18s]: %s\n", "WARN", name, StringUtil.format(s, o, o1));
     }
 
     @Override
     public void warn(String s, Throwable throwable) {
-
     }
 
     @Override
@@ -267,17 +266,17 @@ public class MyLogger implements Logger {
 
     @Override
     public void error(String s, Object o) {
-
+        System.out.printf("[%5s] [%18s]: %s\n", "ERROR", name, StringUtil.format(s, o));
     }
 
     @Override
     public void error(String s, Object o, Object o1) {
-
+        System.out.printf("[%5s] [%18s]: %s\n", "ERROR", name, StringUtil.format(s, o, o1));
     }
 
     @Override
     public void error(String s, Object... objects) {
-
+        System.out.printf("[%5s] [%18s]: %s\n", "ERROR", name, StringUtil.format(s, objects));
     }
 
     @Override
