@@ -1,8 +1,10 @@
 package com.dzf.framework.logging;
 
 import com.dzf.framework.StringUtil;
+import com.dzf.framework.XmlUtil;
 import org.slf4j.Logger;
 import org.slf4j.Marker;
+import org.w3c.dom.Document;
 
 /**
  * 自定义 Logger 实现类
@@ -14,9 +16,39 @@ public class MyLogger implements Logger {
      * Logger 名称
      */
     private final String name;
+    /**
+     * 日志级别
+     */
+    private int level = 0;
 
     public MyLogger(String name) {
         this.name = name;
+
+        Document doc = XmlUtil.parse("log-config.xml");
+        if (doc != null) {
+            // 获取logger节点下的level节点的值
+            String level = doc.getElementsByTagName("level").item(0).getTextContent();
+            switch (level) {
+                case "DEBUG":
+                    this.level = 1;
+                    break;
+                case "INFO":
+                    this.level = 2;
+                    break;
+                case "WARN":
+                    this.level = 3;
+                    break;
+                case "ERROR":
+                    this.level = 4;
+                    break;
+                case "FATAL":
+                    this.level = 5;
+                    break;
+                case "TRACE":
+                default:
+                    this.level = 0;
+            }
+        }
     }
 
     @Override
@@ -26,7 +58,7 @@ public class MyLogger implements Logger {
 
     @Override
     public boolean isTraceEnabled() {
-        return true;
+        return level <= 0;
     }
 
     @Override
@@ -60,7 +92,6 @@ public class MyLogger implements Logger {
 
     @Override
     public void trace(Marker marker, String s) {
-        info(s);
     }
 
     @Override
@@ -81,7 +112,7 @@ public class MyLogger implements Logger {
 
     @Override
     public boolean isDebugEnabled() {
-        return true;
+        return level <= 1;
     }
 
     @Override
@@ -137,7 +168,7 @@ public class MyLogger implements Logger {
 
     @Override
     public boolean isInfoEnabled() {
-        return true;
+        return level <= 2;
     }
 
     @Override
@@ -197,7 +228,7 @@ public class MyLogger implements Logger {
 
     @Override
     public boolean isWarnEnabled() {
-        return true;
+        return level <= 3;
     }
 
     @Override
@@ -256,7 +287,7 @@ public class MyLogger implements Logger {
 
     @Override
     public boolean isErrorEnabled() {
-        return true;
+        return level <= 4;
     }
 
     @Override

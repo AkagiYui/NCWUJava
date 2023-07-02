@@ -79,7 +79,8 @@ public class ClassUtil {
 
     /**
      * 向 classList 中添加类
-     * @param classList 类集合
+     *
+     * @param classList   类集合
      * @param packagePath 包路径
      * @param packageName 包名
      * @param isRecursive 是否递归
@@ -109,6 +110,7 @@ public class ClassUtil {
 
     /**
      * 获取指定包路径下的所有类文件
+     *
      * @param packagePath 包路径
      * @return 类文件集合
      */
@@ -121,8 +123,9 @@ public class ClassUtil {
 
     /**
      * 获取类名
+     *
      * @param packageName 包名
-     * @param fileName 文件名
+     * @param fileName    文件名
      * @return 类名
      */
     private static String getClassName(String packageName, String fileName) {
@@ -135,8 +138,9 @@ public class ClassUtil {
 
     /**
      * 获取子包路径
+     *
      * @param packagePath 包路径
-     * @param filePath 文件路径
+     * @param filePath    文件路径
      * @return 子包路径
      */
     private static String getSubPackagePath(String packagePath, String filePath) {
@@ -149,8 +153,9 @@ public class ClassUtil {
 
     /**
      * 获取子包名
+     *
      * @param packageName 包名
-     * @param filePath 文件路径
+     * @param filePath    文件路径
      * @return 子包名
      */
     private static String getSubPackageName(String packageName, String filePath) {
