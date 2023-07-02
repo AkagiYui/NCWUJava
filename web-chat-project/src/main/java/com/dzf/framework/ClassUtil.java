@@ -9,6 +9,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+import java.util.stream.Collectors;
 
 /**
  * @author AkagiYui
@@ -92,6 +93,19 @@ public class ClassUtil {
         }
         return classList;
     }
+
+    // 获取指定包名下的所有注解类
+    public static List<Class<? extends Annotation>> getAnnotationList(String packageName) {
+        @SuppressWarnings("unchecked")
+        List<Class<? extends Annotation>> annotationList = ClassUtil.getClassList(packageName, true)
+                .stream()
+                .filter(Class::isAnnotation)
+                .map(c -> (Class<? extends Annotation>) c)
+                .collect(Collectors.toList());
+        return annotationList;
+    }
+
+
 
     private static void addClass(List<Class<?>> classList, String packagePath, String packageName, boolean isRecursive) {
         try {
