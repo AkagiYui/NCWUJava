@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE logger SYSTEM "src/main/resources/logger.dtd">
 <logger>
-    <level>info</level>
+    <level>trace</level>
 </logger>

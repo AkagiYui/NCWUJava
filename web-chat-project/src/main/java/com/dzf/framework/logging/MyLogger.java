@@ -28,6 +28,10 @@ public class MyLogger implements Logger {
         if (doc != null) {
             // 获取logger节点下的level节点的值
             String level = doc.getElementsByTagName("level").item(0).getTextContent();
+            if (level == null) {
+                return;
+            }
+            level = level.toUpperCase();
             switch (level) {
                 case "DEBUG":
                     this.level = 1;
@@ -63,21 +67,33 @@ public class MyLogger implements Logger {
 
     @Override
     public void trace(String s) {
+        if (!isTraceEnabled()) {
+            return;
+        }
         System.out.printf("[%5s] [%18s]: %s\n", "TRACE", name, s);
     }
 
     @Override
     public void trace(String s, Object o) {
+        if (!isTraceEnabled()) {
+            return;
+        }
         System.out.printf("[%5s] [%18s]: %s\n", "TRACE", name, StringUtil.format(s, o));
     }
 
     @Override
     public void trace(String s, Object o, Object o1) {
+        if (!isTraceEnabled()) {
+            return;
+        }
         System.out.printf("[%5s] [%18s]: %s\n", "TRACE", name, StringUtil.format(s, o, o1));
     }
 
     @Override
     public void trace(String s, Object... objects) {
+        if (!isTraceEnabled()) {
+            return;
+        }
         System.out.printf("[%5s] [%18s]: %s\n", "TRACE", name, StringUtil.format(s, objects));
     }
 
@@ -117,21 +133,33 @@ public class MyLogger implements Logger {
 
     @Override
     public void debug(String message) {
+        if (!isDebugEnabled()) {
+            return;
+        }
         System.out.printf("[%5s] [%18s]: %s\n", "DEBUG", name, message);
     }
 
     @Override
     public void debug(String s, Object o) {
+        if (!isDebugEnabled()) {
+            return;
+        }
         System.out.printf("[%5s] [%18s]: %s\n", "DEBUG", name, StringUtil.format(s, o));
     }
 
     @Override
     public void debug(String s, Object o, Object o1) {
+        if (!isDebugEnabled()) {
+            return;
+        }
         System.out.printf("[%5s] [%18s]: %s\n", "DEBUG", name, StringUtil.format(s, o, o1));
     }
 
     @Override
     public void debug(String s, Object... objects) {
+        if (!isDebugEnabled()) {
+            return;
+        }
         System.out.printf("[%5s] [%18s]: %s\n", "DEBUG", name, StringUtil.format(s, objects));
     }
 
@@ -173,21 +201,33 @@ public class MyLogger implements Logger {
 
     @Override
     public void info(String message) {
+        if (!isInfoEnabled()) {
+            return;
+        }
         System.out.printf("[%5s] [%18s]: %s\n", "INFO", name, message);
     }
 
     @Override
     public void info(String s, Object o) {
+        if (!isInfoEnabled()) {
+            return;
+        }
         System.out.printf("[%5s] [%18s]: %s\n", "INFO", name, StringUtil.format(s, o));
     }
 
     @Override
     public void info(String s, Object o, Object o1) {
+        if (!isInfoEnabled()) {
+            return;
+        }
         System.out.printf("[%5s] [%18s]: %s\n", "INFO", name, StringUtil.format(s, o1));
     }
 
     @Override
     public void info(String s, Object... objects) {
+        if (!isInfoEnabled()) {
+            return;
+        }
         System.out.printf("[%5s] [%18s]: %s\n", "INFO", name, StringUtil.format(s, objects));
     }
 
@@ -233,21 +273,33 @@ public class MyLogger implements Logger {
 
     @Override
     public void warn(String message) {
+        if (!isWarnEnabled()) {
+            return;
+        }
         System.out.printf("[%5s] [%18s]: %s\n", "WARN", name, message);
     }
 
     @Override
     public void warn(String s, Object o) {
+        if (!isWarnEnabled()) {
+            return;
+        }
         System.out.printf("[%5s] [%18s]: %s\n", "WARN", name, StringUtil.format(s, o));
     }
 
     @Override
     public void warn(String s, Object... objects) {
+        if (!isWarnEnabled()) {
+            return;
+        }
         System.out.printf("[%5s] [%18s]: %s\n", "WARN", name, StringUtil.format(s, objects));
     }
 
     @Override
     public void warn(String s, Object o, Object o1) {
+        if (!isWarnEnabled()) {
+            return;
+        }
         System.out.printf("[%5s] [%18s]: %s\n", "WARN", name, StringUtil.format(s, o, o1));
     }
 
@@ -292,21 +344,33 @@ public class MyLogger implements Logger {
 
     @Override
     public void error(String message) {
+        if (!isErrorEnabled()) {
+            return;
+        }
         System.out.printf("[%5s] [%18s]: %s\n", "ERROR", name, message);
     }
 
     @Override
     public void error(String s, Object o) {
+        if (!isErrorEnabled()) {
+            return;
+        }
         System.out.printf("[%5s] [%18s]: %s\n", "ERROR", name, StringUtil.format(s, o));
     }
 
     @Override
     public void error(String s, Object o, Object o1) {
+        if (!isErrorEnabled()) {
+            return;
+        }
         System.out.printf("[%5s] [%18s]: %s\n", "ERROR", name, StringUtil.format(s, o, o1));
     }
 
     @Override
     public void error(String s, Object... objects) {
+        if (!isErrorEnabled()) {
+            return;
+        }
         System.out.printf("[%5s] [%18s]: %s\n", "ERROR", name, StringUtil.format(s, objects));
     }
 
