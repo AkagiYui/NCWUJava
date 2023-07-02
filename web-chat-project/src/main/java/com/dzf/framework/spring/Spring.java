@@ -33,11 +33,13 @@ public class Spring {
     }
 
     /**
-     * 初始化 Spring 框架
+     * 启动 Spring 框架
      *
      * @param basePackage 扫描的包名
      */
-    public static void initSpring(String basePackage) {
+    public static void startSpring(String basePackage) {
+        ANNOTATIONS.forEach(a -> log.debug("将含有 {} 注解的类注册为 Bean", a.getName()));
+
         // 扫描包下所有的类
         List<Class<?>> classes = ClassUtil.getClassList(basePackage, true);
         for (Class<?> clazz : classes) {
@@ -57,13 +59,13 @@ public class Spring {
             }
         }
         log.debug("BEANS: {}", BEANS);
-        autoInject();
+        dependencyInject();
     }
 
     /**
-     * 自动注入
+     * 依赖注入
      */
-    private static void autoInject() {
+    private static void dependencyInject() {
         for (Object bean : BEANS.values()) {
             // 获取所有的字段
             Field[] fields = bean.getClass().getDeclaredFields();
