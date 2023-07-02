@@ -2,11 +2,12 @@
 
 ## 技术点
 
-- 土制 Spring 框架 （IoC 容器）
-- 土制 Spring MVC 框架 （MVC 框架）
-- 土制 MyBatis 框架 （ORM 框架）
-- 土制模板引擎 （视图解析器）
-- 土制 HTTP 服务器 （Servlet 容器）
+- [x] 土制 Spring 框架 （IoC 容器、依赖注入）
+- [ ] 土制 Spring MVC 框架 （MVC 框架）
+- [ ] 土制 MyBatis 框架 （ORM 框架）
+- [ ] 土制模板引擎 （视图解析器）
+- [ ] 土制 HTTP 服务器 （Servlet 容器）
+- [ ] ~~土制 Lombok 框架 （代码生成）~~
 
 ## 使用的 JAR 包
 

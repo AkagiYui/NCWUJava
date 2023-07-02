@@ -1,9 +1,9 @@
 package com.dzf.framework;
 
-import com.dzf.framework.mvc.annotation.Controller;
 import org.junit.jupiter.api.Test;
 
 /**
+ * ClassUtil测试类
  * @author AkagiYui
  */
 class ClassUtilTest {
@@ -17,8 +17,4 @@ class ClassUtilTest {
         });
     }
 
-    @Test
-    void getClassListByAnnotation() {
-        ClassUtil.getClassListByAnnotation("com.dzf", Controller.class).forEach(System.out::println);
-    }
 }
