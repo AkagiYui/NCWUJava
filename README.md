@@ -46,4 +46,6 @@
 
 ### [学习部分项目](chat-learn)
 
-### [结课项目](chat-project)
+### [期中项目](chat-project)
+
+### [结课项目](web-chat-project)
