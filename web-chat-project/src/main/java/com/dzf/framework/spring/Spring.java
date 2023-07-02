@@ -7,10 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 土制 Spring 框架
@@ -22,11 +19,13 @@ public class Spring {
     /**
      * 所有 Bean 对象 {类名：实例}
      */
-    public static final Map<String, Object> BEANS = new HashMap<>();
+    private static final Map<String, Object> BEANS = new HashMap<>();
     /**
      * 标记为 Bean 的注解类 [注解, ...]
      */
-    public static final List<Class<? extends Annotation>> ANNOTATIONS = new ArrayList<>();
+    private static final List<Class<? extends Annotation>> ANNOTATIONS = new ArrayList<>();
+    /** 是否已启动 */
+    private static boolean isStarted = false;
 
     static {
         ANNOTATIONS.add(Component.class);
@@ -38,6 +37,10 @@ public class Spring {
      * @param basePackage 扫描的包名
      */
     public static void startSpring(String basePackage) {
+        if (isStarted) {
+            return;
+        }
+
         ANNOTATIONS.forEach(a -> log.debug("将含有 {} 注解的类注册为 Bean", a.getName()));
 
         // 扫描包下所有的类
@@ -60,6 +63,7 @@ public class Spring {
         }
         log.debug("BEANS: {}", BEANS);
         dependencyInject();
+        isStarted = true;
     }
 
     /**
@@ -102,5 +106,14 @@ public class Spring {
             throw new RuntimeException("Can not get bean " + clazz.getName());
         }
         return result;
+    }
+
+    /** 添加 Bean 注解 */
+    public static void addAnnotation(List<Class<? extends Annotation>> annotation) {
+        annotation.forEach(a -> {
+            if (!ANNOTATIONS.contains(a)) {
+                ANNOTATIONS.add(a);
+            }
+        });
     }
 }
