@@ -4,10 +4,14 @@ import org.slf4j.Logger;
 import org.slf4j.Marker;
 
 /**
+ * 自定义 Logger 实现类
+ *
  * @author AkagiYui
  */
-
 public class MyLogger implements Logger {
+    /**
+     * Logger 名称
+     */
     private final String name;
 
     public MyLogger(String name) {
@@ -16,37 +20,37 @@ public class MyLogger implements Logger {
 
     @Override
     public String getName() {
-        return null;
+        return name;
     }
 
     @Override
     public boolean isTraceEnabled() {
-        return false;
+        return true;
     }
 
     @Override
     public void trace(String s) {
-
+        info(s);
     }
 
     @Override
     public void trace(String s, Object o) {
-
+        info(s, o);
     }
 
     @Override
     public void trace(String s, Object o, Object o1) {
-
+        info(s, o, o1);
     }
 
     @Override
     public void trace(String s, Object... objects) {
-
+        info(s, objects);
     }
 
     @Override
     public void trace(String s, Throwable throwable) {
-
+        info(s, throwable);
     }
 
     @Override
@@ -56,27 +60,23 @@ public class MyLogger implements Logger {
 
     @Override
     public void trace(Marker marker, String s) {
-
+        info(s);
     }
 
     @Override
     public void trace(Marker marker, String s, Object o) {
-
     }
 
     @Override
     public void trace(Marker marker, String s, Object o, Object o1) {
-
     }
 
     @Override
     public void trace(Marker marker, String s, Object... objects) {
-
     }
 
     @Override
     public void trace(Marker marker, String s, Throwable throwable) {
-
     }
 
     @Override
@@ -86,27 +86,27 @@ public class MyLogger implements Logger {
 
     @Override
     public void debug(String message) {
-        System.out.println("DEBUG [" + name + "]: " + message);
+        System.out.printf("[%5s] [%18s]: %s\n", "DEBUG", name, message);
     }
 
     @Override
     public void debug(String s, Object o) {
-
+        info(s, o);
     }
 
     @Override
     public void debug(String s, Object o, Object o1) {
-
+        info(s, o, o1);
     }
 
     @Override
     public void debug(String s, Object... objects) {
-
+        info(s, objects);
     }
 
     @Override
     public void debug(String s, Throwable throwable) {
-
+        info(s, throwable);
     }
 
     @Override
@@ -116,22 +116,18 @@ public class MyLogger implements Logger {
 
     @Override
     public void debug(Marker marker, String s) {
-
     }
 
     @Override
     public void debug(Marker marker, String s, Object o) {
-
     }
 
     @Override
     public void debug(Marker marker, String s, Object o, Object o1) {
-
     }
 
     @Override
     public void debug(Marker marker, String s, Object... objects) {
-
     }
 
     @Override
@@ -141,17 +137,17 @@ public class MyLogger implements Logger {
 
     @Override
     public boolean isInfoEnabled() {
-        return false;
+        return true;
     }
 
     @Override
     public void info(String message) {
-        System.out.println("INFO [" + name + "]: " + message);
+        System.out.printf("[%5s] [%18s]: %s\n", "INFO", name, message);
     }
 
     @Override
     public void info(String s, Object o) {
-
+        info(s);
     }
 
     @Override
@@ -201,12 +197,12 @@ public class MyLogger implements Logger {
 
     @Override
     public boolean isWarnEnabled() {
-        return false;
+        return true;
     }
 
     @Override
     public void warn(String message) {
-        System.out.println("WARN [" + name + "]: " + message);
+        System.out.printf("[%5s] [%18s]: %s\n", "WARN", name, message);
     }
 
     @Override
@@ -261,12 +257,12 @@ public class MyLogger implements Logger {
 
     @Override
     public boolean isErrorEnabled() {
-        return false;
+        return true;
     }
 
     @Override
     public void error(String message) {
-        System.out.println("ERROR [" + name + "]: " + message);
+        System.out.printf("[%5s] [%18s]: %s\n", "ERROR", name, message);
     }
 
     @Override

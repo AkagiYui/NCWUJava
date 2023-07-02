@@ -4,6 +4,8 @@ import org.slf4j.ILoggerFactory;
 import org.slf4j.Logger;
 
 /**
+ * 自定义 Logger 工厂类
+ *
  * @author AkagiYui
  */
 public class MyLoggerFactory implements ILoggerFactory {
@@ -13,8 +15,4 @@ public class MyLoggerFactory implements ILoggerFactory {
         return new MyLogger(name);
     }
 
-    // 静态方法，用于返回一个 ILoggerFactory 实例
-    public static ILoggerFactory getLoggerFactory() {
-        return new MyLoggerFactory();
-    }
 }

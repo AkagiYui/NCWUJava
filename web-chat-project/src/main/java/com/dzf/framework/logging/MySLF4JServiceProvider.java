@@ -6,9 +6,10 @@ import org.slf4j.spi.MDCAdapter;
 import org.slf4j.spi.SLF4JServiceProvider;
 
 /**
+ * 自定义 SLF4J Service Provider 实现类
+ *
  * @author AkagiYui
  */
-
 public class MySLF4JServiceProvider implements SLF4JServiceProvider {
     @Override
     public ILoggerFactory getLoggerFactory() {
