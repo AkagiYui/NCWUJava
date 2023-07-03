@@ -70,7 +70,7 @@ public class MyLogger implements Logger {
         if (!isTraceEnabled()) {
             return;
         }
-        System.out.printf("[%5s] [%18s]: %s\n", "TRACE", name, s);
+        emit("TRACE", name, s);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class MyLogger implements Logger {
         if (!isTraceEnabled()) {
             return;
         }
-        System.out.printf("[%5s] [%18s]: %s\n", "TRACE", name, StringUtil.format(s, o));
+        emit("TRACE", name, StringUtil.format(s, o));
     }
 
     @Override
@@ -86,7 +86,7 @@ public class MyLogger implements Logger {
         if (!isTraceEnabled()) {
             return;
         }
-        System.out.printf("[%5s] [%18s]: %s\n", "TRACE", name, StringUtil.format(s, o, o1));
+        emit("TRACE", name, StringUtil.format(s, o, o1));
     }
 
     @Override
@@ -94,7 +94,7 @@ public class MyLogger implements Logger {
         if (!isTraceEnabled()) {
             return;
         }
-        System.out.printf("[%5s] [%18s]: %s\n", "TRACE", name, StringUtil.format(s, objects));
+        emit("TRACE", name, StringUtil.format(s, objects));
     }
 
     @Override
@@ -136,7 +136,7 @@ public class MyLogger implements Logger {
         if (!isDebugEnabled()) {
             return;
         }
-        System.out.printf("[%5s] [%18s]: %s\n", "DEBUG", name, message);
+        emit("DEBUG", name, message);
     }
 
     @Override
@@ -144,7 +144,7 @@ public class MyLogger implements Logger {
         if (!isDebugEnabled()) {
             return;
         }
-        System.out.printf("[%5s] [%18s]: %s\n", "DEBUG", name, StringUtil.format(s, o));
+        emit("DEBUG", name, StringUtil.format(s, o));
     }
 
     @Override
@@ -152,7 +152,7 @@ public class MyLogger implements Logger {
         if (!isDebugEnabled()) {
             return;
         }
-        System.out.printf("[%5s] [%18s]: %s\n", "DEBUG", name, StringUtil.format(s, o, o1));
+        emit("DEBUG", name, StringUtil.format(s, o, o1));
     }
 
     @Override
@@ -160,7 +160,7 @@ public class MyLogger implements Logger {
         if (!isDebugEnabled()) {
             return;
         }
-        System.out.printf("[%5s] [%18s]: %s\n", "DEBUG", name, StringUtil.format(s, objects));
+        emit("DEBUG", name, StringUtil.format(s, objects));
     }
 
     @Override
@@ -204,7 +204,7 @@ public class MyLogger implements Logger {
         if (!isInfoEnabled()) {
             return;
         }
-        System.out.printf("[%5s] [%18s]: %s\n", "INFO", name, message);
+        emit("INFO", name, message);
     }
 
     @Override
@@ -212,7 +212,7 @@ public class MyLogger implements Logger {
         if (!isInfoEnabled()) {
             return;
         }
-        System.out.printf("[%5s] [%18s]: %s\n", "INFO", name, StringUtil.format(s, o));
+        emit("INFO", name, StringUtil.format(s, o));
     }
 
     @Override
@@ -220,7 +220,7 @@ public class MyLogger implements Logger {
         if (!isInfoEnabled()) {
             return;
         }
-        System.out.printf("[%5s] [%18s]: %s\n", "INFO", name, StringUtil.format(s, o1));
+        emit("INFO", name, StringUtil.format(s, o1));
     }
 
     @Override
@@ -228,7 +228,7 @@ public class MyLogger implements Logger {
         if (!isInfoEnabled()) {
             return;
         }
-        System.out.printf("[%5s] [%18s]: %s\n", "INFO", name, StringUtil.format(s, objects));
+        emit("INFO", name, StringUtil.format(s, objects));
     }
 
     @Override
@@ -276,7 +276,7 @@ public class MyLogger implements Logger {
         if (!isWarnEnabled()) {
             return;
         }
-        System.out.printf("[%5s] [%18s]: %s\n", "WARN", name, message);
+        emit("WARN", name, message);
     }
 
     @Override
@@ -284,7 +284,7 @@ public class MyLogger implements Logger {
         if (!isWarnEnabled()) {
             return;
         }
-        System.out.printf("[%5s] [%18s]: %s\n", "WARN", name, StringUtil.format(s, o));
+        emit("WARN", name, StringUtil.format(s, o));
     }
 
     @Override
@@ -292,7 +292,7 @@ public class MyLogger implements Logger {
         if (!isWarnEnabled()) {
             return;
         }
-        System.out.printf("[%5s] [%18s]: %s\n", "WARN", name, StringUtil.format(s, objects));
+        emit("WARN", name, StringUtil.format(s, objects));
     }
 
     @Override
@@ -300,7 +300,7 @@ public class MyLogger implements Logger {
         if (!isWarnEnabled()) {
             return;
         }
-        System.out.printf("[%5s] [%18s]: %s\n", "WARN", name, StringUtil.format(s, o, o1));
+        emit("WARN", name, StringUtil.format(s, o, o1));
     }
 
     @Override
@@ -347,7 +347,7 @@ public class MyLogger implements Logger {
         if (!isErrorEnabled()) {
             return;
         }
-        System.out.printf("[%5s] [%18s]: %s\n", "ERROR", name, message);
+        emit("ERROR", name, message);
     }
 
     @Override
@@ -355,7 +355,7 @@ public class MyLogger implements Logger {
         if (!isErrorEnabled()) {
             return;
         }
-        System.out.printf("[%5s] [%18s]: %s\n", "ERROR", name, StringUtil.format(s, o));
+        emit("ERROR", name, StringUtil.format(s, o));
     }
 
     @Override
@@ -363,7 +363,7 @@ public class MyLogger implements Logger {
         if (!isErrorEnabled()) {
             return;
         }
-        System.out.printf("[%5s] [%18s]: %s\n", "ERROR", name, StringUtil.format(s, o, o1));
+        emit("ERROR", name, StringUtil.format(s, o, o1));
     }
 
     @Override
@@ -371,7 +371,7 @@ public class MyLogger implements Logger {
         if (!isErrorEnabled()) {
             return;
         }
-        System.out.printf("[%5s] [%18s]: %s\n", "ERROR", name, StringUtil.format(s, objects));
+        emit("ERROR", name, StringUtil.format(s, objects));
     }
 
     @Override
@@ -407,5 +407,21 @@ public class MyLogger implements Logger {
     @Override
     public void error(Marker marker, String s, Throwable throwable) {
 
+    }
+
+    /**
+     * 输出日志
+     * @param level 日志级别
+     * @param name 日志名称
+     * @param message 日志内容
+     */
+    private void emit(String level, String name, String message) {
+        if (level.length() > 5) {
+            level = level.substring(level.length() - 5);
+        }
+        if (name.length() > 28) {
+            name = name.substring(name.length() - 28);
+        }
+        System.out.printf("[%5s] [%28s] %s\n", level, name, message);
     }
 }
