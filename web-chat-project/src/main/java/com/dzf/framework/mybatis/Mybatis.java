@@ -1,6 +1,9 @@
 package com.dzf.framework.mybatis;
 
+import com.dzf.framework.ClassUtil;
 import com.dzf.framework.XmlUtil;
+import com.dzf.framework.mybatis.annotation.Mapper;
+import com.dzf.framework.spring.Spring;
 import org.w3c.dom.Document;
 
 /**
@@ -44,5 +47,22 @@ public class Mybatis {
         }
 
         Database.connect();
+    }
+
+    /**
+     * 扫描 Mapper 并注册到 Spring 容器中
+     *
+     * @param basePackage 扫描的包名
+     */
+    public static void scanMapper(String basePackage) {
+        ClassUtil.getClassList(basePackage, true).forEach(clazz -> {
+            if (!clazz.isInterface()) {
+                return;
+            }
+            if (clazz.isAnnotationPresent(Mapper.class)) {
+                MapperProxy.MAPPER_BEANS.put(clazz.getName(), MapperProxy.getMapper(clazz));
+                Spring.addBean(clazz.getName(), MapperProxy.getMapper(clazz));
+            }
+        });
     }
 }

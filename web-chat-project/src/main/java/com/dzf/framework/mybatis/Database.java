@@ -224,7 +224,7 @@ public class Database {
                         //通过Method的invoke()做对象的方法参数传参  实际做了set赋值
                         method.invoke(t, value);
                     } catch (Exception e) {
-                        System.err.println(key + "\t该字段名与属性名不一致!");
+                        log.error(key + "\t该字段名与属性名不一致!");
                     }
 
                 }
