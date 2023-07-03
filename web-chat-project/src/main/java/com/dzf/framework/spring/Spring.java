@@ -36,7 +36,7 @@ public class Spring {
      *
      * @param basePackage 扫描的包名
      */
-    public static void startSpring(String basePackage) {
+    public static void start(String basePackage) {
         if (isStarted) {
             return;
         }
@@ -52,6 +52,7 @@ public class Spring {
                     if (BEANS.containsKey(clazz.getName()) || clazz.isAnnotation() || clazz.isEnum()) {
                         continue;
                     }
+                    // todo 扫描包含 @Component 注解的注解
                     try {
                         log.debug("BEAN: {}", clazz.getName());
                         BEANS.put(clazz.getName(), clazz.newInstance());
@@ -108,7 +109,14 @@ public class Spring {
         return result;
     }
 
-    /** 添加 Bean 注解 */
+    public static void addBean(String name, Object bean) {
+        BEANS.put(name, bean);
+    }
+
+    /** 添加 Bean 注解
+     *
+     * @param annotation 注解
+     */
     public static void addAnnotation(List<Class<? extends Annotation>> annotation) {
         annotation.forEach(a -> {
             if (!ANNOTATIONS.contains(a)) {
