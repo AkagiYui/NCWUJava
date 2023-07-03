@@ -1,4 +1,4 @@
-package com.dzf.framework.mvc.annotation;
+package com.dzf.framework.mybatis.annotation.sql;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -6,9 +6,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * Update 注解
+ * 用于标注更新语句
+ *
  * @author AkagiYui
  */
-@Target(ElementType.TYPE)
+@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Controller {
+public @interface Update {
+    String value();
 }
