@@ -25,6 +25,6 @@ public class Mvc {
         Spring.addAnnotation(newAnnotations);
     }
 
-    public static void initMvc(String... basePackage) {
+    public static void init(String... basePackage) {
     }
 }
