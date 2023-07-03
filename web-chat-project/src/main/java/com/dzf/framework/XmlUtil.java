@@ -1,6 +1,7 @@
 package com.dzf.framework;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
@@ -59,5 +60,24 @@ public class XmlUtil {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * 获取XML文件中某个节点的字符串值
+     * @param doc Document对象
+     * @param path 节点路径
+     * @return 节点的字符串值
+     */
+    public static String getValue(Document doc, String... path) {
+        Element currentElement = (Element) doc.getElementsByTagName(path[0]).item(0);
+        Element lastElement = currentElement;
+        for (int i = 1; i < path.length && currentElement != null; i++) {
+            currentElement = (Element) currentElement.getElementsByTagName(path[i]).item(0);
+            if (currentElement == null) {
+                return null;
+            }
+            lastElement = currentElement;
+        }
+        return lastElement == null ? null : lastElement.getTextContent();
     }
 }
