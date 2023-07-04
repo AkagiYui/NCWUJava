@@ -1,6 +1,6 @@
 package com.dzf.controller;
 
-import com.dzf.framework.mvc.annotation.Controller;
+import com.dzf.framework.mvc.annotation.bean.Controller;
 import com.dzf.framework.mvc.annotation.GetMapping;
 import com.dzf.framework.spring.annotation.Autowired;
 import com.dzf.service.UserService;
@@ -15,7 +15,7 @@ public class UserController {
 
     @GetMapping("/index")
     public void getUser() {
-
+        userService.getUser();
     }
 
 }

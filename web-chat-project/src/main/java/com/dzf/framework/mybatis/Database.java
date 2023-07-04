@@ -3,7 +3,9 @@ package com.dzf.framework.mybatis;
 import lombok.extern.slf4j.Slf4j;
 
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -74,7 +76,7 @@ public class Database {
     /**
      * 执行 增删改
      *
-     * @param sql sql语句
+     * @param sql  sql语句
      * @param args sql参数
      * @return 影响行数
      */
@@ -90,7 +92,7 @@ public class Database {
     /**
      * 执行 查询
      *
-     * @param sql sql语句
+     * @param sql  sql语句
      * @param args sql参数
      * @return Map对象 {字段名：字段值}
      */
@@ -152,8 +154,8 @@ public class Database {
     /**
      * 执行 查询
      *
-     * @param sql sql语句
-     * @param cla 实体类
+     * @param sql  sql语句
+     * @param cla  实体类
      * @param args sql参数
      * @return 实体类对象
      */
@@ -232,6 +234,69 @@ public class Database {
             }
             //数据存入完 返回list集合
             return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 执行 查询 一对多
+     *
+     * @param sql       sql语句
+     * @param clazz     一对多的实体类
+     * @param oneSql    一对多的sql
+     * @param oneId     一对多的id
+     * @param oneClazz  一对多的实体类
+     * @param oneMethod 一对多的方法
+     * @param obj       sql参数
+     * @param <T>       泛型
+     * @return 实体对象
+     */
+    public static <T> T getOneToManySelect(String sql, Class<T> clazz, String oneSql, String oneId, Class<T> oneClazz, Method oneMethod, Object... obj) {
+        try {
+            //泛型实例化
+            T t = clazz.getConstructor().newInstance();
+            //获取PreparedStatement对象
+            PreparedStatement pre = getPreparedStatement(sql, obj);
+            //执行sql返回ResultSet结果集
+            ResultSet res = pre.executeQuery();
+            //通过ResultSet获取元数据
+            ResultSetMetaData md = res.getMetaData();
+            while (res.next()) {
+                //通过for循环获取单元数据
+                //getColumnCount()获取查询字段个数
+                for (int i = 1; i <= md.getColumnCount(); i++) {
+                    //获取查询字段名
+                    String key = md.getColumnLabel(i);
+                    //Method执行方法赋值
+                    Object value = res.getObject(key);
+                    try {
+                        //属性扫描器  检测该类是否有该属性
+                        PropertyDescriptor pd = new PropertyDescriptor(key, clazz);
+                        //getWriteMethod() 获取的就是该属性的set方法
+                        Method method = pd.getWriteMethod();
+                        //执行方法 参数传值
+                        method.invoke(t, value);
+                    } catch (Exception e) {
+                        System.err.println(key + "\t该字段名与属性名不一致!");
+                    }
+                }
+            }
+            //获取属性
+            Field[] fields = clazz.getDeclaredFields();
+            //获取返回类型
+            Type mType = oneMethod.getGenericReturnType();
+            for (Field f : fields) {
+                //获取属性类型
+                Type fType = f.getGenericType();
+                if (fType.equals(mType)) {
+                    f.setAccessible(true);
+                    //给属性赋值
+                    f.set(t, manyEntryExecute(oneSql, oneClazz, oneId));
+                }
+            }
+            return t;
         } catch (Exception e) {
             e.printStackTrace();
         }

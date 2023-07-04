@@ -1,4 +1,4 @@
-package com.dzf.framework.mybatis.annotation.sql;
+package com.dzf.framework.mvc.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -6,16 +6,15 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Select 注解
- * 用于标注查询语句
+ * 请求映射注解
  *
  * @author AkagiYui
  */
-@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Select {
+@Target({ElementType.TYPE, ElementType.METHOD})
+public @interface RequestMapping {
+    /**
+     * 映射url
+     */
     String value();
-    //一对多的路径 包名.类名
-    One one() default @One();
-
 }

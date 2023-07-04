@@ -1,8 +1,10 @@
 package com.dzf.framework;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.net.JarURLConnection;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -33,11 +35,11 @@ public class ClassUtil {
                 if (url != null) {
                     String protocol = url.getProtocol();
                     switch (protocol) {
-                        case "file":
+                        case "file" -> {
                             String packagePath = url.getPath();
                             addClass(classList, packagePath, packageName, isRecursive);
-                            break;
-                        case "jar":
+                        }
+                        case "jar" -> {
                             JarURLConnection jarUrlConnection = (JarURLConnection) url.openConnection();
                             JarFile jarFile = jarUrlConnection.getJarFile();
                             Enumeration<JarEntry> jarEntries = jarFile.entries();
@@ -51,7 +53,7 @@ public class ClassUtil {
                                     }
                                 }
                             }
-                            break;
+                        }
                     }
                 }
             }
@@ -166,4 +168,54 @@ public class ClassUtil {
         return subPackageName;
     }
 
+
+    /**
+     * 获取包下的所有类引用
+     *
+     * @param packageName 包名
+     * @return 类引用列表
+     */
+    public static List<String> listClassNamesInPackage(String packageName) {
+        List<String> resultList = new ArrayList<>();
+        try {
+            Enumeration<URL> dirs = Thread.currentThread().getContextClassLoader().getResources("");
+            while (dirs.hasMoreElements()) {
+                String contextPath = dirs.nextElement().toURI().toString();
+                contextPath = contextPath.replace("file:/", "");
+                String canonicalPath = packageName.replaceAll("\\.", "/");
+                canonicalPath = contextPath.concat(canonicalPath);
+                File file = new File(canonicalPath);
+                resultList.addAll(listClassNamesInPackage(file, contextPath));
+            }
+        } catch (URISyntaxException | IOException e) {
+            throw new RuntimeException(e);
+        }
+        return resultList;
+    }
+
+
+    public static List<String> listClassNamesInPackage(File path, String pathName) {
+        List<String> classNameList = new ArrayList<>();
+        if (!path.exists()) {
+            return new ArrayList<>();
+        }
+        File[] files = path.listFiles();
+        if (files == null) {
+            return new ArrayList<>();
+        }
+        for (File file : files) {
+            if (file.isDirectory()) {
+                classNameList.addAll(listClassNamesInPackage(file, pathName));
+            } else {
+                String name = file.getAbsolutePath();
+                if (name.endsWith(".class")) {
+                    name = name.replaceAll("\\\\", "/"); //替换成反斜杠
+                    //筛选掉根目录以上的文件
+                    name = name.split("\\.class")[0].replace(pathName, "").replaceAll("/", ".");
+                    classNameList.add(name);
+                }
+            }
+        }
+        return classNameList;
+    }
 }

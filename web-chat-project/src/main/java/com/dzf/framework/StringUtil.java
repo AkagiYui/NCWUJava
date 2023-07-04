@@ -90,4 +90,54 @@ public class StringUtil {
     public static boolean isNotEmpty(String str) {
         return str != null && !"".equals(str);
     }
+
+    /**
+     * 下划线转驼峰
+     *
+     * @param str 字符串
+     * @param firstUpperCase 首字母是否大写
+     * @return 转换后的字符串
+     */
+    public static String underlineToCamel(String str, boolean firstUpperCase) {
+        if (str == null) {
+            return null;
+        }
+        StringBuilder sb = new StringBuilder();
+        boolean upperCase = firstUpperCase;
+        for (char c : str.toCharArray()) {
+            if (c == '_') {
+                upperCase = true;
+            } else {
+                if (upperCase) {
+                    sb.append(Character.toUpperCase(c));
+                    upperCase = false;
+                } else {
+                    sb.append(c);
+                }
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 驼峰转下划线
+     *
+     * @param str 字符串
+     * @return 转换后的字符串
+     */
+    public static String camelToUnderline(String str) {
+        if (str == null) {
+            return null;
+        }
+        StringBuilder sb = new StringBuilder();
+        for (char c : str.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                sb.append('_');
+                sb.append(Character.toLowerCase(c));
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
 }

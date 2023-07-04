@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 /**
@@ -55,8 +56,9 @@ public class Spring {
                     // todo 扫描包含 @Component 注解的注解
                     try {
                         log.debug("BEAN: {}", clazz.getName());
-                        BEANS.put(clazz.getName(), clazz.newInstance());
-                    } catch (InstantiationException | IllegalAccessException e) {
+                        BEANS.put(clazz.getName(), clazz.getConstructor().newInstance());
+                    } catch (InstantiationException | IllegalAccessException | NoSuchMethodException |
+                             InvocationTargetException e) {
                         throw new RuntimeException(e);
                     }
                 }
