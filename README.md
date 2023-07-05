@@ -48,4 +48,6 @@
 
 ### [期中项目](chat-project)
 
+### [Servlet WebSocket示例](chat-websocket)
+
 ### [结课项目](web-chat-project)
