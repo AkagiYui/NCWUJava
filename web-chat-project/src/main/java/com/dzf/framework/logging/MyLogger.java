@@ -1,7 +1,8 @@
 package com.dzf.framework.logging;
 
-import com.dzf.framework.StringUtil;
-import com.dzf.framework.XmlUtil;
+import com.dzf.FileUtil;
+import com.dzf.StringUtil;
+import com.dzf.XmlUtil;
 import org.slf4j.Logger;
 import org.slf4j.Marker;
 import org.w3c.dom.Document;
@@ -24,7 +25,7 @@ public class MyLogger implements Logger {
     public MyLogger(String name) {
         this.name = name;
 
-        Document doc = XmlUtil.parse("log-config.xml");
+        Document doc = XmlUtil.parse(FileUtil.getResourceFile("logging-config.xml"));
         if (doc != null) {
             // 获取logger节点下的level节点的值
             String level = doc.getElementsByTagName("level").item(0).getTextContent();
@@ -33,24 +34,12 @@ public class MyLogger implements Logger {
             }
             level = level.toUpperCase();
             switch (level) {
-                case "DEBUG":
-                    this.level = 1;
-                    break;
-                case "INFO":
-                    this.level = 2;
-                    break;
-                case "WARN":
-                    this.level = 3;
-                    break;
-                case "ERROR":
-                    this.level = 4;
-                    break;
-                case "FATAL":
-                    this.level = 5;
-                    break;
-                case "TRACE":
-                default:
-                    this.level = 0;
+                case "DEBUG" -> this.level = 1;
+                case "INFO" -> this.level = 2;
+                case "WARN" -> this.level = 3;
+                case "ERROR" -> this.level = 4;
+                case "FATAL" -> this.level = 5;
+                default -> this.level = 0;
             }
         }
     }

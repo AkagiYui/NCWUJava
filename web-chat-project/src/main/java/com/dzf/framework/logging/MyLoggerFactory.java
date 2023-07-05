@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 
 /**
  * 自定义 Logger 工厂类
+ * <p>
+ * 适配 SLF4J
  *
  * @author AkagiYui
  */

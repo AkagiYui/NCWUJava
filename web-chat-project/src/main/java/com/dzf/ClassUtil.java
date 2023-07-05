@@ -1,4 +1,4 @@
-package com.dzf.framework;
+package com.dzf;
 
 import java.io.File;
 import java.io.IOException;
@@ -193,8 +193,7 @@ public class ClassUtil {
         return resultList;
     }
 
-
-    public static List<String> listClassNamesInPackage(File path, String pathName) {
+    private static List<String> listClassNamesInPackage(File path, String pathName) {
         List<String> classNameList = new ArrayList<>();
         if (!path.exists()) {
             return new ArrayList<>();

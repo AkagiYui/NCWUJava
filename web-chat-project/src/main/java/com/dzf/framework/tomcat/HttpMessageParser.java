@@ -1,12 +1,13 @@
 package com.dzf.framework.tomcat;
 
 
-import com.dzf.framework.StringUtil;
+import com.dzf.StringUtil;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +30,7 @@ public class HttpMessageParser {
      */
     public static Request parse2request(InputStream reqStream) throws IOException {
         // 使用 BufferedReader 和 InputStreamReader 读取输入流中的数据
-        BufferedReader httpReader = new BufferedReader(new InputStreamReader(reqStream, "UTF-8"));
+        BufferedReader httpReader = new BufferedReader(new InputStreamReader(reqStream, StandardCharsets.UTF_8));
 
         // 创建一个新的 Request 对象
         Request httpRequest = new Request();

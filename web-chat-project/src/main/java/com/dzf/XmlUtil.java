@@ -1,4 +1,4 @@
-package com.dzf.framework;
+package com.dzf;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Unmarshaller;
@@ -7,7 +7,7 @@ import org.w3c.dom.Element;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.IOException;
+import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -25,15 +25,11 @@ public class XmlUtil {
      * @param filePath XML文件路径
      * @return Document对象
      */
-    public static Document parse(String filePath) {
+    public static Document parse(File file) {
         try {
-            InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(filePath);
-            if (inputStream == null) {
-                throw new IOException("File not found: " + filePath);
-            }
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(inputStream);
+            Document doc = dBuilder.parse(file);
             doc.getDocumentElement().normalize();
             return doc;
         } catch (Exception e) {

@@ -1,4 +1,4 @@
-package com.dzf.framework;
+package com.dzf;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -139,5 +139,12 @@ public class StringUtil {
             }
         }
         return sb.toString();
+    }
+
+    //获取文件路径
+    public static String getResourcePath(String path){
+        String resourcePath = Thread.currentThread().getContextClassLoader().getResource("").toString();
+        resourcePath = resourcePath.replace("file:/","").concat(path);
+        return resourcePath;
     }
 }

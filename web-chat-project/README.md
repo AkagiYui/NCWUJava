@@ -12,6 +12,7 @@ B/S 架构的网络聊天室，使用 WebSocket 协议进行通信。
 
 ## 技术点
 
+- [x] 土制 日志 框架 （实现 Slf4j 接口）
 - [x] 土制 Spring 框架 （IoC 容器、依赖注入）
 - [ ] 土制 Spring MVC 框架 （MVC 框架）
 - [ ] 土制 MyBatis 框架 （ORM 框架）
@@ -41,3 +42,4 @@ B/S 架构的网络聊天室，使用 WebSocket 协议进行通信。
 - [How do I make my logging framework SLF4J compatible?](https://www.slf4j.org/faq.html#slf4j_compatible)
 - [获取指定包名下的所有类](https://blog.csdn.net/Leon_Jinhai_Sun/article/details/106344047)
 - [Java9之后显示newInstance()已经过时](https://blog.csdn.net/m0_52402391/article/details/123781945)
+- [@SneakyThrowsWhen use lombok ”@SneakyThrows“，unsupported class file major version 61](https://stackoverflow.com/questions/72854319/sneakythrowswhen-use-lombok-sneakythrows-unsupported-class-file-major-versio)

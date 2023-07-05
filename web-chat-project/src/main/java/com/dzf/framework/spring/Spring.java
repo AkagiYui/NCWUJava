@@ -1,6 +1,6 @@
 package com.dzf.framework.spring;
 
-import com.dzf.framework.ClassUtil;
+import com.dzf.ClassUtil;
 import com.dzf.framework.spring.annotation.Autowired;
 import com.dzf.framework.spring.annotation.Component;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +8,10 @@ import lombok.extern.slf4j.Slf4j;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 土制 Spring 框架
@@ -25,7 +28,9 @@ public class Spring {
      * 标记为 Bean 的注解类 [注解, ...]
      */
     private static final List<Class<? extends Annotation>> ANNOTATIONS = new ArrayList<>();
-    /** 是否已启动 */
+    /**
+     * 是否已启动
+     */
     private static boolean isStarted = false;
 
     static {
@@ -64,6 +69,35 @@ public class Spring {
                 }
             }
         }
+
+        // 课程提供的代码
+//        try {
+//            //获取反射Class对象
+//            List<String> paths = ClassUtil.listClassNamesInPackage("com.dzf");
+//            for (String path : paths) {
+//                Class clazz = Class.forName(path);
+//                //获取注解
+//                Annotation service = clazz.getAnnotation(Service.class);
+//                if (service != null) {
+//                    Object obj = clazz.getConstructor().newInstance();
+//                    //存储@Service注解上的对象
+//                    BEANS.put(clazz.getName(), obj);
+//                    //获取属性
+//                    Field[] fields = clazz.getDeclaredFields();
+//                    for (Field field : fields) {
+//                        Autowired au = field.getAnnotation(Autowired.class);
+//                        if (au != null) {
+//                            //赋值动态代理
+//                            field.setAccessible(true);
+//                            field.set(obj, DynamicAgencyFaction.getInfMapper(Class.forName(field.getGenericType().getTypeName())));
+//                        }
+//                    }
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
         log.debug("BEANS: {}", BEANS);
         dependencyInject();
         isStarted = true;
@@ -115,7 +149,8 @@ public class Spring {
         BEANS.put(name, bean);
     }
 
-    /** 添加 Bean 注解
+    /**
+     * 添加 Bean 注解
      *
      * @param annotation 注解
      */
@@ -125,5 +160,14 @@ public class Spring {
                 ANNOTATIONS.add(a);
             }
         });
+    }
+
+    /**
+     * 获取所有的 Bean
+     *
+     * @return 所有的 Bean
+     */
+    public static Map<String, Object> getBeans() {
+        return BEANS;
     }
 }

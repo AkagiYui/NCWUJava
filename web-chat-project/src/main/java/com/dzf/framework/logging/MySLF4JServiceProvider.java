@@ -7,6 +7,8 @@ import org.slf4j.spi.SLF4JServiceProvider;
 
 /**
  * 自定义 SLF4J Service Provider 实现类
+ * <p>
+ * 适配 SLF4J
  *
  * @author AkagiYui
  */

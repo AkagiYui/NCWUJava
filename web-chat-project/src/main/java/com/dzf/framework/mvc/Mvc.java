@@ -1,6 +1,6 @@
 package com.dzf.framework.mvc;
 
-import com.dzf.framework.ClassUtil;
+import com.dzf.ClassUtil;
 import com.dzf.framework.spring.Spring;
 import com.dzf.framework.spring.annotation.Component;
 
