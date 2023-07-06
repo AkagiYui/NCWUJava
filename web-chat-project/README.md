@@ -5,19 +5,21 @@
 
 ## 包含功能
 
-- [ ] 用户登录
-- [ ] 好友列表
-- [ ] 好友添加
+- [x] 用户登录
+- [x] 公屏聊天
 - [ ] 好友私聊
-- [ ] 公屏聊天
+- [ ] 好友添加
+- [ ] 好友列表
+
+![](img.png)
 
 ## 技术点
 
 - [x] 土制 日志 框架 （实现 Slf4j 接口）
+- [x] 土制 MyBatis 框架 （ORM 框架）
 - [x] 土制 Spring 框架 （IoC 容器、依赖注入）
-- [ ] 土制 Spring MVC 框架 （MVC 框架）
-- [ ] 土制 MyBatis 框架
-- [ ] 将 `自制 MVC 框架` 整合到 `Servlet` 并接入 `Tomcat`
+- [x] 土制 Spring MVC 框架 （MVC 框架）
+- [x] 将 `自制 MVC 框架` 整合到 `Servlet` 并接入 `Tomcat`
 - [ ] ~~土制 WebSocket 框架 （基于 MVC 框架）~~
 - [ ] ~~土制 数据库连接池 （连接池）~~
 - [ ] ~~土制模板引擎 （视图解析器）~~
@@ -38,8 +40,8 @@ stateDiagram-v2
     加载Dispatcher，初始化Mvc框架 --> 接收请求
     接收请求 --> Servlet容器转发给Dispatcher
     Servlet容器转发给Dispatcher --> 解析Header，Body
-    解析Header，Body --> 根据@RequestMapping记录转发到对应的方法
-    根据@RequestMapping记录转发到对应的方法 --> 接收请求
+    解析Header，Body --> 根据@RequestMapping记录分发到对应的方法
+    根据@RequestMapping记录分发到对应的方法 --> 接收请求
 
     加载Dispatcher，初始化Mvc框架 --> 扫描@RequestMapping注解
 ```

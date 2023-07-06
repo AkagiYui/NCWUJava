@@ -71,10 +71,11 @@ public class Mvc {
 
     /**
      * 处理静态资源
+     *
      * @param resourceName 静态资源名称
-     * @param response 响应
+     * @param response     响应
      */
-    public static void handleStaticResource(String resourceName, HttpServletResponse response) {
+    public static boolean handleStaticResource(String resourceName, HttpServletResponse response) {
         try {
             resourceName = FileUtil.getStaticResourcePath(resourceName); // 获取静态资源路径
             InputStream is = Files.newInputStream(Path.of(resourceName)); // 获取静态资源的输入流
@@ -91,19 +92,12 @@ public class Mvc {
             is.close();
         } catch (NoSuchFileException e) {
             log.warn("找不到静态资源: {}", resourceName);
-            try {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+            return false;
         } catch (IOException e) {
             e.printStackTrace();
-            try {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+            return false;
         }
+        return true;
     }
 
     public static MvcMapping getMapping(String url) {

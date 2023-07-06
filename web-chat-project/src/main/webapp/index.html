@@ -1,7 +1,7 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<html lang="zh">
 <head>
-    <title>测试</title>
+    <meta charset="UTF-8">
+    <title>聊天室</title>
 </head>
 <style>
     #pop{
@@ -31,28 +31,28 @@
 </style>
 <body>
 
-
-<form action="/method1" method="get">
+<h1>聊天吧</h1>
+<form action="/login" method="get">
     <p>
-        <input type="text" name="username">
+        学号：<input type="text" name="username">
     </p>
     <p>
-        <input type="submit" value="get请求">
-        <input type="submit" value="post请求" formmethod="post">
-        <input type="submit" value="get请求22" formaction="/method2">
-        <input type="submit" value="get请求" formaction="/method2" formmethod="post">
+        密码：<input type="password" name="password">
+    </p>
+    <p>
+        <input type="submit" value="登录">
     </p>
 
 </form>
 
-<%--自己写一个弹出框--%>
+<!--<%&#45;&#45;自己写一个弹出框&#45;&#45;%>-->
 <div>
-    <label><a href="#" onclick="onPop()">添加</a></label>
+<!--    <label><a href="#" onclick="onPop()">添加</a></label>-->
 </div>
-
-<%--定义的一个弹出框--%>
+<img src="img/1.gif"/>
+<!--<%&#45;&#45;定义的一个弹出框&#45;&#45;%>-->
 <div id="pop">
-   <%--弹出框内容--%>
+<!--   <%&#45;&#45;弹出框内容&#45;&#45;%>-->
     <div id="context">
         <p>
             <label>账号:</label><input type="text" name="username">

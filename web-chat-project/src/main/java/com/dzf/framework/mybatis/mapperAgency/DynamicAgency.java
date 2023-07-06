@@ -1,6 +1,7 @@
 package com.dzf.framework.mybatis.mapperAgency;
 
 
+import com.dzf.ClassUtil;
 import com.dzf.framework.mybatis.Database;
 import com.dzf.framework.mybatis.Mybatis;
 import com.dzf.framework.mybatis.annotation.sql.One;
@@ -26,7 +27,7 @@ public class DynamicAgency<T> implements InvocationHandler {
     static {
         try {
             log.debug("=============解析Mapper接口=============");
-            MAPPER_QUERY_MAP.putAll(Mybatis.parseMapperClass("com.akagiyui.mapper"));
+            MAPPER_QUERY_MAP.putAll(Mybatis.parseMapperClass("com.akagiyui.mapper")); // todo 提取到配置文件
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -80,7 +81,7 @@ public class DynamicAgency<T> implements InvocationHandler {
         }
 
         // 包名.类名.方法名
-        String key = method.getDeclaringClass().getName() + "." + method.getName();
+        String key = ClassUtil.getUniqueKey(method);
         MapperQuery mapperQuery = MAPPER_QUERY_MAP.get(key);
         String sql = mapperQuery.getSql(); // 获取sql
 
@@ -99,6 +100,7 @@ public class DynamicAgency<T> implements InvocationHandler {
             };
         }
 
+        // todo @Param 解析 / 参数顺序
         // 判断返回值类型，执行对应的方法
         String returnTypeName = returnType.getCanonicalName(); // 返回值类型
         switch (returnTypeName) {
@@ -108,10 +110,9 @@ public class DynamicAgency<T> implements InvocationHandler {
                 if ("java.util.List<java.util.Map<java.lang.String, java.lang.Object>>".equals(type.getTypeName())) {
                     return Database.manyMapExecute(sql, args);
                 } else {
-                    if (type instanceof ParameterizedType) {
-                        //获取实际类型参数 getActualTypeArguments()
-                        Type[] ty = ((ParameterizedType) type).getActualTypeArguments();
-                        return Database.manyEntryExecute(sql, Class.forName(ty[0].getTypeName()), args);
+                    if (type instanceof ParameterizedType) { // 判断是否是泛型
+                        Type[] subTypes = ((ParameterizedType) type).getActualTypeArguments(); // 获取实际类型参数
+                        return Database.manyEntryExecute(sql, (Class<?>)subTypes[0], args);
                     }
                 }
             }

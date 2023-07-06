@@ -64,7 +64,7 @@ public class Mybatis {
             Database.PASSWORD = password;
         }
 
-        scanMapper("com.akagiyui"); // todo
+        scanMapper("com.akagiyui"); // todo 提取到配置文件
         Database.connect();
     }
 
@@ -153,18 +153,15 @@ public class Mybatis {
     public static Map<String, MapperQuery> parseMapperClass(String packageName) throws Exception {
         Map<String, MapperQuery> mapper = new HashMap<>();
         for (String path : ClassUtil.listClassNamesInPackage(packageName)) {
-            //获取反射Class对象
-            Class<?> clazz = Class.forName(path);
+            Class<?> clazz = Class.forName(path); // 获取反射Class对象
             if (clazz.isAnnotationPresent(Mapper.class)) {
-                //获取方法
-                Method[] methods = clazz.getMethods();
+                Method[] methods = clazz.getMethods(); // 获取方法
                 for (Method method : methods) {
                     Select select = method.getAnnotation(Select.class);
                     if (select != null) {
                         //实例化
                         MapperQuery ms = new MapperQuery(select.value(), select.one());
-                        String key = clazz.getName() + "." + method.getName();
-                        mapper.put(key, ms);
+                        mapper.put(ClassUtil.getUniqueKey(method), ms);
                     }
                 }
             }

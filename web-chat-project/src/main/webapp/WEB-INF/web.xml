@@ -21,6 +21,10 @@
             <param-name>mvcConfigPath</param-name>
             <param-value>mvc-config.xml</param-value>
         </init-param>
+        <init-param>
+            <param-name>notFoundPage</param-name>
+            <param-value>/404.html</param-value>
+        </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <!-- 映射url -->

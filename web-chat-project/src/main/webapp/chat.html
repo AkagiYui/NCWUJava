@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>聊天室</title>
+    <script type="text/javascript" src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/1.4.4/jquery.min.js"></script>
+    <style>
+        #content {
+            border: 1px solid black;
+            width: 600px;
+            height: 300px;
+            overflow-y: scroll; /* 添加滚动条 */
+            float: left;
+        }
+
+        #userList {
+            border: 1px solid black;
+            width: 100px;
+            height: 300px;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+<h3 id="title">欢迎使用本系统！！</h3>
+<div id="content"></div>
+<div id="userList"></div>
+<form style="clear: both;">
+    <input id="to" style="width: 80px"/>
+    <input id="msg"/>
+    <button onclick="send(); return false">发送</button>
+</form>
+</body>
+<script type="text/javascript">
+    // 获取username参数
+    const username = new URLSearchParams(window.location.search).get('username');
+    console.log(`username: ${username}`);
+    $("#title").html("" + username + "，一起聊天吧！！"); // 修改title
+
+    let ws;
+    const url = `ws://${window.location.host}/chat?username=${username}`;
+
+    window.onload = connect;
+    function connect() {
+        if ('WebSocket' in window) {
+            ws = new WebSocket(url);
+        } else if ('MozWebSocket' in window) {
+            ws = new MozWebSocket(url);
+        } else {
+            alert('这个浏览器不支持WebSocket！');
+            return;
+        }
+
+        ws.onmessage = function (event) {
+            const result = JSON.parse(event.data)
+            console.log(result)
+            const messageBox =  $("#content")
+
+            if (result.alert !== null) {
+                messageBox.append(result.alert + "<br/>");
+            }
+
+            if (result.names !== null) {
+                $("#userList").html("");
+                $(result.names).each(function () {
+                    $("#userList").append(this + "<br/>");
+                });
+            }
+
+            if (result.from !== null) {
+                messageBox.append("["+result.from + "]<" + result.date +
+                    "> ：" + result.message + "<br/>");
+                messageBox.scrollTop(messageBox[0].scrollHeight); // 滚动到底部
+            }
+        };
+    }
+
+    function send() {
+        const textBox = $("#msg")
+        const value = textBox.val();
+        ws.send(value);
+        textBox.val("");
+    }
+</script>
+</html>

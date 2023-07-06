@@ -62,7 +62,7 @@ public class Database {
             // 创建执行sql对象，并且加载预编译sql
             PreparedStatement pre = connection.prepareStatement(sql);
             // 给预编译sql占位符 赋值
-            for (int i = 0; i < obj.length; i++) {
+            for (int i = 0; obj != null && i < obj.length; i++) {
                 // parameterIndex 占位符的索引为从 1 开始
                 pre.setObject((i + 1), obj[i]);
             }

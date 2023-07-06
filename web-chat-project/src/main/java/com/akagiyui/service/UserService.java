@@ -16,8 +16,6 @@ import java.util.List;
 @Service
 @Slf4j
 public class UserService {
-
-    // DynamicAgencyFaction.getInfMapper(GoodDao.class)
     @Autowired
     private UserMapper userMapper;
 
@@ -30,6 +28,18 @@ public class UserService {
     public User findUser(String number) {
         log.debug("=============service层（根据学号查询用户）=============");
         return userMapper.selectUser(number);
+    }
+
+    /**
+     * 根据学号和密码查询用户
+     *
+     * @param number 学号
+     * @param password 密码
+     * @return 用户
+     */
+    public User findUser(String number, String password) {
+        log.debug("=============service层（根据学号和密码查询用户）=============");
+        return userMapper.selectUser(number, password);
     }
 
     /**

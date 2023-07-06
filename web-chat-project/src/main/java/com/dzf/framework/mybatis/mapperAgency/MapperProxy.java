@@ -1,5 +1,6 @@
-package com.dzf.framework.mybatis;
+package com.dzf.framework.mybatis.mapperAgency;
 
+import com.dzf.framework.mybatis.Database;
 import com.dzf.framework.mybatis.annotation.sql.Select;
 import lombok.extern.slf4j.Slf4j;
 
@@ -11,6 +12,7 @@ import java.util.Map;
 
 /**
  * Mapper 代理
+ * @deprecated
  *
  * @author AkagiYui
  */
@@ -36,7 +38,6 @@ public class MapperProxy {
      * @param method 方法
      * @param args 参数
      * @return 方法返回值
-     * @param <T> 方法返回值类型
      */
     private static Object execute(Object proxy, Method method, Object[] args) {
         log.debug("执行 {} 方法", method.getName());

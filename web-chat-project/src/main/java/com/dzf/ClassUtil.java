@@ -3,10 +3,12 @@ package com.dzf;
 import java.io.File;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.net.JarURLConnection;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.jar.JarEntry;
@@ -168,7 +170,6 @@ public class ClassUtil {
         return subPackageName;
     }
 
-
     /**
      * 获取包下的所有类引用
      *
@@ -216,5 +217,26 @@ public class ClassUtil {
             }
         }
         return classNameList;
+    }
+
+    /**
+     * 生成方法的唯一标识
+     * <p>
+     * 例如：com.akagiyui.mapper.UserMapper.selectUser(java.lang.String):com.akagiyui.entity.User
+     *
+     * @param method 方法对象
+     * @return 唯一标识
+     */
+    public static String getUniqueKey(Method method) {
+        String className = method.getDeclaringClass().getName();
+        String methodName = method.getName();
+        Class<?>[] parameterTypes = method.getParameterTypes();
+        Class<?> returnType = method.getReturnType();
+
+        String parameterTypeNames = Arrays.stream(parameterTypes)
+                .map(Class::getName)
+                .collect(Collectors.joining(", "));
+
+        return className + "." + methodName + "(" + parameterTypeNames + "):" + returnType.getName();
     }
 }
