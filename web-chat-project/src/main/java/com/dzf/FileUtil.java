@@ -32,6 +32,18 @@ public class FileUtil {
     }
 
     /**
+     * 获取 webapp 目录下的文件
+     * @param path 文件路径
+     * @return 完整路径
+     */
+    public static String getStaticResourcePath(String path){
+        String resourcePath = Thread.currentThread().getContextClassLoader().getResource("").toString();
+        resourcePath = resourcePath.replace("file:/","");
+        resourcePath = resourcePath.substring(0,resourcePath.indexOf("/WEB-INF")).concat(path);
+        return resourcePath;
+    }
+
+    /**
      * 读取文件内容为字符串
      *
      * @param file    文件

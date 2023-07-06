@@ -45,6 +45,7 @@ public class Database {
                 log.debug("数据库连接成功");
             }
         } catch (SQLException e) {
+            log.error("数据库连接失败");
             throw new RuntimeException(e);
         }
     }
@@ -83,7 +84,7 @@ public class Database {
     public static int jdbcExecute(String sql, Object... args) {
         try {
             return getPreparedStatement(sql, args).executeUpdate();
-        } catch (SQLException e) {
+        } catch (SQLException | NullPointerException e) {
             e.printStackTrace();
         }
         return -1;

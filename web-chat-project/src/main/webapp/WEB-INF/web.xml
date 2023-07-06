@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+    <!-- spring监听 -->
+    <context-param>
+        <param-name>springConfigPath</param-name>
+        <param-value>spring-config.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>com.dzf.framework.spring.ServletListener</listener-class>
+    </listener>
+    <!-- 配置分发器 -->
+    <!-- 映射类 -->
+    <servlet>
+        <servlet-name>dis</servlet-name>
+        <servlet-class>com.dzf.framework.spring.mvc.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>mvcConfigPath</param-name>
+            <param-value>mvc-config.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <!-- 映射url -->
+    <servlet-mapping>
+        <servlet-name>dis</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
+</web-app>

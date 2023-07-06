@@ -5,8 +5,8 @@ import com.dzf.FileUtil;
 import com.dzf.XmlUtil;
 import com.dzf.framework.mybatis.annotation.Mapper;
 import com.dzf.framework.mybatis.annotation.sql.Select;
+import com.dzf.framework.mybatis.mapperAgency.DynamicAgencyFactory;
 import com.dzf.framework.mybatis.pojo.MapperQuery;
-import com.dzf.framework.mybatis.pojo.MapperStore;
 import com.dzf.framework.spring.Spring;
 import lombok.extern.slf4j.Slf4j;
 import org.dom4j.Attribute;
@@ -64,6 +64,7 @@ public class Mybatis {
             Database.PASSWORD = password;
         }
 
+        scanMapper("com.akagiyui"); // todo
         Database.connect();
     }
 
@@ -73,15 +74,20 @@ public class Mybatis {
      * @param basePackage 扫描的包名
      */
     public static void scanMapper(String basePackage) {
-        ClassUtil.getClassList(basePackage, true).forEach(clazz -> {
+        for (Class<?> clazz : ClassUtil.getClassList(basePackage, true)) {
             if (!clazz.isInterface()) {
-                return;
+                continue;
             }
             if (clazz.isAnnotationPresent(Mapper.class)) {
-                MapperProxy.MAPPER_BEANS.put(clazz.getName(), MapperProxy.getMapper(clazz));
-                Spring.addBean(clazz.getName(), MapperProxy.getMapper(clazz));
+                // MapperProxy.MAPPER_BEANS.put(clazz.getName(), MapperProxy.getMapper(clazz));
+                // Spring.addBean(clazz.getName(), MapperProxy.getMapper(clazz));
+                try {
+                    Spring.addInterface(clazz, DynamicAgencyFactory.class.getMethod("getInfMapper", Class.class));
+                } catch (NoSuchMethodException e) {
+                    throw new RuntimeException(e);
+                }
             }
-        });
+        }
     }
 
     public static com.dzf.framework.mybatis.pojo.Mapper parseMapperFile(File file) throws Exception {
@@ -144,8 +150,8 @@ public class Mybatis {
         return resultMapper;
     }
 
-    public static Map<String, MapperStore> parseMapperClass(String packageName) throws Exception {
-        Map<String, MapperStore> mapper = new HashMap<>();
+    public static Map<String, MapperQuery> parseMapperClass(String packageName) throws Exception {
+        Map<String, MapperQuery> mapper = new HashMap<>();
         for (String path : ClassUtil.listClassNamesInPackage(packageName)) {
             //获取反射Class对象
             Class<?> clazz = Class.forName(path);
@@ -156,7 +162,7 @@ public class Mybatis {
                     Select select = method.getAnnotation(Select.class);
                     if (select != null) {
                         //实例化
-                        MapperStore ms = new MapperStore(select.value(), select.one());
+                        MapperQuery ms = new MapperQuery(select.value(), select.one());
                         String key = clazz.getName() + "." + method.getName();
                         mapper.put(key, ms);
                     }

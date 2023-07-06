@@ -2,6 +2,7 @@ package com.akagiyui.mapper;
 
 import com.akagiyui.entity.User;
 import com.dzf.framework.mybatis.annotation.Mapper;
+import com.dzf.framework.mybatis.annotation.Param;
 import com.dzf.framework.mybatis.annotation.sql.Select;
 
 import java.util.List;
@@ -13,14 +14,13 @@ import java.util.List;
  */
 @Mapper
 public interface UserMapper {
-
     /**
      * 根据学号查询用户
      * @param number 学号
      * @return 用户
      */
     @Select("select * from user where number = #{id}")
-    User selectUser(String number);
+    User selectUser(@Param("id") String number);
 
     /**
      * 查询所有用户

@@ -16,24 +16,23 @@ B/S 架构的网络聊天室，使用 WebSocket 协议进行通信。
 - [x] 土制 Spring 框架 （IoC 容器、依赖注入）
 - [ ] 土制 Spring MVC 框架 （MVC 框架）
 - [ ] 土制 WebSocket 框架 （基于 MVC 框架）
-- [ ] 土制 MyBatis 框架 （ORM 框架）
+- [ ] 土制 MyBatis 框架
 - [ ] 将 `自制 MVC 框架` 整合到 `Servlet` 并接入 `Tomcat`
+- [ ] ~~土制 数据库连接池 （连接池）~~
 - [ ] ~~土制模板引擎 （视图解析器）~~
 - [ ] ~~土制 HTTP 服务器 （Servlet 容器）~~
 - [ ] ~~土制 Lombok 框架 （代码生成）~~
+
+> 被划掉的技术点为非本实验重点，不做要求。
 
 ```mermaid
 stateDiagram-v2
     [*] --> 启动Servlet容器
     启动Servlet容器 --> 加载Listener，初始化Spring框架
     加载Listener，初始化Spring框架 --> 加载Dispatcher，初始化Mvc框架
-    
 
     加载Listener，初始化Spring框架 --> 扫描@Component，@Autowired注解
     扫描@Component，@Autowired注解 --> 初始化Bean，注入依赖
-    初始化Bean，注入依赖 --> 加载Listener，初始化Spring框架
-
-    
 
     加载Dispatcher，初始化Mvc框架 --> 接收请求
     接收请求 --> Servlet容器转发给Dispatcher
@@ -42,21 +41,22 @@ stateDiagram-v2
     根据@RequestMapping记录转发到对应的方法 --> 接收请求
 
     加载Dispatcher，初始化Mvc框架 --> 扫描@RequestMapping注解
-    扫描@RequestMapping注解 --> 加载Dispatcher，初始化Mvc框架
 ```
 
 ## 第三方依赖
 
 - MySQL Connector/J （数据库驱动）
 - Lombok （代码生成）
-- Slf4j-api （日志接口）
+- Slf4j-api （日志门面）
 - JUnit 5 （单元测试）
 - Servlet-api （Servlet 接口）
+- dom4j （XML 解析）
+- jackson （JSON 序列化）
 
 ## 作业提交注意点
 
 - 题目不限（前台、后台二选一）
-- 演示时需要 报告 和 PPT
+- 编写实验报告
 - 后端实现： **反射** 、 **注解** 、 **socket** 或 **tomcat**
 - 前端实现： **HTML** 、 **CSS** 、 **JavaScript** 和 **jQuery**
 

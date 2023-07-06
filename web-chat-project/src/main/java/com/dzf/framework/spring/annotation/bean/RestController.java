@@ -1,6 +1,6 @@
 package com.dzf.framework.spring.annotation.bean;
 
-import com.dzf.framework.spring.annotation.ResponseBody;
+import com.dzf.framework.spring.annotation.bind.ResponseBody;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

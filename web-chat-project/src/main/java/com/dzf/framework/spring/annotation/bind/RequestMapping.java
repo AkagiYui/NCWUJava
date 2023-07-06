@@ -1,4 +1,4 @@
-package com.dzf.framework.spring.annotation;
+package com.dzf.framework.spring.annotation.bind;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

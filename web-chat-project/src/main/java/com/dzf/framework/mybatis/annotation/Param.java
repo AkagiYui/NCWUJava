@@ -1,4 +1,4 @@
-package com.dzf.framework.spring.annotation;
+package com.dzf.framework.mybatis.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -6,13 +6,15 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * ResponseBody 注解
- * <p>
- * 使方法返回值自动转换为 JSON
- *
+ * SQL 参数注解
  * @author AkagiYui
  */
-@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ResponseBody {
+@Target(ElementType.PARAMETER)
+public @interface Param {
+    /**
+     * 参数名
+     * @return 参数名
+     */
+    String value();
 }

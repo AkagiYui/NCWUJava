@@ -2,6 +2,7 @@ package com.dzf.framework.spring;
 
 import com.dzf.ClassUtil;
 import com.dzf.FileUtil;
+import com.dzf.framework.mybatis.annotation.Mapper;
 import com.dzf.framework.spring.annotation.Autowired;
 import com.dzf.framework.spring.annotation.bean.Component;
 import com.dzf.framework.spring.annotation.bean.Controller;
@@ -15,6 +16,7 @@ import org.dom4j.io.SAXReader;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,40 +42,61 @@ public class Spring {
      */
     private static boolean isStarted = false;
 
+    /**
+     * 用于创建 Bean 的方法 {接口: [接口实现类][方法](接口.class)}
+     */
+    private static final Map<Class<?>, Method> METHOD_FOR_INTERFACE = new HashMap<>();
+
     static {
         ANNOTATIONS.add(Component.class);
         ANNOTATIONS.add(Controller.class);
         ANNOTATIONS.add(RestController.class);
         ANNOTATIONS.add(Service.class);
+
+        ANNOTATIONS.add(Mapper.class);
     }
 
     /**
      * 启动 Spring 框架
      *
-     * @param basePackage 扫描的包名
+     * @param basePackages 扫描的包名
      */
-    public static void start(String basePackage) {
+    public static void start(List<String> basePackages) {
         if (isStarted) {
             return;
         }
 
+        log.debug("启动 Spring 框架");
         ANNOTATIONS.forEach(a -> log.debug("将含有 {} 注解的类注册为Bean", a.getName()));
 
-        // 扫描包下所有的类
-        List<Class<?>> classes = ClassUtil.getClassList(basePackage, true);
-        for (Class<?> clazz : classes) {
-            for (Class<? extends Annotation> annotation : ANNOTATIONS) {
-                if (clazz.isAnnotationPresent(annotation)) {
-                    // 如果类上有 @Component 注解，则将该类加入到 BEANS 中
-                    if (BEANS.containsKey(clazz.getName()) || clazz.isAnnotation() || clazz.isEnum()) {
-                        continue;
-                    }
-                    try {
-                        log.debug("创建Bean实例: {}", clazz.getName());
-                        BEANS.put(clazz.getName(), clazz.getConstructor().newInstance());
-                    } catch (InstantiationException | IllegalAccessException | NoSuchMethodException |
-                             InvocationTargetException e) {
-                        throw new RuntimeException(e);
+        for (String basePackage: basePackages) {
+            // 扫描包下所有的类
+            List<Class<?>> classes = ClassUtil.getClassList(basePackage, true);
+            for (Class<?> clazz : classes) {
+                for (Class<? extends Annotation> annotation : ANNOTATIONS) {
+                    if (clazz.isAnnotationPresent(annotation)) {
+                        // 如果类上有 @Component 注解，则将该类加入到 BEANS 中
+                        if (BEANS.containsKey(clazz.getName()) || clazz.isAnnotation() || clazz.isEnum()) {
+                            continue;
+                        }
+                        try {
+                            log.debug("创建Bean实例: {}", clazz.getName());
+                            Object instance = null;
+                            if (clazz.isInterface()) {
+                                Method method = METHOD_FOR_INTERFACE.get(clazz);
+                                if (method != null) {
+                                    instance = method.invoke(Spring.class, clazz);
+                                } else {
+                                    log.error("接口 {} 没有实现类", clazz.getName());
+                                }
+                            } else {
+                                instance = clazz.getConstructor().newInstance();
+                            }
+                            BEANS.put(clazz.getName(), instance);
+                        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException |
+                                 InvocationTargetException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }
             }
@@ -167,6 +190,10 @@ public class Spring {
         });
     }
 
+    public static void addInterface(Class<?> interfaceClass, Method method) {
+        METHOD_FOR_INTERFACE.put(interfaceClass, method);
+    }
+
     /**
      * 获取所有的 Bean
      *
@@ -177,22 +204,17 @@ public class Spring {
     }
 
     /**
-     * 获取要扫描的基础包
+     * 从xml文件获取要扫描的基础包
      * @return 基础包列表
      */
-    public static List<String> getScanPackages() {
+    public static List<String> getScanPackages(String filePath) {
         List<String> scanPackages = new ArrayList<>();
         try {
-            // 解析xml对象
-            SAXReader sax = new SAXReader();
-            // 获取dom文档
-            Document doc = sax.read(FileUtil.getResourceFile("spring-config.xml"));
-            // 获取根标签
-            Element ele = doc.getRootElement();
-            // 获取跟标签下的子标签
-            List<Element> eleList = ele.elements();
-            // 遍历查看
-            for (Element el : eleList) {
+            SAXReader sax = new SAXReader(); // 解析xml对象
+            Document doc = sax.read(FileUtil.getResourceFile(filePath)); // 获取dom文档
+            Element ele = doc.getRootElement(); // 获取根标签
+            List<Element> eleList = ele.elements(); // 获取根标签下的子标签
+            for (Element el : eleList) { // 遍历查看
                 // 判断标签
                 if ("scan".equals(el.getName())) {
                     // 获取基础扫包
