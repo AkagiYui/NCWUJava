@@ -1,6 +1,7 @@
 # 基于 WebSocket 的网络聊天室
 
-B/S 架构的网络聊天室，使用 WebSocket 协议进行通信。
+扩展课中实验，
+一个 B/S 架构的网络聊天室，使用 WebSocket 协议进行通信。
 
 ## 包含功能
 
@@ -15,9 +16,9 @@ B/S 架构的网络聊天室，使用 WebSocket 协议进行通信。
 - [x] 土制 日志 框架 （实现 Slf4j 接口）
 - [x] 土制 Spring 框架 （IoC 容器、依赖注入）
 - [ ] 土制 Spring MVC 框架 （MVC 框架）
-- [ ] 土制 WebSocket 框架 （基于 MVC 框架）
 - [ ] 土制 MyBatis 框架
 - [ ] 将 `自制 MVC 框架` 整合到 `Servlet` 并接入 `Tomcat`
+- [ ] ~~土制 WebSocket 框架 （基于 MVC 框架）~~
 - [ ] ~~土制 数据库连接池 （连接池）~~
 - [ ] ~~土制模板引擎 （视图解析器）~~
 - [ ] ~~土制 HTTP 服务器 （Servlet 容器）~~
