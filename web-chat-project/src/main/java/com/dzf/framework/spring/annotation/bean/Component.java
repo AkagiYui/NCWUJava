@@ -1,4 +1,4 @@
-package com.dzf.framework.spring.annotation;
+package com.dzf.framework.spring.annotation.bean;
 
 import java.lang.annotation.*;
 
@@ -10,6 +10,5 @@ import java.lang.annotation.*;
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Inherited
 public @interface Component {
 }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="https://akagiyui.com"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="https://akagiyui.com framework/mvc/Mvc.xsd">
+    <!-- 扫包目录 -->
+    <scan base-scan="com.akagiyui"/>
+</beans>

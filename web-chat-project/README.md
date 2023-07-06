@@ -15,11 +15,35 @@ B/S 架构的网络聊天室，使用 WebSocket 协议进行通信。
 - [x] 土制 日志 框架 （实现 Slf4j 接口）
 - [x] 土制 Spring 框架 （IoC 容器、依赖注入）
 - [ ] 土制 Spring MVC 框架 （MVC 框架）
+- [ ] 土制 WebSocket 框架 （基于 MVC 框架）
 - [ ] 土制 MyBatis 框架 （ORM 框架）
 - [ ] 将 `自制 MVC 框架` 整合到 `Servlet` 并接入 `Tomcat`
 - [ ] ~~土制模板引擎 （视图解析器）~~
 - [ ] ~~土制 HTTP 服务器 （Servlet 容器）~~
 - [ ] ~~土制 Lombok 框架 （代码生成）~~
+
+```mermaid
+stateDiagram-v2
+    [*] --> 启动Servlet容器
+    启动Servlet容器 --> 加载Listener，初始化Spring框架
+    加载Listener，初始化Spring框架 --> 加载Dispatcher，初始化Mvc框架
+    
+
+    加载Listener，初始化Spring框架 --> 扫描@Component，@Autowired注解
+    扫描@Component，@Autowired注解 --> 初始化Bean，注入依赖
+    初始化Bean，注入依赖 --> 加载Listener，初始化Spring框架
+
+    
+
+    加载Dispatcher，初始化Mvc框架 --> 接收请求
+    接收请求 --> Servlet容器转发给Dispatcher
+    Servlet容器转发给Dispatcher --> 解析Header，Body
+    解析Header，Body --> 根据@RequestMapping记录转发到对应的方法
+    根据@RequestMapping记录转发到对应的方法 --> 接收请求
+
+    加载Dispatcher，初始化Mvc框架 --> 扫描@RequestMapping注解
+    扫描@RequestMapping注解 --> 加载Dispatcher，初始化Mvc框架
+```
 
 ## 第三方依赖
 

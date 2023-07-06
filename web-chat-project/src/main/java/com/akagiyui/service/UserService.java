@@ -2,7 +2,7 @@ package com.akagiyui.service;
 
 import com.akagiyui.entity.User;
 import com.akagiyui.mapper.UserMapper;
-import com.dzf.framework.mvc.annotation.bean.Service;
+import com.dzf.framework.spring.annotation.bean.Service;
 import com.dzf.framework.spring.annotation.Autowired;
 import lombok.extern.slf4j.Slf4j;
 

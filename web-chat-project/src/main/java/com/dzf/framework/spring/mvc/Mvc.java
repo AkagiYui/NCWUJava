@@ -1,8 +1,8 @@
-package com.dzf.framework.mvc;
+package com.dzf.framework.spring.mvc;
 
 import com.dzf.ClassUtil;
 import com.dzf.framework.spring.Spring;
-import com.dzf.framework.spring.annotation.Component;
+import com.dzf.framework.spring.annotation.bean.Component;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;

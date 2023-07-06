@@ -1,4 +1,4 @@
-package com.dzf.framework.mvc.annotation;
+package com.dzf.framework.spring.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;

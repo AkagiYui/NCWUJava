@@ -21,6 +21,17 @@ public class FileUtil {
     }
 
     /**
+     * 获取 resources 目录下的文件绝对路径
+     * @param path 文件路径
+     * @return 文件绝对路径
+     */
+    public static String getResourcePath(String path){
+        String resourcePath = Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("")).toString();
+        resourcePath = resourcePath.replace("file:/","").concat(path);
+        return resourcePath;
+    }
+
+    /**
      * 读取文件内容为字符串
      *
      * @param file    文件

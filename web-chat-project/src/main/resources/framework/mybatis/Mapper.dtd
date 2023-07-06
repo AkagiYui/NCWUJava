@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!ELEMENT Mapper (select* | update* | delete* | insert*)+>
+<!ELEMENT select (#PCDATA)>
+<!ELEMENT update (#PCDATA)>
+<!ELEMENT delete (#PCDATA)>
+<!ELEMENT insert (#PCDATA)>
+<!--跟标签属性-->
+<!ATTLIST Mapper namespace CDATA #REQUIRED>
+<!--查询标签属性-->
+<!ATTLIST select id ID #REQUIRED>
+<!ATTLIST select resultType CDATA #REQUIRED>
+<!--删除标签属性-->
+<!ATTLIST delete id ID #REQUIRED>
+<!--修改标签属性-->
+<!ATTLIST update id ID #REQUIRED>
+<!--添加标签属性-->
+<!ATTLIST insert id ID #REQUIRED>

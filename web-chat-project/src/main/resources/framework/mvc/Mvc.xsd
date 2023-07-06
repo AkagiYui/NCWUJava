@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="https://akagiyui.com"
+           xmlns="https://akagiyui.com"
+           elementFormDefault="qualified">
+    <!-- 定义根节点 -->
+    <xs:element name="beans">
+        <xs:complexType>
+            <xs:all minOccurs="0">
+                <xs:element name="bean" minOccurs="0"/>
+                <xs:element name="scan">
+                    <!--定义属性-->
+                    <xs:complexType>
+                        <!--扫描基础包-->
+                        <xs:attribute name="base-scan" type="xs:string"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

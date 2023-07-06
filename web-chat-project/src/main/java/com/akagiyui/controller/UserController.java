@@ -2,8 +2,8 @@ package com.akagiyui.controller;
 
 import com.akagiyui.entity.User;
 import com.akagiyui.service.UserService;
-import com.dzf.framework.mvc.annotation.RequestMapping;
-import com.dzf.framework.mvc.annotation.bean.Controller;
+import com.dzf.framework.spring.annotation.RequestMapping;
+import com.dzf.framework.spring.annotation.bean.Controller;
 import com.dzf.framework.spring.annotation.Autowired;
 import lombok.extern.slf4j.Slf4j;
 

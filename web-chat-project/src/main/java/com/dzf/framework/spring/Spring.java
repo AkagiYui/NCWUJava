@@ -1,9 +1,16 @@
 package com.dzf.framework.spring;
 
 import com.dzf.ClassUtil;
+import com.dzf.FileUtil;
 import com.dzf.framework.spring.annotation.Autowired;
-import com.dzf.framework.spring.annotation.Component;
+import com.dzf.framework.spring.annotation.bean.Component;
+import com.dzf.framework.spring.annotation.bean.Controller;
+import com.dzf.framework.spring.annotation.bean.RestController;
+import com.dzf.framework.spring.annotation.bean.Service;
 import lombok.extern.slf4j.Slf4j;
+import org.dom4j.Document;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -35,6 +42,9 @@ public class Spring {
 
     static {
         ANNOTATIONS.add(Component.class);
+        ANNOTATIONS.add(Controller.class);
+        ANNOTATIONS.add(RestController.class);
+        ANNOTATIONS.add(Service.class);
     }
 
     /**
@@ -47,7 +57,7 @@ public class Spring {
             return;
         }
 
-        ANNOTATIONS.forEach(a -> log.debug("将含有 {} 注解的类注册为 Bean", a.getName()));
+        ANNOTATIONS.forEach(a -> log.debug("将含有 {} 注解的类注册为Bean", a.getName()));
 
         // 扫描包下所有的类
         List<Class<?>> classes = ClassUtil.getClassList(basePackage, true);
@@ -58,9 +68,8 @@ public class Spring {
                     if (BEANS.containsKey(clazz.getName()) || clazz.isAnnotation() || clazz.isEnum()) {
                         continue;
                     }
-                    // todo 扫描包含 @Component 注解的注解
                     try {
-                        log.debug("BEAN: {}", clazz.getName());
+                        log.debug("创建Bean实例: {}", clazz.getName());
                         BEANS.put(clazz.getName(), clazz.getConstructor().newInstance());
                     } catch (InstantiationException | IllegalAccessException | NoSuchMethodException |
                              InvocationTargetException e) {
@@ -98,7 +107,7 @@ public class Spring {
 //            e.printStackTrace();
 //        }
 
-        log.debug("BEANS: {}", BEANS);
+        log.debug("所有Bean对象: {}", BEANS);
         dependencyInject();
         isStarted = true;
     }
@@ -115,7 +124,7 @@ public class Spring {
                     String beanName = field.getType().getName(); // 要注入的 Bean 的名称
                     Object targetBean = BEANS.get(beanName); // 从 BEANS 中获取要注入的 Bean
                     if (targetBean == null) {
-                        throw new RuntimeException("Can not inject bean " + beanName);
+                        continue; // 如果要注入的 Bean 不存在，则保持为 null
                     }
                     field.setAccessible(true); // 设置字段访问权限为可写
                     try {
@@ -137,12 +146,8 @@ public class Spring {
      * @return Bean 实例
      */
     public static <T> T getBean(Class<T> clazz) {
-        @SuppressWarnings("unchecked")
-        T result = (T) BEANS.get(clazz.getName());
-        if (result == null) {
-            throw new RuntimeException("Can not get bean " + clazz.getName());
-        }
-        return result;
+        //noinspection unchecked
+        return (T) BEANS.get(clazz.getName());
     }
 
     public static void addBean(String name, Object bean) {
@@ -169,5 +174,35 @@ public class Spring {
      */
     public static Map<String, Object> getBeans() {
         return BEANS;
+    }
+
+    /**
+     * 获取要扫描的基础包
+     * @return 基础包列表
+     */
+    public static List<String> getScanPackages() {
+        List<String> scanPackages = new ArrayList<>();
+        try {
+            // 解析xml对象
+            SAXReader sax = new SAXReader();
+            // 获取dom文档
+            Document doc = sax.read(FileUtil.getResourceFile("spring-config.xml"));
+            // 获取根标签
+            Element ele = doc.getRootElement();
+            // 获取跟标签下的子标签
+            List<Element> eleList = ele.elements();
+            // 遍历查看
+            for (Element el : eleList) {
+                // 判断标签
+                if ("scan".equals(el.getName())) {
+                    // 获取基础扫包
+                    String val = el.attribute("base-scan").getValue();
+                    scanPackages.add(val);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return scanPackages;
     }
 }
