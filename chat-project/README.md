@@ -8,6 +8,12 @@
 - [x] 指定好友聊天
 - [x] 离线消息
 
+包目录结构
+
+- com.dzf.server: 服务端
+- com.dzf.client: 客户端
+- com.dzf.common: 公共类
+
 ## 技术点
 
 - socket 客户端/服务端
