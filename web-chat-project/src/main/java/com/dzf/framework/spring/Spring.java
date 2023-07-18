@@ -2,7 +2,6 @@ package com.dzf.framework.spring;
 
 import com.dzf.ClassUtil;
 import com.dzf.FileUtil;
-import com.dzf.framework.mybatis.annotation.Mapper;
 import com.dzf.framework.spring.annotation.Autowired;
 import com.dzf.framework.spring.annotation.bean.Component;
 import com.dzf.framework.spring.annotation.bean.Controller;
@@ -52,8 +51,6 @@ public class Spring {
         ANNOTATIONS.add(Controller.class);
         ANNOTATIONS.add(RestController.class);
         ANNOTATIONS.add(Service.class);
-
-        ANNOTATIONS.add(Mapper.class);
     }
 
     /**
@@ -90,6 +87,7 @@ public class Spring {
                                     log.error("接口 {} 没有实现类", clazz.getName());
                                 }
                             } else {
+                                // 可以为 Spring 单独写个动态代理，这里为了方便，直接用反射创建实例
                                 instance = clazz.getConstructor().newInstance();
                             }
                             BEANS.put(clazz.getName(), instance);

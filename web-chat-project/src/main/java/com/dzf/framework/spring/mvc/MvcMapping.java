@@ -32,7 +32,6 @@ public class MvcMapping {
      * 请求方法的返回值是否是ResponseBody
      */
     private boolean responseBody;
-
     /**
      * 请求方法的参数
      */

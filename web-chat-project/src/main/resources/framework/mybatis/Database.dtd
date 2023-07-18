@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!ELEMENT database (url, driver, username)>
+        <!ELEMENT url (#PCDATA)>
+        <!ELEMENT driver (#PCDATA)>
+        <!ELEMENT username (#PCDATA)>
+        <!ELEMENT password (#PCDATA)>

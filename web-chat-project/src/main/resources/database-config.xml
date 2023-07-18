@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<!DOCTYPE database SYSTEM "framework/mybatis/Database.dtd">
 <database>
-    <driver>com.mysql.cj.jdbc.Driver</driver>
     <url>jdbc:mysql://127.0.0.1:3306/chat</url>
+    <driver>com.mysql.cj.jdbc.Driver</driver>
     <username>root</username>
 </database>

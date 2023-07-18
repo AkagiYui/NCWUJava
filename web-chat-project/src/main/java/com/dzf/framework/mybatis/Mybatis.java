@@ -16,10 +16,7 @@ import org.w3c.dom.Document;
 
 import java.io.File;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -65,6 +62,7 @@ public class Mybatis {
         }
 
         scanMapper("com.akagiyui"); // todo 提取到配置文件
+        Spring.addAnnotation(List.of(Mapper.class));
         Database.connect();
     }
 
@@ -79,8 +77,6 @@ public class Mybatis {
                 continue;
             }
             if (clazz.isAnnotationPresent(Mapper.class)) {
-                // MapperProxy.MAPPER_BEANS.put(clazz.getName(), MapperProxy.getMapper(clazz));
-                // Spring.addBean(clazz.getName(), MapperProxy.getMapper(clazz));
                 try {
                     Spring.addInterface(clazz, DynamicAgencyFactory.class.getMethod("getInfMapper", Class.class));
                 } catch (NoSuchMethodException e) {

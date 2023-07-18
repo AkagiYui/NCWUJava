@@ -3,6 +3,8 @@
 扩展课中实验，
 一个 B/S 架构的网络聊天室，使用 WebSocket 协议进行通信。
 
+该项目仅为个人学习实验，代码有较多漏洞与其他不足，请谨慎参考。
+
 ## 包含功能
 
 - [x] 用户登录
@@ -54,7 +56,7 @@ stateDiagram-v2
 - JUnit 5 （单元测试）
 - Servlet-api （Servlet 接口）
 - dom4j （XML 解析）
-- jackson （JSON 序列化）
+- Jackson （JSON 序列化）
 
 ## 作业提交注意点
 
